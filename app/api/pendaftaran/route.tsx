@@ -10,7 +10,7 @@ const pendaftaranSchema = z.object({
   noHp: z.string().min(10, "Nomor HP minimal 10 digit"),
   email: z.string().email("Format email tidak valid"),
   tanggalLahir: z.string().min(1, "Tanggal lahir harus diisi"),
-  alamat: z.string().min(10, "Alamat minimal 10 karakter"),
+  alamat: z.string().min(1, "Alamat harus diisi"),
   fakultas: z.string().min(1, "Fakultas harus dipilih"),
   programStudi: z.string().min(1, "Program studi harus dipilih"),
 })

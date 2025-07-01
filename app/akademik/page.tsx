@@ -1,11 +1,13 @@
 "use client"
 
+import { Navbar } from "@/components/ui/navbar"
+import { Footer } from "@/components/ui/footer"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
-import { GraduationCap, DollarSign, FileText, MapPin, Phone, Mail } from "lucide-react"
+import { GraduationCap, DollarSign, FileText } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 
@@ -128,37 +130,7 @@ export default function AkademikPage() {
 
     return (
         <div className="min-h-screen">
-            {/* Navigation */}
-            <nav className="sticky top-0 z-50 bg-white border-b shadow-sm">
-                <div className="container mx-auto px-4">
-                    <div className="flex items-center justify-between h-16">
-                        <Link href="/" className="flex items-center space-x-2">
-                            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">S</span>
-                            </div>
-                            <span className="font-bold text-xl text-gray-900">SALUT Soul</span>
-                        </Link>
-
-                        <div className="hidden md:flex items-center space-x-8">
-                            <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium">
-                                Beranda
-                            </Link>
-                            <Link href="/tentang" className="text-gray-700 hover:text-blue-600 font-medium">
-                                Tentang Kami
-                            </Link>
-                            <Link href="/akademik" className="text-blue-600 font-medium">
-                                Akademik
-                            </Link>
-                            <Link href="/kontak" className="text-gray-700 hover:text-blue-600 font-medium">
-                                Kontak
-                            </Link>
-                            <Button asChild>
-                                <Link href="/pendaftaran">Daftar Sekarang</Link>
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <Navbar />
 
             {/* Hero Section */}
             <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
@@ -368,82 +340,7 @@ export default function AkademikPage() {
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer className="bg-gray-900 text-white py-12">
-                <div className="container mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        <div>
-                            <div className="flex items-center space-x-2 mb-4">
-                                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                                    <span className="text-white font-bold text-lg">S</span>
-                                </div>
-                                <span className="font-bold text-xl">SALUT Soul</span>
-                            </div>
-                            <p className="text-gray-400">
-                                Sentra Layanan Universitas Terbuka untuk pendidikan tinggi berkualitas dan terjangkau.
-                            </p>
-                        </div>
-
-                        <div>
-                            <h3 className="font-bold text-lg mb-4">Navigasi</h3>
-                            <div className="space-y-2">
-                                <Link href="/" className="block text-gray-400 hover:text-white">
-                                    Beranda
-                                </Link>
-                                <Link href="/tentang" className="block text-gray-400 hover:text-white">
-                                    Tentang Kami
-                                </Link>
-                                <Link href="/akademik" className="block text-gray-400 hover:text-white">
-                                    Akademik
-                                </Link>
-                                <Link href="/kontak" className="block text-gray-400 hover:text-white">
-                                    Kontak
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 className="font-bold text-lg mb-4">Kontak</h3>
-                            <div className="space-y-2">
-                                <div className="flex items-center space-x-2">
-                                    <Phone className="w-4 h-4" />
-                                    <span className="text-gray-400">+62 812-3456-7890</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <Mail className="w-4 h-4" />
-                                    <span className="text-gray-400">info@salutsoul.ac.id</span>
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <MapPin className="w-4 h-4" />
-                                    <span className="text-gray-400">Jakarta, Indonesia</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h3 className="font-bold text-lg mb-4">Ikuti Kami</h3>
-                            <div className="space-y-2">
-                                <a href="#" className="block text-gray-400 hover:text-white">
-                                    Facebook
-                                </a>
-                                <a href="#" className="block text-gray-400 hover:text-white">
-                                    Instagram
-                                </a>
-                                <a href="#" className="block text-gray-400 hover:text-white">
-                                    YouTube
-                                </a>
-                                <a href="#" className="block text-gray-400 hover:text-white">
-                                    WhatsApp
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-                        <p className="text-gray-400">© {new Date().getFullYear()} SALUT Soul. Semua hak cipta dilindungi.</p>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     )
 }

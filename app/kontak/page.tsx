@@ -3,6 +3,8 @@
 import type React from "react"
 
 import { useState } from "react"
+import { Navbar } from "@/components/ui/navbar"
+import { Footer } from "@/components/ui/footer"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -161,37 +163,7 @@ export default function KontakPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-shadow">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">S</span>
-              </div>
-              <span className="font-bold text-xl text-gray-900">SALUT Soul</span>
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Beranda
-              </Link>
-              <Link href="/tentang" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Tentang Kami
-              </Link>
-              <Link href="/akademik" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-                Akademik
-              </Link>
-              <Link href="/kontak" className="text-blue-600 font-medium">
-                Kontak
-              </Link>
-              <Button asChild>
-                <Link href="/pendaftaran">Daftar Sekarang</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-24">
@@ -530,82 +502,7 @@ export default function KontakPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-            <div>
-              <div className="flex items-center space-x-2 mb-5">
-                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">S</span>
-                </div>
-                <span className="font-bold text-xl">SALUT Soul</span>
-              </div>
-              <p className="text-gray-400">
-                Sentra Layanan Universitas Terbuka untuk pendidikan tinggi berkualitas dan terjangkau.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-bold text-lg mb-5">Navigasi</h3>
-              <div className="space-y-3">
-                <Link href="/" className="block text-gray-400 hover:text-white transition-colors">
-                  Beranda
-                </Link>
-                <Link href="/tentang" className="block text-gray-400 hover:text-white transition-colors">
-                  Tentang Kami
-                </Link>
-                <Link href="/akademik" className="block text-gray-400 hover:text-white transition-colors">
-                  Akademik
-                </Link>
-                <Link href="/kontak" className="block text-gray-400 hover:text-white transition-colors">
-                  Kontak
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-bold text-lg mb-5">Kontak</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4" />
-                  <span className="text-gray-400">+62 812-3456-7890</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4" />
-                  <span className="text-gray-400">info@salutsoul.ac.id</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4" />
-                  <span className="text-gray-400">Jakarta, Indonesia</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-bold text-lg mb-5">Ikuti Kami</h3>
-              <div className="space-y-3">
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">
-                  Facebook
-                </a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">
-                  Instagram
-                </a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">
-                  YouTube
-                </a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">
-                  WhatsApp
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-10 pt-10 text-center">
-            <p className="text-gray-400">© {new Date().getFullYear()} SALUT Soul. Semua hak cipta dilindungi.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
