@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pendaftaran {
+  id           String   @id @default(uuid())
+  namaLengkap  String
+  nik          String   @unique
+  nisn         String   @unique
+  noHp         String
+  email        String   @unique
+  tanggalLahir DateTime
+  alamat       String
+  fakultas     String
+  programStudi String
+  dokumenPath  String?
+  status       String   @default("pending") // pending, approved, rejected
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("pendaftaran")
+}
+
+model KontakPesan {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  status    String   @default("unread") // unread, read, replied
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("kontak_pesan")
+}
+
+model ProgramStudi {
+  id            String   @id @default(uuid())
+  nama          String
+  fakultas      String
+  jenjang       String   // S1, D3, S2
+  akreditasi    String
+  biayaSemester Int
+  deskripsi     String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("program_studi")
+}
+
+model Fakultas {
+  id          String   @id @default(uuid())
+  nama        String   @unique
+  namaLengkap String
+  deskripsi   String?
+  akreditasi  String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("fakultas")
+}
