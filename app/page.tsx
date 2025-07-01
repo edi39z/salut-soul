@@ -1,10 +1,28 @@
+"use client"
+
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, Award, BookOpen, Clock, DollarSign, MapPin } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import {
+  Users,
+  Award,
+  BookOpen,
+  Clock,
+  DollarSign,
+  CheckCircle,
+  ArrowRight,
+  GraduationCap,
+  Target,
+  Shield,
+  Globe,
+  TrendingUp,
+  Heart,
+  Phone,
+} from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import Link from "next/link"
+import { motion } from "framer-motion"
 
 export default function HomePage() {
   const statistics = [
@@ -12,52 +30,64 @@ export default function HomePage() {
       icon: Users,
       title: "400,000+",
       description: "Mahasiswa Aktif",
-      color: "text-primary",
+      color: "text-blue-700",
     },
     {
       icon: Award,
       title: "Akreditasi A",
       description: "Terakreditasi BAN-PT",
-      color: "text-primary",
+      color: "text-emerald-600",
     },
     {
       icon: BookOpen,
       title: "39",
       description: "Program Studi",
-      color: "text-primary",
+      color: "text-amber-600",
+    },
+    {
+      icon: GraduationCap,
+      title: "95%",
+      description: "Tingkat Kelulusan",
+      color: "text-purple-600",
     },
   ]
 
   const advantages = [
     {
       icon: Clock,
-      title: "Kuliah Fleksibel",
-      description: "Belajar kapan saja, di mana saja tanpa batas waktu dan lokasi",
+      title: "Pembelajaran Fleksibel",
+      description: "Belajar kapan saja, di mana saja sesuai dengan jadwal dan kebutuhan Anda.",
+      color: "text-blue-700",
     },
     {
       icon: DollarSign,
       title: "Biaya Terjangkau",
-      description: "Biaya kuliah yang ekonomis dan dapat dicicil per semester",
+      description: "Investasi pendidikan yang ekonomis dengan kualitas terjamin dan dapat dicicil.",
+      color: "text-emerald-600",
     },
     {
-      icon: BookOpen,
-      title: "Pembelajaran Digital",
-      description: "Sistem pembelajaran modern berbasis teknologi digital",
+      icon: Shield,
+      title: "Terakreditasi Nasional",
+      description: "Program studi terakreditasi BAN-PT dengan standar kualitas internasional.",
+      color: "text-amber-600",
     },
     {
-      icon: Award,
-      title: "Terakreditasi",
-      description: "Program studi terakreditasi nasional oleh BAN-PT",
+      icon: Heart,
+      title: "Dukungan Akademik",
+      description: "Bimbingan dan layanan akademik komprehensif dari tim profesional berpengalaman.",
+      color: "text-purple-600",
     },
     {
-      icon: Users,
-      title: "Dukungan SALUT",
-      description: "Layanan tatap muka dan bimbingan akademik langsung",
+      icon: Globe,
+      title: "Jaringan Nasional",
+      description: "Tersebar di seluruh Indonesia dengan standar kualitas yang konsisten.",
+      color: "text-red-600",
     },
     {
-      icon: MapPin,
-      title: "Jaringan Luas",
-      description: "Tersebar di seluruh Indonesia dengan kualitas terjamin",
+      icon: Target,
+      title: "Fokus Karier",
+      description: "Program yang dirancang untuk meningkatkan kompetensi dan daya saing karier.",
+      color: "text-indigo-600",
     },
   ]
 
@@ -66,70 +96,141 @@ export default function HomePage() {
       name: "FISIP",
       fullName: "Fakultas Ilmu Sosial dan Ilmu Politik",
       programs: ["Administrasi Negara", "Administrasi Niaga", "Ilmu Komunikasi", "Ilmu Perpustakaan"],
-      color: "bg-gradient-primary border-primary/20",
+      icon: Users,
+      students: "45,000+",
+      accreditation: "A",
     },
     {
       name: "FKIP",
       fullName: "Fakultas Keguruan dan Ilmu Pendidikan",
       programs: ["Pendidikan Bahasa Indonesia", "Pendidikan Matematika", "Pendidikan Biologi", "PGSD"],
-      color: "bg-gradient-primary border-primary/20",
+      icon: BookOpen,
+      students: "120,000+",
+      accreditation: "A",
     },
     {
       name: "FMIPA",
       fullName: "Fakultas Matematika dan Ilmu Pengetahuan Alam",
       programs: ["Matematika", "Statistika", "Biologi", "Teknologi Pangan"],
-      color: "bg-gradient-primary border-primary/20",
+      icon: Target,
+      students: "35,000+",
+      accreditation: "A",
     },
     {
       name: "FE",
       fullName: "Fakultas Ekonomi",
       programs: ["Manajemen", "Akuntansi", "Ekonomi Pembangunan", "Ekonomi Syariah"],
-      color: "bg-gradient-primary border-primary/20",
+      icon: TrendingUp,
+      students: "80,000+",
+      accreditation: "A",
     },
   ]
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-gradient-primary py-20">
-        <div className="container mx-auto px-4">
-          <AnimatedSection>
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-4xl md:text-6xl font-heading font-bold text-neutral-900 mb-6">
-                Kuliah Fleksibel, Berkualitas, dan <span className="text-primary">Terjangkau</span>
-              </h1>
-              <p className="text-xl text-neutral-600 mb-8 max-w-2xl mx-auto">
-                Wujudkan impianmu meraih gelar sarjana bersama Universitas Terbuka & SALUT Soul. Pendidikan tinggi
-                berkualitas yang dapat diakses kapan saja, di mana saja.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" asChild className="text-lg px-8 py-3 btn-primary">
-                  <Link href="/pendaftaran">Daftar Sekarang</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="text-lg px-8 py-3 btn-outline bg-transparent">
-                  <Link href="/tentang">Tentang Kami</Link>
-                </Button>
+      <section className="relative pt-16 pb-20 overflow-hidden">
+        <div className="absolute inset-0 gradient-academic"></div>
+
+        <div className="container-academic relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="mb-6"
+            >
+
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-hero mb-6"
+            >
+              Pendidikan Tinggi Berkualitas
+              <br />
+              <span className="text-blue-700">untuk Masa Depan Cerah</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-body-large mb-10 max-w-3xl mx-auto"
+            >
+              Bergabunglah dengan <span className="font-semibold text-blue-700">Ribuan mahasiswa</span> yang telah
+              merasakan kemudahan kuliah fleksibel, berkualitas, dan terjangkau di Universitas Terbuka melalui
+              <span className="font-semibold text-slate-900"> SALUT Soul</span>
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+            >
+              <Button asChild size="lg" className="btn-primary text-lg px-8 py-4">
+                <Link href="/pendaftaran">
+                  Daftar Sekarang
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
+
+              <Button asChild size="lg" className="btn-outline text-lg px-8 py-4">
+                <Link href="/tentang">Pelajari Lebih Lanjut</Link>
+              </Button>
+            </motion.div>
+
+            {/* Trust Indicators */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-wrap justify-center items-center gap-6 text-slate-600"
+            >
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <span className="font-medium">Terakreditasi A</span>
               </div>
-            </div>
-          </AnimatedSection>
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <span className="font-medium">Ijazah Diakui Nasional</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <CheckCircle className="w-5 h-5 text-emerald-600" />
+                <span className="font-medium">Pembelajaran Fleksibel</span>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Statistics Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="section-padding bg-white">
+        <div className="container-academic">
+          <AnimatedSection>
+            <div className="text-center mb-16">
+              <h2 className="text-display mb-4">Dipercaya Ribuan Mahasiswa</h2>
+              <p className="text-body-large max-w-2xl mx-auto">
+                Bergabunglah dengan komunitas besar mahasiswa UT yang telah merasakan kualitas pendidikan terbaik
+              </p>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid-academic">
             {statistics.map((stat, index) => (
               <AnimatedSection key={index} delay={index * 0.1}>
-                <Card className="text-center border-0 shadow-soft card-hover">
-                  <CardContent className="pt-6">
-                    <stat.icon className={`w-12 h-12 mx-auto mb-4 ${stat.color}`} />
-                    <h3 className="text-3xl font-heading font-bold text-neutral-900 mb-2">{stat.title}</h3>
-                    <p className="text-neutral-600">{stat.description}</p>
-                  </CardContent>
-                </Card>
+                <div className="card-stats group hover-lift transition-all duration-200">
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-4 mx-auto group-hover:bg-blue-50 transition-colors">
+                    <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                  </div>
+                  <div className="text-3xl font-bold text-slate-900 mb-2">{stat.title}</div>
+                  <p className="text-slate-600 font-medium">{stat.description}</p>
+                </div>
               </AnimatedSection>
             ))}
           </div>
@@ -137,31 +238,27 @@ export default function HomePage() {
       </section>
 
       {/* Advantages Section */}
-      <section className="py-16 bg-neutral-100">
-        <div className="container mx-auto px-4">
+      <section className="section-padding bg-slate-50">
+        <div className="container-academic">
           <AnimatedSection>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-4">
-                Mengapa Memilih Universitas Terbuka?
-              </h2>
-              <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-                Keunggulan yang membuat UT menjadi pilihan terbaik untuk pendidikan tinggi Anda
+            <div className="text-center mb-16">
+              <h2 className="text-display mb-4">Mengapa Memilih Universitas Terbuka?</h2>
+              <p className="text-body-large max-w-3xl mx-auto">
+                Keunggulan yang membuat UT menjadi pilihan terbaik untuk pendidikan tinggi berkualitas
               </p>
             </div>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid-academic">
             {advantages.map((advantage, index) => (
               <AnimatedSection key={index} delay={index * 0.1}>
-                <Card className="card-hover">
-                  <CardHeader>
-                    <advantage.icon className="w-10 h-10 text-primary mb-2" />
-                    <CardTitle className="text-xl text-neutral-900">{advantage.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-neutral-600">{advantage.description}</CardDescription>
-                  </CardContent>
-                </Card>
+                <div className="card-feature group hover-lift transition-all duration-200">
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-50 transition-colors">
+                    <advantage.icon className={`w-6 h-6 ${advantage.color}`} />
+                  </div>
+                  <h3 className="text-heading text-slate-900 mb-3">{advantage.title}</h3>
+                  <p className="text-body">{advantage.description}</p>
+                </div>
               </AnimatedSection>
             ))}
           </div>
@@ -169,68 +266,107 @@ export default function HomePage() {
       </section>
 
       {/* Faculties Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="section-padding bg-white">
+        <div className="container-academic">
           <AnimatedSection>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-neutral-900 mb-4">
-                Fakultas & Program Studi
-              </h2>
-              <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-                Pilih program studi yang sesuai dengan minat dan passion Anda
+            <div className="text-center mb-16">
+              <h2 className="text-display mb-4">Fakultas & Program Studi</h2>
+              <p className="text-body-large max-w-3xl mx-auto">
+                Pilih program studi yang sesuai dengan minat dan passion Anda dari berbagai fakultas terakreditasi
               </p>
             </div>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div className="grid-academic-2 mb-12">
             {faculties.map((faculty, index) => (
               <AnimatedSection key={index} delay={index * 0.1}>
-                <Card className={`${faculty.color} border-2 card-hover`}>
-                  <CardHeader>
-                    <CardTitle className="text-2xl text-neutral-900">{faculty.name}</CardTitle>
-                    <CardDescription className="text-neutral-700 font-medium">{faculty.fullName}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      <p className="font-medium text-neutral-800 mb-3">Program Studi:</p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {faculty.programs.map((program, idx) => (
-                          <div key={idx} className="flex items-center space-x-2">
-                            <div className="w-2 h-2 bg-primary rounded-full"></div>
-                            <span className="text-sm text-neutral-700">{program}</span>
-                          </div>
-                        ))}
-                      </div>
+                <div className="card-academic p-6 group hover-lift transition-all duration-200">
+                  <div className="flex items-start justify-between mb-6">
+                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <faculty.icon className="w-6 h-6 text-blue-700" />
                     </div>
-                  </CardContent>
-                </Card>
+                    <div className="text-right">
+                      <Badge className="badge-academic badge-success">Akreditasi {faculty.accreditation}</Badge>
+                      <p className="text-sm text-slate-500 mt-1">{faculty.students} Mahasiswa</p>
+                    </div>
+                  </div>
+
+                  <h3 className="text-heading text-slate-900 mb-2">{faculty.name}</h3>
+                  <p className="text-slate-600 font-medium mb-6">{faculty.fullName}</p>
+
+                  <div>
+                    <p className="font-semibold text-slate-800 mb-4">Program Studi Unggulan:</p>
+                    <div className="space-y-2">
+                      {faculty.programs.map((program, idx) => (
+                        <div key={idx} className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                          <span className="text-slate-700">{program}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </AnimatedSection>
             ))}
           </div>
 
           <AnimatedSection>
             <div className="text-center">
-              <Button size="lg" asChild className="btn-primary">
-                <Link href="/akademik">Lihat Semua Program Studi</Link>
+              <Button asChild size="lg" className="btn-primary text-lg px-8 py-4">
+                <Link href="/akademik">
+                  Lihat Semua Program Studi
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
               </Button>
             </div>
           </AnimatedSection>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-primary">
-        <div className="container mx-auto px-4 text-center">
+      {/* CTA Section - Only on Homepage */}
+      <section className="section-padding gradient-hero relative">
+        <div className="container-academic text-center">
           <AnimatedSection>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
-              Siap Memulai Perjalanan Pendidikan Anda?
-            </h2>
-            <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Bergabunglah dengan ribuan mahasiswa yang telah merasakan kemudahan kuliah di Universitas Terbuka
+            <h2 className="text-display text-white mb-4">Siap Memulai Perjalanan Pendidikan?</h2>
+            <p className="text-body-large text-blue-100 mb-8 max-w-3xl mx-auto">
+              Jangan tunda lagi impian Anda untuk meraih gelar sarjana. Bergabunglah dengan ribuan mahasiswa yang telah
+              merasakan kemudahan kuliah di Universitas Terbuka.
             </p>
-            <Button size="lg" variant="secondary" asChild className="text-lg px-8 py-3 btn-secondary">
-              <Link href="/pendaftaran">Daftar Sekarang</Link>
-            </Button>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <Button asChild size="lg" className="btn-secondary text-lg px-8 py-4">
+                <Link href="/pendaftaran">
+                  Daftar Sekarang
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                className="btn-outline text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-blue-700"
+              >
+                <Link href="/kontak">
+                  <Phone className="mr-2 w-5 h-5" />
+                  Konsultasi Gratis
+                </Link>
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+              <div className="text-center">
+                <CheckCircle className="w-8 h-8 text-white mx-auto mb-2" />
+                <p className="text-white font-medium">Proses Mudah & Cepat</p>
+              </div>
+              <div className="text-center">
+                <Shield className="w-8 h-8 text-white mx-auto mb-2" />
+                <p className="text-white font-medium">Terjamin & Terpercaya</p>
+              </div>
+              <div className="text-center">
+                <Heart className="w-8 h-8 text-white mx-auto mb-2" />
+                <p className="text-white font-medium">Dukungan Penuh</p>
+              </div>
+            </div>
           </AnimatedSection>
         </div>
       </section>
