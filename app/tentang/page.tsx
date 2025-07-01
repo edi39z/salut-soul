@@ -1,10 +1,13 @@
+import { Navbar } from "@/components/ui/navbar"
+import { Footer } from "@/components/ui/footer"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Target, Eye, Users, MapPin, Phone, Mail } from "lucide-react"
+import { Target, Eye, Quote, Award } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Poppins } from "next/font/google"
 import { AnimatedSection } from "@/components/ui/animated-section"
+import { MapPin, Phone, Mail } from "lucide-react"
 
 const fontHeading = Poppins({
   subsets: ["latin"],
@@ -14,44 +17,14 @@ const fontHeading = Poppins({
 export default function TentangPage() {
   return (
     <div className="min-h-screen">
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white border-b shadow-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">S</span>
-              </div>
-              <span className="font-bold text-xl text-gray-900">SALUT Soul</span>
-            </Link>
-
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-primary transition-colors font-medium">
-                Beranda
-              </Link>
-              <Link href="/tentang" className="text-primary font-medium">
-                Tentang Kami
-              </Link>
-              <Link href="/akademik" className="text-gray-700 hover:text-primary transition-colors font-medium">
-                Akademik
-              </Link>
-              <Link href="/kontak" className="text-gray-700 hover:text-primary transition-colors font-medium">
-                Kontak
-              </Link>
-              <Button asChild variant="secondary">
-                <Link href="/pendaftaran">Daftar Sekarang</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
+      <section className="bg-gradient-to-br from-slate-50 to-gray-100 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className={cn("text-4xl md:text-5xl font-bold text-gray-900 mb-6", fontHeading.className)}>
-              Tentang <span className="text-primary">SALUT Soul</span>
+              Tentang <span className="text-amber-600">SALUT Soul</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Mengenal lebih dekat Universitas Terbuka, SALUT, dan SALUT Soul sebagai mitra pendidikan tinggi Anda
@@ -127,7 +100,7 @@ export default function TentangPage() {
                   membantu calon mahasiswa dan mahasiswa UT dalam meraih cita-cita pendidikan mereka.
                 </p>
                 <p className="text-lg leading-relaxed mb-6">
-                  Dengan semangat Soul yang berarti jiwa, kami berkomitmen memberikan layanan yang tidak hanya
+                  Dengan semangat "Soul" yang berarti jiwa, kami berkomitmen memberikan layanan yang tidak hanya
                   profesional tetapi juga penuh empati dan dedikasi. SALUT Soul menjadi jembatan antara impian
                   pendidikan Anda dengan kenyataan meraih gelar sarjana dari Universitas Terbuka.
                 </p>
@@ -139,22 +112,21 @@ export default function TentangPage() {
 
       {/* Vision Mission Section */}
       <AnimatedSection>
-        <section className="py-16 bg-blue-50">
+        <section className="py-16 bg-slate-50">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <h2 className={cn("text-3xl font-bold text-gray-900 mb-12 text-center", fontHeading.className)}>
                 Visi & Misi SALUT Soul
               </h2>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <Card className="border-2 border-blue-200 hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader>
+                <Card className="border border-gray-200 hover:shadow-xl transition-all duration-300 bg-white">
+                  <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
-                      <Eye className="w-8 h-8 text-blue-600" />
-                      <CardTitle className="text-2xl text-blue-600">Visi</CardTitle>
+                      <Eye className="w-8 h-8 text-amber-600" />
+                      <CardTitle className="text-2xl text-gray-800">Visi</CardTitle>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-6">
                     <p className="text-gray-700 text-lg leading-relaxed">
                       Menjadi pusat layanan pendidikan tinggi jarak jauh terdepan yang memberikan akses pendidikan
                       berkualitas, terjangkau, dan mudah diakses oleh seluruh masyarakat Indonesia untuk menciptakan
@@ -163,29 +135,29 @@ export default function TentangPage() {
                   </CardContent>
                 </Card>
 
-                <Card className="border-2 border-green-200 hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader>
+                <Card className="border border-gray-200 hover:shadow-xl transition-all duration-300 bg-white">
+                  <CardHeader className="bg-gradient-to-r from-emerald-50 to-teal-50 border-b border-gray-100">
                     <div className="flex items-center space-x-3">
-                      <Target className="w-8 h-8 text-green-600" />
-                      <CardTitle className="text-2xl text-green-600">Misi</CardTitle>
+                      <Target className="w-8 h-8 text-emerald-600" />
+                      <CardTitle className="text-2xl text-gray-800">Misi</CardTitle>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-6">
                     <div className="space-y-3 text-gray-700">
-                      <div className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
                         <p>Memberikan layanan pendaftaran dan informasi akademik yang mudah dan terpercaya</p>
                       </div>
-                      <div className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
                         <p>Memfasilitasi akses pendidikan tinggi bagi seluruh lapisan masyarakat</p>
                       </div>
-                      <div className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
                         <p>Memberikan bimbingan dan dukungan akademik yang berkualitas</p>
                       </div>
-                      <div className="flex items-start space-x-2">
-                        <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-emerald-600 rounded-full mt-2 flex-shrink-0"></div>
                         <p>Mengembangkan inovasi dalam layanan pendidikan jarak jauh</p>
                       </div>
                     </div>
@@ -197,31 +169,111 @@ export default function TentangPage() {
         </section>
       </AnimatedSection>
 
-      {/* Leadership Message */}
+      {/* Enhanced Leadership Message - Elegant & Formal Design */}
       <AnimatedSection>
-        <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className={cn("text-3xl font-bold text-gray-900 mb-12 text-center", fontHeading.className)}>
-                Kata Sambutan
-              </h2>
+        <section className="py-20 bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 relative overflow-hidden">
+          {/* Subtle geometric patterns */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-20 left-20 w-64 h-64 border border-white/20 rounded-full"></div>
+            <div className="absolute bottom-20 right-20 w-48 h-48 border border-white/10 rounded-full"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-white/5 rounded-full"></div>
+          </div>
 
-              <Card className="border-0 shadow-lg">
-                <CardContent className="p-8">
-                  <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-                    <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Users className="w-16 h-16 text-gray-400" />
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-16">
+                <h2 className={cn("text-4xl md:text-5xl font-bold text-white mb-4", fontHeading.className)}>
+                  Kata Sambutan
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-amber-400 to-orange-500 mx-auto rounded-full"></div>
+                <p className="text-gray-300 mt-4 text-lg">Pesan dari Pemimpin Kami</p>
+              </div>
+
+              <Card className="border-0 shadow-2xl bg-white overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="grid grid-cols-1 lg:grid-cols-5">
+                    {/* Image Section - Larger & Cleaner */}
+                    <div className="lg:col-span-2 relative bg-gradient-to-br from-slate-100 to-gray-200 p-8 flex items-center justify-center">
+                      <div className="text-center relative">
+                        {/* Large Professional Photo - Fixed Cropping Issue */}
+                        <div className="w-80 mx-auto mb-8 relative">
+                          <img
+                            src="/images/1.png"
+                            alt="Dr. Sanco Simanullang - Ketua SALUT Soul"
+                            className="w-full h-auto object-contain rounded-3xl shadow-2xl"
+                          />
+                          {/* Professional Badge */}
+                          <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-xl">
+                            <Award className="w-10 h-10 text-white" />
+                          </div>
+                        </div>
+
+                        {/* Name & Title - Separate from Image */}
+                        <div className="space-y-4">
+                          <h3 className="text-3xl font-bold text-gray-900">Dr. Sanco Simanullang</h3>
+                          <p className="text-xl text-gray-600">S.T., M.T, IPM, ASEAN Eng.</p>
+                          <div className="inline-block bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-full font-semibold text-lg shadow-lg">
+                            Ketua SALUT Soul
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex-1 text-center md:text-left">
-                      <blockquote className="text-lg text-gray-700 italic mb-6 leading-relaxed">
-                        Selamat datang di SALUT Soul! Kami berkomitmen untuk menjadi mitra terbaik dalam perjalanan
-                        pendidikan Anda. Dengan dukungan teknologi modern dan tim yang berpengalaman, kami siap membantu
-                        Anda meraih impian pendidikan tinggi yang berkualitas dan terjangkau. Mari bersama-sama
-                        membangun masa depan yang lebih cerah melalui pendidikan.
-                      </blockquote>
-                      <div>
-                        <p className="font-bold text-xl text-gray-900">Dr. Ahmad Wijaya, M.Pd</p>
-                        <p className="text-gray-600">Ketua SALUT Soul</p>
+
+                    {/* Content Section - Professional Layout */}
+                    <div className="lg:col-span-3 p-12 bg-gradient-to-br from-white to-gray-50">
+                      <div className="h-full flex flex-col justify-center">
+                        {/* Quote Icon */}
+                        <div className="mb-8">
+                          <Quote className="w-16 h-16 text-amber-500 opacity-60" />
+                        </div>
+
+                        {/* Main Quote */}
+                        <blockquote className="text-2xl md:text-3xl text-gray-800 leading-relaxed font-medium mb-8 relative">
+                          <span className="text-6xl text-amber-500 absolute -top-6 -left-4 font-serif opacity-30">
+                            "
+                          </span>
+                          <span className="relative z-10">
+                            Selamat datang di SALUT Soul! Kami berkomitmen untuk menjadi mitra terbaik dalam perjalanan
+                            pendidikan Anda. Dengan dukungan teknologi modern dan tim yang berpengalaman, kami siap
+                            membantu Anda meraih impian pendidikan tinggi yang berkualitas dan terjangkau.
+                          </span>
+                        </blockquote>
+
+                        {/* Secondary Message */}
+                        <div className="bg-amber-50 border-l-4 border-amber-400 p-6 mb-8 rounded-r-lg">
+                          <p className="text-lg text-gray-700 italic">
+                            "Mari bersama-sama membangun masa depan yang lebih cerah melalui pendidikan yang berkualitas
+                            dan terjangkau untuk semua."
+                          </p>
+                        </div>
+
+                        {/* Professional Details */}
+                        <div className="border-t border-gray-200 pt-8">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="flex items-start space-x-4">
+                              <div className="w-3 h-16 bg-gradient-to-b from-amber-400 to-orange-500 rounded-full flex-shrink-0"></div>
+                              <div>
+                                <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-2">
+                                  Pengalaman
+                                </p>
+                                <p className="text-gray-700">
+                                  Lebih dari 15 tahun di bidang pendidikan tinggi dan teknologi pendidikan
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-start space-x-4">
+                              <div className="w-3 h-16 bg-gradient-to-b from-emerald-400 to-teal-500 rounded-full flex-shrink-0"></div>
+                              <div>
+                                <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-2">
+                                  Visi Kepemimpinan
+                                </p>
+                                <p className="text-gray-700">
+                                  Mencerdaskan bangsa melalui akses pendidikan tinggi yang merata dan berkualitas
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -240,12 +292,11 @@ export default function TentangPage() {
               <h2 className={cn("text-3xl font-bold text-gray-900 mb-12 text-center", fontHeading.className)}>
                 Lokasi & Kontak
               </h2>
-
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card>
+                <Card className="border border-gray-200 hover:shadow-lg transition-shadow duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
-                      <MapPin className="w-6 h-6 text-blue-600" />
+                      <MapPin className="w-6 h-6 text-amber-600" />
                       <span>Alamat Kantor</span>
                     </CardTitle>
                   </CardHeader>
@@ -263,7 +314,6 @@ export default function TentangPage() {
                         </p>
                       </div>
                     </div>
-
                     <div className="flex items-center space-x-3">
                       <Phone className="w-5 h-5 text-gray-400" />
                       <div>
@@ -271,7 +321,6 @@ export default function TentangPage() {
                         <p className="text-gray-600">+62 812-3456-7890</p>
                       </div>
                     </div>
-
                     <div className="flex items-center space-x-3">
                       <Mail className="w-5 h-5 text-gray-400" />
                       <div>
@@ -279,7 +328,6 @@ export default function TentangPage() {
                         <p className="text-gray-600">info@salutsoul.ac.id</p>
                       </div>
                     </div>
-
                     <div className="pt-4">
                       <p className="font-medium mb-2">Jam Operasional:</p>
                       <p className="text-gray-600">
@@ -293,7 +341,7 @@ export default function TentangPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="border border-gray-200 hover:shadow-lg transition-shadow duration-300">
                   <CardHeader>
                     <CardTitle>Peta Lokasi</CardTitle>
                   </CardHeader>
@@ -316,23 +364,23 @@ export default function TentangPage() {
       </AnimatedSection>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary">
+      <section className="py-16 bg-gradient-to-r from-gray-900 to-slate-800">
         <div className="container mx-auto px-4 text-center">
           <h2 className={cn("text-3xl md:text-4xl font-bold text-white mb-4", fontHeading.className)}>
             Siap Bergabung dengan Kami?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Mulai perjalanan pendidikan Anda bersama SALUT Soul dan raih masa depan yang lebih cerah
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild className="text-lg px-8 py-3">
+            <Button size="lg" className="text-lg px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white" asChild>
               <Link href="/pendaftaran">Daftar Sekarang</Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
               asChild
-              className="text-lg px-8 py-3 border-white text-white hover:bg-white hover:text-primary bg-transparent transition-colors"
+              className="text-lg px-8 py-3 border-white text-white hover:bg-white hover:text-gray-900 bg-transparent transition-colors"
             >
               <Link href="/kontak">Hubungi Kami</Link>
             </Button>
@@ -340,82 +388,7 @@ export default function TentangPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">S</span>
-                </div>
-                <span className="font-bold text-xl">SALUT Soul</span>
-              </div>
-              <p className="text-gray-400">
-                Sentra Layanan Universitas Terbuka untuk pendidikan tinggi berkualitas dan terjangkau.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-bold text-lg mb-4">Navigasi</h3>
-              <div className="space-y-2">
-                <Link href="/" className="block text-gray-400 hover:text-white transition-colors">
-                  Beranda
-                </Link>
-                <Link href="/tentang" className="block text-gray-400 hover:text-white transition-colors">
-                  Tentang Kami
-                </Link>
-                <Link href="/akademik" className="block text-gray-400 hover:text-white transition-colors">
-                  Akademik
-                </Link>
-                <Link href="/kontak" className="block text-gray-400 hover:text-white transition-colors">
-                  Kontak
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-bold text-lg mb-4">Kontak</h3>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4" />
-                  <span className="text-gray-400">+62 812-3456-7890</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4" />
-                  <span className="text-gray-400">info@salutsoul.ac.id</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4" />
-                  <span className="text-gray-400">Jakarta, Indonesia</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-bold text-lg mb-4">Ikuti Kami</h3>
-              <div className="space-y-2">
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">
-                  Facebook
-                </a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">
-                  Instagram
-                </a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">
-                  YouTube
-                </a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">
-                  WhatsApp
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">© {new Date().getFullYear()} SALUT Soul. Semua hak cipta dilindungi.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
