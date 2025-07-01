@@ -477,30 +477,7 @@ export default function KontakPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Masih Ada Pertanyaan?</h2>
-          <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
-            Tim kami siap membantu Anda dengan informasi lengkap dan konsultasi gratis
-          </p>
-          <div className="flex flex-col sm:flex-row gap-5 justify-center">
-            <Button size="lg" variant="secondary" asChild className="text-lg px-8 py-4">
-              <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Chat WhatsApp
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-blue-600 bg-transparent"
-            >
-              <Link href="/pendaftaran">Daftar Sekarang</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      
 
       <Footer />
     </div>

@@ -119,7 +119,7 @@ export default function HomePage() {
     {
       name: "FE",
       fullName: "Fakultas Ekonomi",
-      programs: ["Manajemen", "Akuntansi", "Ekonomi Pembangunan", "Ekonomi Syariah"],
+      programs: ["Manajemen", "Akuntansi.", "Ekonomi Pembangunan", "Ekonomi Syariah"],
       icon: TrendingUp,
       students: "80,000+",
       accreditation: "A",
@@ -346,10 +346,7 @@ export default function HomePage() {
                 size="lg"
                 className="btn-outline text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-blue-700"
               >
-                <Link href="/kontak">
-                  <Phone className="mr-2 w-5 h-5" />
-                  Konsultasi Gratis
-                </Link>
+                
               </Button>
             </div>
 
