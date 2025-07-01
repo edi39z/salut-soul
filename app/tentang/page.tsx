@@ -1,7 +1,5 @@
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Target, Eye, Quote, Award } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -21,7 +19,7 @@ export default function TentangPage() {
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-slate-50 to-gray-100 py-16">
-        <div className="container mx-auto px-4">
+        <div className="container-academic">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className={cn("text-4xl md:text-5xl font-bold text-gray-900 mb-6", fontHeading.className)}>
               Tentang <span className="text-amber-600">SALUT Soul</span>
@@ -36,7 +34,7 @@ export default function TentangPage() {
       {/* About UT Section */}
       <AnimatedSection>
         <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
+          <div className="container-academic">
             <div className="max-w-4xl mx-auto">
               <h2 className={cn("text-3xl font-bold text-gray-900 mb-8 text-center", fontHeading.className)}>
                 Apa itu Universitas Terbuka?
@@ -62,7 +60,7 @@ export default function TentangPage() {
       {/* About SALUT Section */}
       <AnimatedSection>
         <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
+          <div className="container-academic">
             <div className="max-w-4xl mx-auto">
               <h2 className={cn("text-3xl font-bold text-gray-900 mb-8 text-center", fontHeading.className)}>
                 Apa itu SALUT?
@@ -88,7 +86,7 @@ export default function TentangPage() {
       {/* About SALUT Soul Section */}
       <AnimatedSection>
         <section className="py-16 bg-white">
-          <div className="container mx-auto px-4">
+          <div className="container-academic">
             <div className="max-w-4xl mx-auto">
               <h2 className={cn("text-3xl font-bold text-gray-900 mb-8 text-center", fontHeading.className)}>
                 SALUT Soul: Inovasi Layanan Pendidikan
@@ -113,7 +111,7 @@ export default function TentangPage() {
       {/* Vision Mission Section */}
       <AnimatedSection>
         <section className="py-16 bg-slate-50">
-          <div className="container mx-auto px-4">
+          <div className="container-academic">
             <div className="max-w-6xl mx-auto">
               <h2 className={cn("text-3xl font-bold text-gray-900 mb-12 text-center", fontHeading.className)}>
                 Visi & Misi SALUT Soul
@@ -179,7 +177,7 @@ export default function TentangPage() {
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-white/5 rounded-full"></div>
           </div>
 
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="container-academic relative z-10">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className={cn("text-4xl md:text-5xl font-bold text-white mb-4", fontHeading.className)}>
@@ -210,8 +208,7 @@ export default function TentangPage() {
 
                         {/* Name & Title - Separate from Image */}
                         <div className="space-y-4">
-                          <h3 className="text-3xl font-bold text-gray-900">Dr. Sanco Simanullang</h3>
-                          <p className="text-xl text-gray-600">S.T., M.T, IPM, ASEAN Eng.</p>
+
                           <div className="inline-block bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-full font-semibold text-lg shadow-lg">
                             Ketua SALUT Soul
                           </div>
@@ -247,33 +244,7 @@ export default function TentangPage() {
                           </p>
                         </div>
 
-                        {/* Professional Details */}
-                        <div className="border-t border-gray-200 pt-8">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="flex items-start space-x-4">
-                              <div className="w-3 h-16 bg-gradient-to-b from-amber-400 to-orange-500 rounded-full flex-shrink-0"></div>
-                              <div>
-                                <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-2">
-                                  Pengalaman
-                                </p>
-                                <p className="text-gray-700">
-                                  Lebih dari 15 tahun di bidang pendidikan tinggi dan teknologi pendidikan
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex items-start space-x-4">
-                              <div className="w-3 h-16 bg-gradient-to-b from-emerald-400 to-teal-500 rounded-full flex-shrink-0"></div>
-                              <div>
-                                <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-2">
-                                  Visi Kepemimpinan
-                                </p>
-                                <p className="text-gray-700">
-                                  Mencerdaskan bangsa melalui akses pendidikan tinggi yang merata dan berkualitas
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -287,7 +258,7 @@ export default function TentangPage() {
       {/* Location Section */}
       <AnimatedSection>
         <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
+          <div className="container-academic">
             <div className="max-w-6xl mx-auto">
               <h2 className={cn("text-3xl font-bold text-gray-900 mb-12 text-center", fontHeading.className)}>
                 Lokasi & Kontak
@@ -362,31 +333,6 @@ export default function TentangPage() {
           </div>
         </section>
       </AnimatedSection>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-gray-900 to-slate-800">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className={cn("text-3xl md:text-4xl font-bold text-white mb-4", fontHeading.className)}>
-            Siap Bergabung dengan Kami?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Mulai perjalanan pendidikan Anda bersama SALUT Soul dan raih masa depan yang lebih cerah
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-3 bg-amber-500 hover:bg-amber-600 text-white" asChild>
-              <Link href="/pendaftaran">Daftar Sekarang</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="text-lg px-8 py-3 border-white text-white hover:bg-white hover:text-gray-900 bg-transparent transition-colors"
-            >
-              <Link href="/kontak">Hubungi Kami</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>
