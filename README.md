@@ -14,7 +14,7 @@ SALUT Soul adalah platform digital modern untuk layanan pendaftaran dan informas
 - Form wizard yang user-friendly
 
 ### 🎓 Informasi Akademik
-- 5 Fakultas dengan 28+ Program Studi
+- 5 Fakultas dengan 50+ Program Studi
 - Informasi akreditasi dan biaya kuliah
 - Detail persyaratan setiap program
 - Struktur kurikulum dan prospek karir
