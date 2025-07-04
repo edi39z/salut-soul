@@ -45,7 +45,7 @@ export function Footer() {
                             transition={{ duration: 0.6 }}
                         >
                             <div className="flex items-center space-x-3 mb-6">
-                                <Image src="/Logo_Universitas_Terbuka.svg.png" alt="Logo Universitas Terbuka" width={48} height={48} className="h-12 w-auto" />
+                                <Image src="/Logo_Universitas_Terbuka.ico" alt="Logo Universitas Terbuka" width={48} height={48} className="h-12 w-auto" />
                                 <div>
                                     <span className="text-xl font-bold">SALUT Soul</span>
                                     <p className="text-sm text-slate-300">Universitas Terbuka</p>
@@ -129,11 +129,11 @@ export function Footer() {
                                     <div>
                                         <p className="text-gray-100 font-medium">Alamat</p>
                                         <p className="text-slate-200 text-sm">
-                                            Jl. Pendidikan No. 123
+                                            Jl. Ncole Permai No.18
                                             <br />
-                                            Jakarta Selatan 12345
+                                            Kemenangan Tani, Kec. Medan Tuntungan
                                             <br />
-                                            DKI Jakarta
+                                            Kota Medan, Sumatera Utara 20134
                                         </p>
                                     </div>
                                 </div>

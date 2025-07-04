@@ -360,7 +360,7 @@ export default function KontakPage() {
                     </div>
                     <span className="font-bold text-gray-900">Lokasi Kantor</span>
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-lg mt-2">SALUT Soul Jakarta</CardDescription>
+                  <CardDescription className="text-gray-600 text-lg mt-2">SALUT Soul</CardDescription>
                 </CardHeader>
                 <CardContent className="relative z-10 p-8 pt-0">
                   <div className="space-y-6">

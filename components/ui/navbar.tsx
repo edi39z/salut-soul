@@ -5,7 +5,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
+import { VisuallyHidden } from "@/components/ui/visually-hidden"
 import { Menu, Phone, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -61,7 +62,13 @@ export function Navbar() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-3 group">
-              <Image src="/Logo_Universitas_Terbuka.svg.png" alt="Logo Universitas Terbuka" width={40} height={40} className="h-10 w-auto" />
+              <Image
+                src="/Logo_Universitas_Terbuka.ico"
+                alt="Logo Universitas Terbuka"
+                width={40}
+                height={40}
+                className="h-10 w-auto"
+              />
               <div className="hidden sm:block">
                 <div className="font-bold text-xl text-gray-900 group-hover:text-blue-600 transition-colors">
                   SALUT <span className="text-amber-600">Soul</span>
@@ -101,19 +108,32 @@ export function Navbar() {
               </Button>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="md:hidden">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" aria-label="Buka menu navigasi">
                   <Menu className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
+
               <SheetContent side="right" className="w-80">
+                <SheetHeader>
+                  <VisuallyHidden>
+                    <SheetTitle>Menu Navigasi</SheetTitle>
+                  </VisuallyHidden>
+                </SheetHeader>
+
                 <div className="flex flex-col h-full">
                   {/* Mobile Header */}
                   <div className="flex items-center justify-between pb-6 border-b">
                     <div className="flex items-center space-x-3">
-                      <Image src="/Logo_Universitas_Terbuka.svg.png" alt="Logo Universitas Terbuka" width={32} height={32} className="h-8 w-auto" />
+                      <Image
+                        src="/Logo_Universitas_Terbuka.ico"
+                        alt="Logo Universitas Terbuka"
+                        width={32}
+                        height={32}
+                        className="h-8 w-auto"
+                      />
                       <div>
                         <div className="font-bold text-gray-900">
                           SALUT <span className="text-amber-600">Soul</span>
@@ -144,17 +164,17 @@ export function Navbar() {
                     </div>
                   </div>
 
-                  {/* Mobile CTA */}
+                  {/* Mobile CTA & Contact */}
                   <div className="border-t pt-6">
                     <Button
                       asChild
                       className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white"
-                      onClick={() => setIsOpen(false)}
                     >
-                      <Link href="/pendaftaran">Daftar Sekarang</Link>
+                      <Link href="/pendaftaran" onClick={() => setIsOpen(false)}>
+                        Daftar Sekarang
+                      </Link>
                     </Button>
 
-                    {/* Contact Info */}
                     <div className="mt-4 space-y-2 text-sm text-gray-600">
                       <div className="flex items-center space-x-2">
                         <Phone className="w-4 h-4" />

@@ -2,15 +2,15 @@
 "use client"
 
 import type React from "react"
-import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
+import { Checkbox } from "@/components/ui/checkbox"
 import { useToast } from "@/hooks/use-toast"
 import { LoadingButton } from "@/components/ui/loading-button"
 import { FileText, User, GraduationCap, AlertCircle, CheckCircle, X } from "lucide-react"
@@ -19,6 +19,7 @@ import Link from "next/link"
 interface FormData {
     namaLengkap: string
     nik: string
+    nisn: string
     noHp: string
     email: string
     tanggalLahir: string
@@ -44,7 +45,7 @@ interface ProgramStudi {
     biayaSemester: number
 }
 
-export default function RPLPendaftaranPage() {
+export default function PendaftaranNonRPLPage() {
     const router = useRouter()
     const { toast } = useToast()
     const [isLoading, setIsLoading] = useState(false)
@@ -58,13 +59,14 @@ export default function RPLPendaftaranPage() {
     const [formData, setFormData] = useState<FormData>({
         namaLengkap: "",
         nik: "",
+        nisn: "",
         noHp: "",
         email: "",
         tanggalLahir: "",
         alamat: "",
         fakultas: "",
         programStudi: "",
-        jalur: "rpl",
+        jalur: "non-rpl",
     })
 
     const [uploadedDocuments, setUploadedDocuments] = useState<Record<string, string>>({})
@@ -73,20 +75,24 @@ export default function RPLPendaftaranPage() {
     useEffect(() => {
         const fetchFakultas = async () => {
             try {
+                console.log("🔍 Fetching fakultas...")
                 const response = await fetch("/api/fakultas")
                 const result = await response.json()
+                console.log("📋 API Response:", result)
 
-                if (result.success) {
+                if (result.success && result.data) {
                     setFakultasList(result.data)
+                    console.log("✅ Fakultas loaded:", result.data.length)
                 } else {
+                    console.error("❌ API Error:", result)
                     toast({
                         title: "Error",
-                        description: "Gagal memuat data fakultas",
+                        description: result.message || "Gagal memuat data fakultas",
                         variant: "destructive",
                     })
                 }
             } catch (error) {
-                console.error("Error fetching fakultas:", error)
+                console.error("❌ Fetch Error:", error)
                 toast({
                     title: "Error",
                     description: "Gagal memuat data fakultas",
@@ -110,20 +116,24 @@ export default function RPLPendaftaranPage() {
 
             setLoadingProgramStudi(true)
             try {
+                console.log("🔍 Fetching program studi for:", formData.fakultas)
                 const response = await fetch(`/api/program-studi?fakultas=${formData.fakultas}`)
                 const result = await response.json()
+                console.log("📋 Program Studi Response:", result)
 
-                if (result.success) {
+                if (result.success && result.data) {
                     setProgramStudiList(result.data)
+                    console.log("✅ Program Studi loaded:", result.data.length)
                 } else {
+                    console.error("❌ Program Studi API Error:", result)
                     toast({
                         title: "Error",
-                        description: "Gagal memuat data program studi",
+                        description: result.message || "Gagal memuat data program studi",
                         variant: "destructive",
                     })
                 }
             } catch (error) {
-                console.error("Error fetching program studi:", error)
+                console.error("❌ Program Studi Fetch Error:", error)
                 toast({
                     title: "Error",
                     description: "Gagal memuat data program studi",
@@ -138,7 +148,14 @@ export default function RPLPendaftaranPage() {
     }, [formData.fakultas, toast])
 
     const handleInputChange = (field: keyof FormData, value: string) => {
-        setFormData((prev) => ({ ...prev, [field]: value }))
+        let processedValue = value
+
+        // Extract program name from combined value for programStudi
+        if (field === "programStudi" && value.includes("|")) {
+            processedValue = value.split("|")[0]
+        }
+
+        setFormData((prev) => ({ ...prev, [field]: processedValue }))
 
         // Reset program studi when fakultas changes
         if (field === "fakultas") {
@@ -203,11 +220,9 @@ export default function RPLPendaftaranPage() {
     const getDocumentLabel = (documentType: string) => {
         const labels: Record<string, string> = {
             pasFoto: "Pas Foto 4x6",
-            ktp: "Scan Kartu Tanda Penduduk",
-            ijazah: "Scan Ijazah dan Transkrip Nilai",
+            ktp: "Kartu Tanda Penduduk",
+            ijazah: "Scan Ijazah Terakhir",
             formulir: "Formulir Kebenaran dan Keabsahan Dokumen",
-            ijazahSMA: "Scan Ijazah SMA/Sederajat Asli",
-            screenshotPDDIKTI: "Screenshot Data Pribadi PDDIKTI",
             skPengangkatan: "SK Pengangkatan Guru",
             skMengajar: "SK Mengajar dari Kepala Sekolah",
         }
@@ -233,8 +248,6 @@ export default function RPLPendaftaranPage() {
                 ...formData,
                 ...uploadedDocuments,
             }
-
-            console.log("📤 Submitting data:", submitData)
 
             const response = await fetch("/api/pendaftaran", {
                 method: "POST",
@@ -274,13 +287,13 @@ export default function RPLPendaftaranPage() {
             },
             {
                 key: "ktp",
-                label: "Scan Kartu Tanda Penduduk",
-                accept: "application/pdf",
-                description: "Format PDF, maksimal 5MB",
+                label: "Kartu Tanda Penduduk",
+                accept: "application/pdf,image/jpeg,image/jpg,image/png",
+                description: "Format PDF/JPG/JPEG/PNG, maksimal 5MB",
             },
             {
                 key: "ijazah",
-                label: "Scan Ijazah dan Transkrip Nilai",
+                label: "Scan Ijazah Terakhir",
                 accept: "application/pdf",
                 description: "Dilegalisir, Format PDF, maksimal 5MB",
             },
@@ -289,18 +302,6 @@ export default function RPLPendaftaranPage() {
                 label: "Formulir Kebenaran dan Keabsahan Dokumen",
                 accept: "application/pdf",
                 description: "Format PDF, maksimal 5MB",
-            },
-            {
-                key: "ijazahSMA",
-                label: "Scan Ijazah SMA/Sederajat Asli",
-                accept: "application/pdf",
-                description: "Format PDF, maksimal 5MB",
-            },
-            {
-                key: "screenshotPDDIKTI",
-                label: "Screenshot Data Pribadi PDDIKTI",
-                accept: "image/jpeg,image/jpg,image/png",
-                description: "Format JPG/PNG, maksimal 5MB",
             },
         ]
 
@@ -326,25 +327,45 @@ export default function RPLPendaftaranPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-100 py-12">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
             <div className="container mx-auto px-4 max-w-4xl">
                 <Card className="shadow-xl">
-                    <CardHeader className="text-center bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-t-lg">
-                        <CardTitle className="text-2xl font-bold">Pendaftaran Jalur RPL</CardTitle>
-                        <CardDescription className="text-emerald-100">
-                            Rekognisi Pembelajaran Lampau - Silakan lengkapi formulir pendaftaran di bawah ini
+                    <CardHeader className="text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
+                        <CardTitle className="text-2xl font-bold flex items-center justify-center gap-2">
+                            <GraduationCap className="w-6 h-6" />
+                            Pendaftaran Jalur Non-RPL
+                        </CardTitle>
+                        <CardDescription className="text-blue-100">
+                            Pendaftaran Reguler - Silakan lengkapi formulir pendaftaran di bawah ini
                         </CardDescription>
                     </CardHeader>
-
                     <CardContent className="p-8">
                         <form onSubmit={handleSubmit} className="space-y-8">
+                            {/* Non-RPL Information */}
+                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                                <div className="flex items-start gap-3">
+                                    <GraduationCap className="h-6 w-6 text-blue-600 mt-0.5 flex-shrink-0" />
+                                    <div>
+                                        <h4 className="font-semibold text-blue-800 mb-2">Tentang Jalur Non-RPL</h4>
+                                        <p className="text-blue-700 text-sm mb-3">
+                                            Jalur Non-RPL (Pendaftaran Reguler) adalah jalur pendaftaran standar untuk:
+                                        </p>
+                                        <ul className="text-blue-700 text-sm space-y-1">
+                                            <li>• Lulusan SMA/SMK/MA atau sederajat</li>
+                                            <li>• Memulai perkuliahan dari semester 1</li>
+                                            <li>• Tidak ada batasan usia untuk mendaftar</li>
+                                            <li>• Proses pendaftaran standar dengan persyaratan umum</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                             {/* Data Pribadi */}
                             <div className="space-y-6">
                                 <div className="flex items-center gap-2 mb-4">
-                                    <User className="h-5 w-5 text-emerald-600" />
+                                    <User className="h-5 w-5 text-blue-600" />
                                     <h3 className="text-lg font-semibold text-gray-800">Data Pribadi</h3>
                                 </div>
-
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <Label htmlFor="namaLengkap">Nama Lengkap *</Label>
@@ -355,7 +376,6 @@ export default function RPLPendaftaranPage() {
                                             required
                                         />
                                     </div>
-
                                     <div>
                                         <Label htmlFor="nik">NIK *</Label>
                                         <Input
@@ -366,7 +386,15 @@ export default function RPLPendaftaranPage() {
                                             required
                                         />
                                     </div>
-
+                                    <div>
+                                        <Label htmlFor="nisn">NISN *</Label>
+                                        <Input
+                                            id="nisn"
+                                            value={formData.nisn}
+                                            onChange={(e) => handleInputChange("nisn", e.target.value)}
+                                            required
+                                        />
+                                    </div>
                                     <div>
                                         <Label htmlFor="noHp">Nomor HP *</Label>
                                         <Input
@@ -376,7 +404,6 @@ export default function RPLPendaftaranPage() {
                                             required
                                         />
                                     </div>
-
                                     <div>
                                         <Label htmlFor="email">Email *</Label>
                                         <Input
@@ -387,7 +414,6 @@ export default function RPLPendaftaranPage() {
                                             required
                                         />
                                     </div>
-
                                     <div>
                                         <Label htmlFor="tanggalLahir">Tanggal Lahir *</Label>
                                         <Input
@@ -399,7 +425,6 @@ export default function RPLPendaftaranPage() {
                                         />
                                     </div>
                                 </div>
-
                                 <div>
                                     <Label htmlFor="alamat">Alamat Lengkap *</Label>
                                     <Textarea
@@ -415,10 +440,9 @@ export default function RPLPendaftaranPage() {
                             {/* Data Akademik */}
                             <div className="space-y-6">
                                 <div className="flex items-center gap-2 mb-4">
-                                    <GraduationCap className="h-5 w-5 text-emerald-600" />
+                                    <GraduationCap className="h-5 w-5 text-blue-600" />
                                     <h3 className="text-lg font-semibold text-gray-800">Data Akademik</h3>
                                 </div>
-
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <Label htmlFor="fakultas">Fakultas *</Label>
@@ -439,7 +463,6 @@ export default function RPLPendaftaranPage() {
                                             </SelectContent>
                                         </Select>
                                     </div>
-
                                     <div>
                                         <Label htmlFor="programStudi">Program Studi *</Label>
                                         <Select
@@ -460,7 +483,7 @@ export default function RPLPendaftaranPage() {
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {programStudiList.map((prodi) => (
-                                                    <SelectItem key={prodi.id} value={prodi.nama}>
+                                                    <SelectItem key={prodi.id} value={`${prodi.nama}|${prodi.jenjang}|${prodi.id}`}>
                                                         {prodi.nama} ({prodi.jenjang}) - Akreditasi {prodi.akreditasi}
                                                     </SelectItem>
                                                 ))}
@@ -492,10 +515,9 @@ export default function RPLPendaftaranPage() {
                             {/* Upload Dokumen */}
                             <div className="space-y-6">
                                 <div className="flex items-center gap-2 mb-4">
-                                    <FileText className="h-5 w-5 text-emerald-600" />
+                                    <FileText className="h-5 w-5 text-blue-600" />
                                     <h3 className="text-lg font-semibold text-gray-800">Upload Dokumen</h3>
                                 </div>
-
                                 <div className="grid grid-cols-1 gap-6">
                                     {getRequiredDocuments().map((doc) => (
                                         <div key={doc.key} className="space-y-3 p-4 border border-gray-200 rounded-lg">
@@ -505,7 +527,6 @@ export default function RPLPendaftaranPage() {
                                                     <span className="text-sm text-gray-500 font-normal block mt-1">({doc.description})</span>
                                                 )}
                                             </Label>
-
                                             {!uploadedDocuments[doc.key] ? (
                                                 <div className="space-y-2">
                                                     <Input
@@ -516,8 +537,8 @@ export default function RPLPendaftaranPage() {
                                                         disabled={uploadingFiles[doc.key]}
                                                     />
                                                     {uploadingFiles[doc.key] && (
-                                                        <div className="flex items-center gap-2 text-emerald-600 text-sm">
-                                                            <div className="w-4 h-4 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
+                                                        <div className="flex items-center gap-2 text-blue-600 text-sm">
+                                                            <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
                                                             <span>Mengupload...</span>
                                                         </div>
                                                     )}
@@ -543,47 +564,23 @@ export default function RPLPendaftaranPage() {
                                     ))}
                                 </div>
 
-                                {/* Information Boxes */}
-                                <div className="space-y-4">
-                                    {/* Download Link for Formulir */}
-                                    <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-                                        <div className="flex items-start gap-2">
-                                            <FileText className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <h4 className="font-semibold text-emerald-800 mb-2">Download Formulir</h4>
-                                                <p className="text-emerald-700 text-sm mb-2">
-                                                    Formulir Kebenaran dan Keabsahan Dokumen dapat didownload di:
-                                                </p>
-                                                <a
-                                                    href="http://ut.ac.id/formulir"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-emerald-600 hover:text-emerald-800 underline text-sm font-medium"
-                                                >
-                                                    http://ut.ac.id/formulir
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* PDDIKTI Information */}
-                                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                                        <div className="flex items-start gap-2">
-                                            <AlertCircle className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <h4 className="font-semibold text-blue-800 mb-2">Screenshot Data Pribadi PDDIKTI</h4>
-                                                <p className="text-blue-700 text-sm mb-2">
-                                                    Screenshot data pribadi PDDIKTI mahasiswa dapat diakses di:
-                                                </p>
-                                                <a
-                                                    href="https://pddikti.kemendikbud.go.id"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-blue-600 hover:text-blue-800 underline text-sm font-medium"
-                                                >
-                                                    https://pddikti.kemendikbud.go.id
-                                                </a>
-                                            </div>
+                                {/* Download Link for Formulir */}
+                                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                    <div className="flex items-start gap-2">
+                                        <FileText className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                                        <div>
+                                            <h4 className="font-semibold text-blue-800 mb-2">Download Formulir</h4>
+                                            <p className="text-blue-700 text-sm mb-2">
+                                                Formulir Kebenaran dan Keabsahan Dokumen dapat didownload di:
+                                            </p>
+                                            <a
+                                                href="http://ut.ac.id/formulir"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 hover:text-blue-800 underline text-sm font-medium"
+                                            >
+                                                http://ut.ac.id/formulir
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -600,11 +597,11 @@ export default function RPLPendaftaranPage() {
                                     <div className="text-sm">
                                         <Label htmlFor="agreement" className="cursor-pointer">
                                             Saya menyetujui{" "}
-                                            <Link href="#" className="text-emerald-600 hover:underline">
+                                            <Link href="#" className="text-blue-600 hover:underline">
                                                 syarat dan ketentuan
                                             </Link>{" "}
                                             serta{" "}
-                                            <Link href="#" className="text-emerald-600 hover:underline">
+                                            <Link href="#" className="text-blue-600 hover:underline">
                                                 kebijakan privasi
                                             </Link>{" "}
                                             yang berlaku. Data yang saya berikan adalah benar dan dapat dipertanggungjawabkan.
@@ -617,7 +614,7 @@ export default function RPLPendaftaranPage() {
                                 <Button type="button" variant="outline" onClick={() => router.back()}>
                                     Batal
                                 </Button>
-                                <LoadingButton type="submit" isLoading={isLoading}>
+                                <LoadingButton type="submit" isLoading={isLoading} className="bg-blue-600 hover:bg-blue-700">
                                     Daftar Sekarang
                                 </LoadingButton>
                             </div>

@@ -305,7 +305,7 @@ export default function TentangPage() {
                         </div>
                         <div className="space-y-4">
                           <div className="inline-block bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-full font-semibold text-lg shadow-lg">
-                            Ketua SALUT Soul
+                            Kepala Sentra Layanan Salut Soul
                           </div>
                         </div>
                       </div>

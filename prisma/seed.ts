@@ -14,7 +14,7 @@ async function main() {
     // Seed Fakultas
     const fakultasList = [
         {
-            nama: "FISIP",
+            nama: "FHISP",
             namaLengkap: "Fakultas Ilmu Sosial dan Ilmu Politik",
             deskripsi:
                 "Fakultas yang mengembangkan ilmu sosial dan politik untuk membangun masyarakat yang demokratis dan berkeadilan.",
@@ -27,22 +27,22 @@ async function main() {
             akreditasi: "A",
         },
         {
-            nama: "FMIPA",
+            nama: "FST",
             namaLengkap: "Fakultas Matematika dan Ilmu Pengetahuan Alam",
             deskripsi: "Fakultas yang mengembangkan ilmu pengetahuan alam dan matematika untuk kemajuan teknologi.",
             akreditasi: "A",
         },
         {
-            nama: "FE",
-            namaLengkap: "Fakultas Ekonomi",
+            nama: "FEB",
+            namaLengkap: "Fakultas Ekonomi Bisnis",
             deskripsi: "Fakultas yang mengembangkan ilmu ekonomi dan bisnis untuk pembangunan ekonomi nasional.",
             akreditasi: "A",
         },
         {
-            nama: "FHISIP",
-            namaLengkap: "Fakultas Hukum, Ilmu Sosial dan Ilmu Politik",
-            deskripsi: "Fakultas yang mengintegrasikan ilmu hukum dengan ilmu sosial politik.",
-            akreditasi: "B",
+            nama: "SPs",
+            namaLengkap: "Sekolah Pascasarjana ",
+            deskripsi: "Unit penyelenggara program Magister (S2) dan Doktor (S3) Universitas Terbuka dengan sistem pembelajaran jarak jauh yang fleksibel dan berkualitas.",
+            akreditasi: "A",
         },
     ]
 
@@ -55,17 +55,23 @@ async function main() {
 
     // Seed Program Studi
     const programStudiList = [
-        // FISIP
-        { nama: "Administrasi Negara", fakultas: "FISIP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
-        { nama: "Administrasi Niaga", fakultas: "FISIP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
-        { nama: "Ilmu Komunikasi", fakultas: "FISIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1400000 },
-        { nama: "Ilmu Perpustakaan", fakultas: "FISIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
-        { nama: "Sosiologi", fakultas: "FISIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
-        { nama: "Sastra Inggris", fakultas: "FISIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        // FHISP
+        { nama: "Kearsipan", fakultas: "FHISP", jenjang: "D4", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Perpajakan", fakultas: "FHISP", jenjang: "D3", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Ilmu Administrasi Negara", fakultas: "FHISP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Ilmu Administrasi Bisnis", fakultas: "FHISP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Ilmu Komunikasi", fakultas: "FHISP", jenjang: "S1", akreditasi: "B", biayaSemester: 1400000 },
+        { nama: "Ilmu Perpustakaan", fakultas: "FHISP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Sosiologi", fakultas: "FHISP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Sastra Inggris", fakultas: "FHISP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Ilmu Hukum", fakultas: "FHISP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Ilmu Pemerintahan", fakultas: "FHISP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Perpajakan", fakultas: "FHISP", jenjang: "S1", akreditasi: "-", biayaSemester: 1300000 },
 
         // FKIP
         { nama: "Pendidikan Bahasa Indonesia", fakultas: "FKIP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
-        { nama: "Pendidikan Bahasa Inggris", fakultas: "FKIP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Pendidikan Pancasila dan Kewarganegaraan   ", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Pendidikan Bahasa Inggris", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
         { nama: "Pendidikan Matematika", fakultas: "FKIP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
         { nama: "Pendidikan Biologi", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
         { nama: "Pendidikan Fisika", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
@@ -77,27 +83,44 @@ async function main() {
             akreditasi: "A",
             biayaSemester: 1300000,
         },
-        { nama: "Pendidikan Guru PAUD", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Pendidikan Guru Pendidikan Anak Usia Dini", fakultas: "FKIP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Pendidikan Bahasa dan Sastra Indonesia", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Pendidikan Ekonomi", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Teknologi Pendidikan", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Pendidikan Agama Islam", fakultas: "FKIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Pendidikan Profesi Guru", fakultas: "FKIP", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
 
-        // FMIPA
-        { nama: "Matematika", fakultas: "FMIPA", jenjang: "S1", akreditasi: "A", biayaSemester: 1400000 },
-        { nama: "Statistika", fakultas: "FMIPA", jenjang: "S1", akreditasi: "A", biayaSemester: 1400000 },
-        { nama: "Biologi", fakultas: "FMIPA", jenjang: "S1", akreditasi: "B", biayaSemester: 1400000 },
-        { nama: "Teknologi Pangan", fakultas: "FMIPA", jenjang: "S1", akreditasi: "B", biayaSemester: 1500000 },
-        { nama: "Perencanaan Wilayah dan Kota", fakultas: "FMIPA", jenjang: "S1", akreditasi: "B", biayaSemester: 1500000 },
-        { nama: "Sistem Informasi", fakultas: "FMIPA", jenjang: "S1", akreditasi: "B", biayaSemester: 1600000 },
+        // FST
+        { nama: "Matematika", fakultas: "FST", jenjang: "S1", akreditasi: "B", biayaSemester: 1400000 },
+        { nama: "Statistika", fakultas: "FST", jenjang: "S1", akreditasi: "B", biayaSemester: 1400000 },
+        { nama: "Biologi", fakultas: "FST", jenjang: "S1", akreditasi: "B", biayaSemester: 1400000 },
+        { nama: "Teknologi Pangan", fakultas: "FST", jenjang: "S1", akreditasi: "B", biayaSemester: 1500000 },
+        { nama: "Perencanaan Wilayah dan Kota", fakultas: "FST", jenjang: "S1", akreditasi: "B", biayaSemester: 1500000 },
+        { nama: "Sistem Informasi", fakultas: "FST", jenjang: "S1", akreditasi: "B", biayaSemester: 1600000 },
+        { nama: "Agribisnis", fakultas: "FST", jenjang: "S1", akreditasi: "B", biayaSemester: 1600000 },
+        { nama: "Sains Data", fakultas: "FST", jenjang: "S1", akreditasi: "B", biayaSemester: 1600000 },
 
-        // FE
-        { nama: "Manajemen", fakultas: "FE", jenjang: "S1", akreditasi: "A", biayaSemester: 1400000 },
-        { nama: "Akuntansi", fakultas: "FE", jenjang: "S1", akreditasi: "A", biayaSemester: 1400000 },
-        { nama: "Ekonomi Pembangunan", fakultas: "FE", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
-        { nama: "Ekonomi Syariah", fakultas: "FE", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
-        { nama: "Pariwisata", fakultas: "FE", jenjang: "S1", akreditasi: "B", biayaSemester: 1400000 },
+        // FEB
+        { nama: "Manajemen", fakultas: "FEB", jenjang: "S1", akreditasi: "A", biayaSemester: 1400000 },
+        { nama: "Akuntansi", fakultas: "FEB", jenjang: "S1", akreditasi: "A", biayaSemester: 1400000 },
+        { nama: "Akuntansi Keuangan Publik", fakultas: "FEB", jenjang: "S1", akreditasi: "A", biayaSemester: 1400000 },
+        { nama: "Ekonomi Pembangunan", fakultas: "FEB", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Ekonomi Syariah", fakultas: "FEB", jenjang: "S1", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Kewirausahaan", fakultas: "FEB", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "PJJ Pariwisata", fakultas: "FEB", jenjang: "S1", akreditasi: "B", biayaSemester: 1400000 },
 
-        // FHISIP
-        { nama: "Ilmu Hukum", fakultas: "FHISIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1500000 },
-        { nama: "Ilmu Administrasi Publik", fakultas: "FHISIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
-        { nama: "Ilmu Pemerintahan", fakultas: "FHISIP", jenjang: "S1", akreditasi: "B", biayaSemester: 1300000 },
+        // SPs
+        { nama: "Hukum", fakultas: "SPs", jenjang: "S2", akreditasi: "B", biayaSemester: 1500000 },
+        { nama: "Manajemen", fakultas: "SPs", jenjang: "S2", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Pendidikan Bahasa Inggris", fakultas: "SPs", jenjang: "S2", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Pendidikan Matematika", fakultas: "SPs", jenjang: "S2", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Pendidikan Dasar", fakultas: "SPs", jenjang: "S2", akreditasi: "A", biayaSemester: 1300000 },
+        { nama: "Ilmu Administrasi Publik", fakultas: "SPs", jenjang: "S2", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Studi Lingkungan", fakultas: "SPs", jenjang: "S2", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Pendidikan Anak Usia Dini", fakultas: "SPs", jenjang: "S2", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Manajemen Perikanan", fakultas: "SPs", jenjang: "S2", akreditasi: "B", biayaSemester: 1300000 },
+        { nama: "Ilmu Manajemen", fakultas: "SPs", jenjang: "S3", akreditasi: "B", biayaSemester: 1300000 },
+       { nama: "Ilmu Administrasi Publik", fakultas: "SPs", jenjang: "S3", akreditasi: "B", biayaSemester: 1300000 },
     ]
 
     for (const prodi of programStudiList) {

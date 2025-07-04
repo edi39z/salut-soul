@@ -18,6 +18,9 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "SALUT Soul - Sentra Layanan Universitas Terbuka",
+  icons: {
+    icon: "/Logo_Universitas_Terbuka.ico",
+  },
   description:
     "Pendaftaran mahasiswa baru Universitas Terbuka. Kuliah fleksibel, berkualitas, dan terjangkau. Daftar sekarang!",
   keywords: "universitas terbuka, kuliah online, pendidikan jarak jauh, SALUT, pendaftaran mahasiswa",

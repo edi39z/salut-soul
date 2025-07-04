@@ -56,7 +56,7 @@ export default function HomePage() {
     },
     {
       icon: BookOpen,
-      title: "49",
+      title: "50",
       description: "Program Studi",
       color: "from-amber-500 to-amber-600",
       bgColor: "bg-amber-50",
@@ -150,7 +150,7 @@ export default function HomePage() {
     },
     {
       name: "FE",
-      fullName: "Fakultas Ekonomi",
+      fullName: "Fakultas Ekonomi dan Bisnis",
       programs: ["Manajemen", "Akuntansi", "Ekonomi Pembangunan", "Ekonomi Syariah"],
       icon: TrendingUp,
       students: "80,000+",
