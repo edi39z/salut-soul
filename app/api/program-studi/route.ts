@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { Prisma } from "@prisma/client"
 
 export async function GET(request: Request) {
     try {
@@ -8,7 +9,7 @@ export async function GET(request: Request) {
 
         console.log("🔍 Fetching program studi for fakultas:", fakultas)
 
-        const whereClause: any = { isActive: true }
+        const whereClause: Prisma.ProgramStudiWhereInput = { isActive: true }
 
         if (fakultas) {
             whereClause.fakultas = fakultas

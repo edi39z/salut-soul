@@ -6,7 +6,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, GraduationCap, Phone, Mail } from "lucide-react"
+import { Menu, Phone, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export function Navbar() {

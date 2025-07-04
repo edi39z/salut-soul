@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import type React from "react"
@@ -616,7 +617,7 @@ export default function RPLPendaftaranPage() {
                                 <Button type="button" variant="outline" onClick={() => router.back()}>
                                     Batal
                                 </Button>
-                                <LoadingButton type="submit" loading={isLoading}>
+                                <LoadingButton type="submit" isLoading={isLoading}>
                                     Daftar Sekarang
                                 </LoadingButton>
                             </div>

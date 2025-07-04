@@ -38,7 +38,7 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const { loading, ...rest } = props // ⬅️ pisahkan props tidak valid untuk <button>
+    const { ...rest } = props // ⬅️ pisahkan props tidak valid untuk <button>
 
     const Comp = asChild ? Slot : "button"
     return (

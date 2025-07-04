@@ -15,16 +15,7 @@ import {
   Award,
   Clock,
   User,
-  CheckCircle2,
-  CreditCard,
-  BookOpen,
-  Bell,
-  FileCheck,
-  Upload,
-  DollarSign,
-  UserCheck,
-  Calendar,
-  AlertCircle,
+
 } from "lucide-react"
 import { motion } from "framer-motion"
 

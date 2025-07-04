@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
                 value,
                 isValid: !existingData,
                 message: existingData ? message : `${field.toUpperCase()} tersedia`,
-                ipAddress: request.ip || request.headers.get("x-forwarded-for") || "unknown",
+                ipAddress: request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown",
                 userAgent: request.headers.get("user-agent") || "unknown",
             },
         })
