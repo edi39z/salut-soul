@@ -35,7 +35,7 @@ export function Footer() {
         <footer className="bg-slate-900 text-white">
             {/* Main Footer Content */}
             <div className="py-12">
-                <div className="container-academic">
+                <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {/* Brand Section */}
                         <motion.div
@@ -45,7 +45,13 @@ export function Footer() {
                             transition={{ duration: 0.6 }}
                         >
                             <div className="flex items-center space-x-3 mb-6">
-                                <Image src="/Logo_Universitas_Terbuka.ico" alt="Logo Universitas Terbuka" width={48} height={48} className="h-12 w-auto" />
+                                <Image
+                                    src="/Logo_Universitas_Terbuka.ico"
+                                    alt="Logo Universitas Terbuka"
+                                    width={48}
+                                    height={48}
+                                    className="h-12 w-auto"
+                                />
                                 <div>
                                     <span className="text-xl font-bold">SALUT Soul</span>
                                     <p className="text-sm text-slate-300">Universitas Terbuka</p>
@@ -55,7 +61,6 @@ export function Footer() {
                                 Sentra Layanan Universitas Terbuka untuk pendidikan tinggi berkualitas, fleksibel, dan terjangkau di
                                 seluruh Indonesia.
                             </p>
-
                             {/* Social Media */}
                             <div className="flex space-x-3">
                                 {socialLinks.map((social) => (
@@ -128,16 +133,18 @@ export function Footer() {
                                     <MapPin className="w-5 h-5 text-slate-300 mt-1 flex-shrink-0" />
                                     <div>
                                         <p className="text-gray-100 font-medium">Alamat</p>
-                                        <p className="text-slate-200 text-sm">
+                                        <button
+                                            onClick={() => window.open("https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6", "_blank")}
+                                            className="text-slate-200 text-sm hover:text-white transition-colors cursor-pointer text-left"
+                                        >
                                             Jl. Ncole Permai No.18
                                             <br />
                                             Kemenangan Tani, Kec. Medan Tuntungan
                                             <br />
                                             Kota Medan, Sumatera Utara 20134
-                                        </p>
+                                        </button>
                                     </div>
                                 </div>
-
                                 <div className="flex items-center space-x-3">
                                     <Phone className="w-5 h-5 text-slate-300 flex-shrink-0" />
                                     <div>
@@ -147,7 +154,6 @@ export function Footer() {
                                         </a>
                                     </div>
                                 </div>
-
                                 <div className="flex items-center space-x-3">
                                     <Mail className="w-5 h-5 text-slate-300 flex-shrink-0" />
                                     <div>
@@ -157,7 +163,6 @@ export function Footer() {
                                         </a>
                                     </div>
                                 </div>
-
                                 <div className="flex items-start space-x-3">
                                     <Clock className="w-5 h-5 text-slate-300 mt-1 flex-shrink-0" />
                                     <div>
@@ -177,7 +182,7 @@ export function Footer() {
 
             {/* Bottom Bar */}
             <div className="border-t border-slate-700 py-6">
-                <div className="container-academic">
+                <div className="container mx-auto px-4">
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
@@ -197,7 +202,6 @@ export function Footer() {
                                 </Link>
                             </div>
                         </div>
-
                         <div className="text-slate-300 text-sm">Dibuat untuk pendidikan Indonesia yang lebih baik</div>
                     </motion.div>
                 </div>

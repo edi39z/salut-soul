@@ -2,7 +2,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
@@ -161,10 +160,10 @@ export default function KontakPage() {
     {
       icon: MapPin,
       title: "Alamat",
-      content: "Jl. Pendidikan No. 123, Jakarta Selatan 12345",
+      content: "Jl. Ncole Permai No.18, Medan Tuntungan",
       description: "Kunjungi kantor kami untuk konsultasi tatap muka",
-      action: "#",
-      actionText: "Lihat Peta",
+      action: "https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6",
+      actionText: "Buka Maps",
       color: "from-amber-500 to-amber-600",
       bgColor: "bg-gradient-to-br from-amber-50 to-amber-100",
     },
@@ -179,12 +178,10 @@ export default function KontakPage() {
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
-
           {/* Geometric Patterns */}
           <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-200/30 to-indigo-200/30 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-indigo-200/20 to-purple-200/20 rounded-full blur-2xl animate-pulse delay-500"></div>
-
           {/* Floating Elements */}
           <div className="absolute top-32 right-1/4 animate-bounce delay-300">
             <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg rotate-45 opacity-60"></div>
@@ -193,7 +190,6 @@ export default function KontakPage() {
             <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-60"></div>
           </div>
         </div>
-
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
             <motion.div
@@ -207,7 +203,6 @@ export default function KontakPage() {
                 Hubungi Kami
               </Badge>
             </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -219,7 +214,6 @@ export default function KontakPage() {
                 Terhubung
               </span>
             </motion.h1>
-
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -244,7 +238,6 @@ export default function KontakPage() {
             }}
           ></div>
         </div>
-
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-20">
@@ -259,7 +252,6 @@ export default function KontakPage() {
                 Pilih cara yang paling nyaman untuk Anda berkomunikasi dengan tim SALUT Soul
               </p>
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
               {contactInfo.map((info, index) => (
                 <Card
@@ -286,7 +278,7 @@ export default function KontakPage() {
                     >
                       <a
                         href={info.action}
-                        target={info.title === "WhatsApp" ? "_blank" : "_self"}
+                        target={info.title === "WhatsApp" || info.title === "Alamat" ? "_blank" : "_self"}
                         rel="noopener noreferrer"
                       >
                         {info.actionText}
@@ -305,7 +297,6 @@ export default function KontakPage() {
         {/* Background Elements */}
         <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-indigo-200/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl"></div>
-
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -337,7 +328,6 @@ export default function KontakPage() {
                       <span className={`${schedule.color} font-bold text-lg`}>{schedule.time}</span>
                     </div>
                   ))}
-
                   <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200">
                     <h4 className="font-bold text-blue-900 text-xl mb-3 flex items-center">
                       <Sparkles className="w-5 h-5 mr-2" />
@@ -360,37 +350,41 @@ export default function KontakPage() {
                     </div>
                     <span className="font-bold text-gray-900">Lokasi Kantor</span>
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-lg mt-2">SALUT Soul</CardDescription>
+                  <CardDescription className="text-gray-600 text-lg mt-2">SALUT Soul Medan</CardDescription>
                 </CardHeader>
                 <CardContent className="relative z-10 p-8 pt-0">
                   <div className="space-y-6">
                     <div className="bg-white/80 p-6 rounded-2xl">
                       <p className="font-bold text-gray-900 text-lg mb-3">Alamat Lengkap:</p>
                       <p className="text-gray-600 leading-relaxed">
-                        Jl. Pendidikan No. 123
+                        Jl. Ncole Permai No.18
                         <br />
-                        Jakarta Selatan 12345
+                        Kemenangan Tani, Kec. Medan Tuntungan
                         <br />
-                        DKI Jakarta, Indonesia
+                        Kota Medan, Sumatera Utara 20134
                       </p>
                     </div>
-
                     {/* Map Placeholder */}
-                    <div className="w-full h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center shadow-inner">
+                    <div
+                      className="w-full h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center shadow-inner cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                      onClick={() => window.open("https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6", "_blank")}
+                    >
                       <div className="text-center">
                         <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                           <MapPin className="w-10 h-10 text-white" />
                         </div>
-                        <p className="text-gray-600 font-semibold text-lg mb-2">Google Maps</p>
+                        <p className="text-gray-600 font-semibold text-lg mb-2">Klik untuk membuka Google Maps</p>
                         <p className="text-sm text-gray-500">
-                          Peta lokasi akan ditampilkan di sini
+                          Jl. Ncole Permai No.18
                           <br />
-                          untuk memudahkan navigasi
+                          Medan Tuntungan, Medan
                         </p>
                       </div>
                     </div>
-
-                    <Button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Button
+                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                      onClick={() => window.open("https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6", "_blank")}
+                    >
                       <MapPin className="w-4 h-4 mr-2" />
                       Buka di Google Maps
                     </Button>
@@ -418,7 +412,6 @@ export default function KontakPage() {
                 Punya pertanyaan? Kirim pesan kepada kami dan tim akan segera merespon
               </p>
             </div>
-
             <Card className="border-0 shadow-2xl bg-gradient-to-br from-white to-purple-50 overflow-hidden">
               <CardContent className="p-12">
                 <form onSubmit={handleSubmit} className="space-y-8">
@@ -427,30 +420,65 @@ export default function KontakPage() {
                       <Label htmlFor="name" className="block text-lg font-semibold text-gray-700 mb-3">
                         Nama Lengkap *
                       </Label>
-                      <Input type="text" id="name" name="name" />
+                      <Input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className={errors.name ? "border-red-500" : ""}
+                      />
+                      {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                     </div>
                     <div>
                       <Label htmlFor="email" className="block text-lg font-semibold text-gray-700 mb-3">
                         Email *
                       </Label>
-                      <Input type="email" id="email" name="email" />
+                      <Input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className={errors.email ? "border-red-500" : ""}
+                      />
+                      {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                     </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                       <Label htmlFor="phone" className="block text-lg font-semibold text-gray-700 mb-3">
                         Nomor HP *
                       </Label>
-                      <Input type="text" id="phone" name="phone" />
+                      <Input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className={errors.phone ? "border-red-500" : ""}
+                      />
+                      {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                     </div>
                     <div>
                       <Label htmlFor="message" className="block text-lg font-semibold text-gray-700 mb-3">
                         Pesan *
                       </Label>
-                      <Textarea id="message" name="message" rows={4} />
+                      <Textarea
+                        id="message"
+                        name="message"
+                        rows={4}
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        className={errors.message ? "border-red-500" : ""}
+                      />
+                      {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                     </div>
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <div className="flex items-center justify-center">
