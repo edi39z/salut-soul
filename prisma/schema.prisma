@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pendaftaran {
+  id           String   @id @default(uuid())
+  namaLengkap  String
+  nik          String   @unique
+  nisn         String?  @unique // Optional for RPL pathway
+  noHp         String
+  email        String   @unique
+  tanggalLahir DateTime
+  alamat       String
+  fakultas     String
+  programStudi String
+  
+  // Pathway information
+  jalur        String   // "rpl" or "non-rpl"
+  
+  // Document files - simple string fields for filenames
+  pasFoto      String?  // pas_foto.jpg
+  ktp          String?  // ktp.pdf
+  ijazah       String?  // ijazah.pdf
+  formulir     String?  // formulir.pdf
+  ijazahSMA    String?  // ijazah_sma.pdf (for RPL)
+  screenshotPDDIKTI String? // screenshot_pddikti.jpg (for RPL)
+  skPengangkatan String? // sk_pengangkatan.pdf (for FKIP)
+  skMengajar   String?  // sk_mengajar.pdf (for FKIP)
+  
+  // Timestamps
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("pendaftaran")
+}
+
+model KontakPesan {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  status    String   @default("unread") // unread, read, replied
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("kontak_pesan")
+}
+
+model ProgramStudi {
+  id            String   @id @default(uuid())
+  nama          String
+  fakultas      String
+  jenjang       String   // S1, D3, S2
+  akreditasi    String
+  biayaSemester Int
+  deskripsi     String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("program_studi")
+}
+
+model Fakultas {
+  id          String   @id @default(uuid())
+  nama        String   @unique
+  namaLengkap String
+  deskripsi   String?
+  akreditasi  String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("fakultas")
+}
+
+// New model for document management
+model DokumenPendaftaran {
+  id              String   @id @default(uuid())
+  pendaftaranId   String
+  namaFile        String
+  jenisFile       String   // "pas_foto", "ktp", "ijazah", "formulir", "sk_pengangkatan", "sk_mengajar", etc.
+  urlCloudinary   String
+  publicId        String   // Cloudinary public ID for management
+  ukuranFile      Int      // File size in bytes
+  tipeFile        String   // MIME type
+  statusVerifikasi String  @default("pending") // pending, approved, rejected
+  catatanVerifikasi String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("dokumen_pendaftaran")
+}
+
+// Model for tracking validation attempts
+model ValidasiData {
+  id        String   @id @default(uuid())
+  field     String   // "nik", "nisn", "email"
+  value     String
+  isValid   Boolean
+  message   String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@map("validasi_data")
+}
+
+// Model for audit trail
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String   // "create", "update", "delete", "validate"
+  table     String   // Table name
+  recordId  String   // Record ID
+  oldData   Json?    // Previous data
+  newData   Json?    // New data
+  userId    String?  // Admin user ID (if applicable)
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_log")
+}
