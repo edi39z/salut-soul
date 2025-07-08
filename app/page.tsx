@@ -22,19 +22,18 @@ import {
   Zap,
   Sparkles,
   FileCheck,
-  User,
   CheckCircle2,
-  CreditCard,
   Bell,
-  Upload,
   UserCheck,
   Calendar,
   AlertCircle,
+  Play,
 } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 export default function HomePage() {
   const statistics = [
@@ -164,123 +163,241 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Enhanced Hero Section with Subtle Pattern Background */}
-      <section className="relative py-24 overflow-hidden">
-        {/* Subtle Pattern Background */}
+      {/* Modern Hero Section with Two-Column Layout */}
+      <section className="relative py-12 lg:py-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+        {/* Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50"></div>
-
-          {/* Subtle Wave Pattern */}
-          <div className="absolute inset-0 opacity-30">
-            <svg className="absolute bottom-0 left-0 w-full h-64" viewBox="0 0 1200 120" preserveAspectRatio="none">
-              <path
-                d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-                opacity=".25"
-                fill="currentColor"
-                className="text-blue-200"
-              ></path>
-              <path
-                d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-                opacity=".5"
-                fill="currentColor"
-                className="text-blue-100"
-              ></path>
-              <path
-                d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-                fill="currentColor"
-                className="text-blue-50"
-              ></path>
-            </svg>
-          </div>
+          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-200/30 to-indigo-200/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-cyan-200/20 to-blue-200/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left Content */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="mb-8"
+              className="space-y-8"
             >
-              <Badge className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-base font-medium rounded-full shadow-lg hover:shadow-xl transition-shadow">
-                <Sparkles className="w-4 h-4 mr-2" />
-                Pendidikan Tinggi Terdepan
-              </Badge>
-            </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight"
-            >
-              Wujudkan Impian
-              <br />
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                Pendidikan Tinggi
-              </span>
-            </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed"
-            >
-              Bergabunglah dengan <span className="font-bold text-blue-600">600,000+ mahasiswa</span> yang telah
-              merasakan kemudahan kuliah fleksibel, berkualitas, dan terjangkau di{" "}
-              <span className="font-bold text-gray-900">Universitas Terbuka</span>
-            </motion.p>
+              {/* Main Heading */}
+              <div className="space-y-6">
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
-            >
-              <Button
-                asChild
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg px-10 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-              >
-                <Link href="/pendaftaran">
-                  <Zap className="mr-2 w-5 h-5" />
-                  Daftar Sekarang
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
 
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="text-lg px-10 py-4 rounded-full border-2 border-gray-300 hover:border-blue-600 hover:text-blue-600 transition-all duration-300 bg-transparent"
-              >
-                <Link href="/tentang">Pelajari Lebih Lanjut</Link>
-              </Button>
-            </motion.div>
-
-            {/* Trust Indicators */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-wrap justify-center items-center gap-8 text-gray-600"
-            >
-              {[
-                { icon: CheckCircle, text: "Terakreditasi A" },
-                { icon: Shield, text: "Ijazah Diakui Nasional" },
-                { icon: Clock, text: "Pembelajaran Fleksibel" },
-              ].map((item, index) => (
-                <div key={index} className="flex items-center space-x-3 group">
-                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <item.icon className="w-5 h-5 text-emerald-600" />
-                  </div>
-                  <span className="font-semibold text-gray-700 group-hover:text-emerald-600 transition-colors">
-                    {item.text}
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                  className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight"
+                >
+                  <span className="text-pink-500">Kami</span>
+                  <br />
+                  Kuliah Fleksibel Sesuai{" "}
+                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    Gayamu
                   </span>
+                </motion.h1>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                  className="text-xl text-gray-600 leading-relaxed max-w-lg"
+                >
+                  Bergabunglah dengan <span className="font-bold text-blue-600">600,000+ mahasiswa</span> yang telah
+                  merasakan kemudahan kuliah fleksibel, berkualitas, dan terjangkau.
+                </motion.p>
+              </div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                >
+                  <Link href="/pendaftaran">
+                    Daftar Sekarang
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Link>
+                </Button>
+
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 py-4 rounded-full border-2 border-orange-300 text-orange-600 hover:bg-orange-50 hover:border-orange-400 transition-all duration-300 bg-transparent"
+                >
+                  <Link href="/tentang">
+                    <Play className="mr-2 w-5 h-5" />
+                    Cek Brosur
+                  </Link>
+                </Button>
+              </motion.div>
+
+              {/* Trust Indicators as Cards */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+                className="flex flex-wrap items-center gap-4 pt-8"
+              >
+                {[
+                  {
+                    icon: CheckCircle,
+                    text: "Terakreditasi A",
+                    color: "from-emerald-500 to-emerald-600",
+                    bgColor: "bg-emerald-50",
+                    textColor: "text-emerald-700",
+                  },
+                  {
+                    icon: Shield,
+                    text: "Ijazah Diakui",
+                    color: "from-blue-500 to-blue-600",
+                    bgColor: "bg-blue-50",
+                    textColor: "text-blue-700",
+                  },
+                  {
+                    icon: Clock,
+                    text: "Fleksibel 24/7",
+                    color: "from-purple-500 to-purple-600",
+                    bgColor: "bg-purple-50",
+                    textColor: "text-purple-700",
+                  },
+                ].map((item, index) => (
+                  <div key={index} className="group">
+                    <div
+                      className={`${item.bgColor} px-4 py-3 rounded-2xl border border-white/50 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div
+                          className={`w-8 h-8 bg-gradient-to-br ${item.color} rounded-full flex items-center justify-center group-hover:scale-110 transition-transform`}
+                        >
+                          <item.icon className="w-4 h-4 text-white" />
+                        </div>
+                        <span className={`font-semibold ${item.textColor} group-hover:scale-105 transition-transform`}>
+                          {item.text}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* Right Image with Floating Elements */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="relative"
+            >
+              <div className="relative">
+                {/* Main Talent Image */}
+                <div className="relative z-10 flex justify-center">
+                  <div className="relative">
+                    <Image
+                      src="/images/talent1.png"
+                      alt="UT Students"
+                      width={500}
+                      height={600}
+                      className="w-full max-w-md h-auto object-contain"
+                      priority
+                    />
+                  </div>
                 </div>
-              ))}
+
+                {/* Floating Stats Cards */}
+                <motion.div
+                  animate={{ y: [-5, 5, -5] }}
+                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                  className="absolute top-8 left-4 bg-white rounded-2xl p-4 shadow-xl border border-gray-100 z-20"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center">
+                      <Users className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-gray-900">600K+</p>
+                      <p className="text-xs text-gray-500">Mahasiswa</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [5, -5, 5] }}
+                  transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
+                  className="absolute top-32 right-4 bg-white rounded-2xl p-3 shadow-xl border border-gray-100 z-20"
+                >
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-emerald-500" />
+                    <span className="text-sm font-semibold text-gray-700">Lulus Tepat Waktu</span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [-3, 7, -3] }}
+                  transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 2 }}
+                  className="absolute bottom-32 left-8 bg-white rounded-2xl p-3 shadow-xl border border-gray-100 z-20"
+                >
+                  <div className="flex items-center space-x-2">
+                    <Star className="w-5 h-5 text-amber-500" />
+                    <span className="text-sm font-semibold text-gray-700">IPK Memuaskan</span>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [7, -3, 7] }}
+                  transition={{ duration: 3.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1.5 }}
+                  className="absolute bottom-8 right-8 bg-white rounded-2xl p-4 shadow-xl border border-gray-100 z-20"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                      <Award className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-gray-900">Akreditasi A</p>
+                      <p className="text-xs text-gray-500">BAN-PT</p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Floating Decorative Elements */}
+                <motion.div
+                  animate={{ y: [-10, 10, -10] }}
+                  transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                  className="absolute top-16 right-16 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg z-10"
+                >
+                  <BookOpen className="w-6 h-6 text-white" />
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [10, -10, 10] }}
+                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
+                  className="absolute top-48 left-2 w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-lg flex items-center justify-center shadow-lg z-10"
+                >
+                  <GraduationCap className="w-5 h-5 text-white" />
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [-5, 15, -5] }}
+                  transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 2 }}
+                  className="absolute bottom-48 right-2 w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg z-10"
+                >
+                  <Award className="w-7 h-7 text-white" />
+                </motion.div>
+
+                {/* Background Gradient Circles */}
+                <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-indigo-200/30 rounded-full blur-2xl z-0"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-br from-cyan-200/20 to-blue-200/20 rounded-full blur-3xl z-0"></div>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -473,14 +590,14 @@ export default function HomePage() {
                         </CardHeader>
                         <CardContent className="relative z-10 space-y-4">
                           {[
-                            { icon: ArrowRight, text: "Pilih jalur RPL atau Non-RPL sesuai latar belakang pendidikan" },
-                            { icon: User, text: "Isi data pribadi lengkap (NIK, nama, tempat tanggal lahir)" },
-                            { icon: Upload, text: "Unggah dokumen: scan ijazah, KTP, dan berkas lainnya" },
-                            { icon: CreditCard, text: "Bayar biaya pendaftaran sesuai petunjuk di website" },
+                            { text: "Pilih jalur RPL atau Non-RPL sesuai latar belakang pendidikan" },
+                            { text: "Isi data pribadi lengkap (NIK, nama, tempat tanggal lahir)" },
+                            { text: "Unggah dokumen: scan ijazah, KTP, dan berkas lainnya" },
+                            { text: "Bayar biaya pendaftaran sesuai petunjuk di website" },
                           ].map((item, idx) => (
                             <div key={idx} className="flex items-start space-x-3 p-3 bg-white/60 rounded-xl">
                               <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <item.icon className="w-3 h-3 text-white" />
+                                <ArrowRight className="w-3 h-3 text-white" />
                               </div>
                               <span className="text-gray-700 text-sm leading-relaxed">{item.text}</span>
                             </div>
@@ -538,17 +655,16 @@ export default function HomePage() {
                             </p>
                           </div>
                           <div className="grid grid-cols-1 gap-3">
-                            {[
-                              { icon: Bell, text: "Email notifikasi konfirmasi" },
-                              { icon: GraduationCap, text: "NIM (Nomor Induk Mahasiswa)" },
-                            ].map((item, idx) => (
-                              <div key={idx} className="flex items-center space-x-3 p-3 bg-white/60 rounded-xl">
-                                <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
-                                  <item.icon className="w-3 h-3 text-white" />
+                            {[{ text: "Email notifikasi konfirmasi" }, { text: "NIM (Nomor Induk Mahasiswa)" }].map(
+                              (item, idx) => (
+                                <div key={idx} className="flex items-center space-x-3 p-3 bg-white/60 rounded-xl">
+                                  <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <Bell className="w-3 h-3 text-white" />
+                                  </div>
+                                  <span className="text-gray-700 text-sm">{item.text}</span>
                                 </div>
-                                <span className="text-gray-700 text-sm">{item.text}</span>
-                              </div>
-                            ))}
+                              ),
+                            )}
                           </div>
                         </CardContent>
                       </Card>
@@ -594,12 +710,12 @@ export default function HomePage() {
                             </div>
                           </div>
                           {[
-                            { icon: CheckCircle2, text: "Pilih mata kuliah melalui SIPAS atau Non-SIPAS" },
-                            { icon: CreditCard, text: "Bayar biaya registrasi sesuai paket layanan" },
+                            { text: "Pilih mata kuliah melalui SIPAS atau Non-SIPAS" },
+                            { text: "Bayar biaya registrasi sesuai paket layanan" },
                           ].map((item, idx) => (
                             <div key={idx} className="flex items-start space-x-3 p-3 bg-white/60 rounded-xl">
                               <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-violet-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <item.icon className="w-3 h-3 text-white" />
+                                <CheckCircle2 className="w-3 h-3 text-white" />
                               </div>
                               <span className="text-gray-700 text-sm leading-relaxed">{item.text}</span>
                             </div>
