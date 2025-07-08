@@ -5,8 +5,8 @@ import { z } from "zod"
 const pendaftaranSchema = z.object({
   namaLengkap: z.string().min(1, "Nama lengkap harus diisi"),
   nik: z.string().length(16, "NIK harus 16 digit"),
-  nisn: z.string().optional(),
-  noHp: z.string().min(10, "Nomor HP minimal 10 digit"),
+  nisn: z.string().max(10, "NISN maksimal 10 digit").optional(),
+  noHp: z.string().max(13, "Nomor HP maksimal 13 digit").startsWith("08", "Nomor HP harus diawali dengan 08"),
   email: z.string().email("Format email tidak valid"),
   tanggalLahir: z.string(),
   alamat: z.string().min(1, "Alamat harus diisi"),
@@ -65,6 +65,7 @@ export async function POST(request: NextRequest) {
     const pendaftaran = await prisma.pendaftaran.create({
       data: {
         ...validatedData,
+        programStudi: `${validatedData.programStudi} ${validatedData.jenjang}`,
         tanggalLahir: new Date(validatedData.tanggalLahir),
       },
     })

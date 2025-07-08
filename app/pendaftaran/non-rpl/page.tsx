@@ -30,6 +30,8 @@ interface FormData {
     jenjang: string
 }
 
+type FormErrors = Partial<Record<keyof FormData, string>>;
+
 interface Fakultas {
     id: string
     nama: string
@@ -56,6 +58,7 @@ export default function PendaftaranNonRPLPage() {
     const [loadingFakultas, setLoadingFakultas] = useState(true)
     const [loadingProgramStudi, setLoadingProgramStudi] = useState(false)
     const [agreementChecked, setAgreementChecked] = useState(false)
+    const [errors, setErrors] = useState<FormErrors>({})
 
     const [formData, setFormData] = useState<FormData>({
         namaLengkap: "",
@@ -151,6 +154,38 @@ export default function PendaftaranNonRPLPage() {
         fetchProgramStudi()
     }, [formData.fakultas, toast])
 
+    const validateField = (field: keyof FormData, value: string) => {
+        let error = ""
+        switch (field) {
+            case "namaLengkap":
+                if (!value) error = "Nama lengkap harus diisi"
+                break
+            case "nik":
+                if (!/^\d{16}$/.test(value)) error = "NIK harus 16 digit angka"
+                break
+            case "nisn":
+                if (!value) {
+                    error = "NISN harus diisi"
+                } else if (!/^\d{1,10}$/.test(value)) {
+                    error = "NISN maksimal 10 digit angka"
+                }
+                break
+            case "noHp":
+                if (!/^08\d{8,11}$/.test(value)) error = "Nomor HP harus diawali 08 dan total 10-13 digit"
+                break
+            case "email":
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "Format email tidak valid"
+                break
+            case "alamat":
+                if (!value) error = "Alamat harus diisi"
+                break
+            default:
+                break
+        }
+        setErrors((prev) => ({ ...prev, [field]: error }))
+        return error
+    }
+
     const handleInputChange = (field: keyof FormData, value: string) => {
         if (field === "programStudi") {
             const [nama, jenjang] = value.split("|")
@@ -162,6 +197,7 @@ export default function PendaftaranNonRPLPage() {
         } else {
             setFormData((prev) => ({ ...prev, [field]: value }))
         }
+        validateField(field, value)
 
         if (field === "fakultas") {
             setFormData((prev) => ({ ...prev, programStudi: "", jenjang: "" }))
@@ -234,13 +270,50 @@ export default function PendaftaranNonRPLPage() {
         return labels[documentType] || documentType
     }
 
+    const validateForm = () => {
+        const newErrors: FormErrors = {}
+        let isValid = true
+
+        Object.keys(formData).forEach((key) => {
+            const field = key as keyof FormData
+            const error = validateField(field, formData[field])
+            if (error) {
+                newErrors[field] = error
+                isValid = false
+            }
+        })
+
+        if (!formData.fakultas) {
+            newErrors.fakultas = "Fakultas harus dipilih"
+            isValid = false
+        }
+        if (!formData.programStudi) {
+            newErrors.programStudi = "Program studi harus dipilih"
+            isValid = false
+        }
+
+        setErrors(newErrors)
+        return isValid
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+
+        const isFormValid = validateForm()
 
         if (!agreementChecked) {
             toast({
                 title: "Persetujuan diperlukan",
                 description: "Silakan centang persetujuan syarat dan ketentuan",
+                variant: "destructive",
+            })
+            return
+        }
+
+        if (!isFormValid) {
+            toast({
+                title: "Form tidak valid",
+                description: "Silakan periksa kembali data yang Anda masukkan",
                 variant: "destructive",
             })
             return
@@ -372,41 +445,51 @@ export default function PendaftaranNonRPLPage() {
                                         <Label htmlFor="namaLengkap">Nama Lengkap *</Label>
                                         <Input
                                             id="namaLengkap"
+                                            placeholder="Masukkan nama lengkap Anda"
                                             value={formData.namaLengkap}
                                             onChange={(e) => handleInputChange("namaLengkap", e.target.value)}
                                             required
                                         />
+                                        {errors.namaLengkap && <p className="text-red-500 text-sm mt-1">{errors.namaLengkap}</p>}
                                     </div>
 
                                     <div>
                                         <Label htmlFor="nik">NIK *</Label>
                                         <Input
                                             id="nik"
+                                            placeholder="Masukkan 16 digit NIK"
                                             value={formData.nik}
                                             onChange={(e) => handleInputChange("nik", e.target.value)}
                                             maxLength={16}
                                             required
                                         />
+                                        {errors.nik && <p className="text-red-500 text-sm mt-1">{errors.nik}</p>}
                                     </div>
 
                                     <div>
                                         <Label htmlFor="nisn">NISN *</Label>
                                         <Input
                                             id="nisn"
+                                            placeholder="Masukkan 10 digit NISN"
                                             value={formData.nisn}
                                             onChange={(e) => handleInputChange("nisn", e.target.value)}
+                                            maxLength={10}
                                             required
                                         />
+                                        {errors.nisn && <p className="text-red-500 text-sm mt-1">{errors.nisn}</p>}
                                     </div>
 
                                     <div>
                                         <Label htmlFor="noHp">Nomor HP *</Label>
                                         <Input
                                             id="noHp"
+                                            placeholder="Contoh: 081234567890"
                                             value={formData.noHp}
                                             onChange={(e) => handleInputChange("noHp", e.target.value)}
+                                            maxLength={13}
                                             required
                                         />
+                                        {errors.noHp && <p className="text-red-500 text-sm mt-1">{errors.noHp}</p>}
                                     </div>
 
                                     <div>
@@ -414,10 +497,12 @@ export default function PendaftaranNonRPLPage() {
                                         <Input
                                             id="email"
                                             type="email"
+                                            placeholder="Contoh: email@domain.com"
                                             value={formData.email}
                                             onChange={(e) => handleInputChange("email", e.target.value)}
                                             required
                                         />
+                                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                                     </div>
 
                                     <div>
@@ -436,11 +521,13 @@ export default function PendaftaranNonRPLPage() {
                                     <Label htmlFor="alamat">Alamat Lengkap *</Label>
                                     <Textarea
                                         id="alamat"
+                                        placeholder="Masukkan alamat lengkap Anda"
                                         value={formData.alamat}
                                         onChange={(e) => handleInputChange("alamat", e.target.value)}
                                         rows={3}
                                         required
                                     />
+                                    {errors.alamat && <p className="text-red-500 text-sm mt-1">{errors.alamat}</p>}
                                 </div>
                             </div>
 
@@ -470,6 +557,7 @@ export default function PendaftaranNonRPLPage() {
                                                 ))}
                                             </SelectContent>
                                         </Select>
+                                        {errors.fakultas && <p className="text-red-500 text-sm mt-1">{errors.fakultas}</p>}
                                     </div>
 
                                     <div>
@@ -498,6 +586,7 @@ export default function PendaftaranNonRPLPage() {
                                                 ))}
                                             </SelectContent>
                                         </Select>
+                                        {errors.programStudi && <p className="text-red-500 text-sm mt-1">{errors.programStudi}</p>}
                                     </div>
                                 </div>
 
