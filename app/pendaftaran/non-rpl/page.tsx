@@ -207,6 +207,31 @@ export default function PendaftaranNonRPLPage() {
     const handleFileChange = async (documentType: string, file: File | null) => {
         if (!file) return
 
+        if (documentType === "pasFoto") {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+                const img = new Image()
+                img.onload = () => {
+                    const aspectRatio = img.width / img.height
+                    if (Math.abs(aspectRatio - 2 / 3) > 0.05) {
+                        toast({
+                            title: "Ukuran foto tidak sesuai",
+                            description: "Pas foto harus memiliki rasio 4x6.",
+                            variant: "destructive",
+                        })
+                    } else {
+                        uploadFile(documentType, file)
+                    }
+                }
+                img.src = e.target?.result as string
+            }
+            reader.readAsDataURL(file)
+        } else {
+            uploadFile(documentType, file)
+        }
+    }
+
+    const uploadFile = async (documentType: string, file: File) => {
         setUploadingFiles((prev) => ({ ...prev, [documentType]: true }))
 
         try {
