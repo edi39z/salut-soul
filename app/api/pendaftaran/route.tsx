@@ -65,7 +65,6 @@ export async function POST(request: NextRequest) {
     const pendaftaran = await prisma.pendaftaran.create({
       data: {
         ...validatedData,
-        programStudi: `${validatedData.programStudi} ${validatedData.jenjang}`,
         tanggalLahir: new Date(validatedData.tanggalLahir),
       },
     })
