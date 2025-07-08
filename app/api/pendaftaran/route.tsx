@@ -12,6 +12,7 @@ const pendaftaranSchema = z.object({
   alamat: z.string().min(1, "Alamat harus diisi"),
   fakultas: z.string().min(1, "Fakultas harus dipilih"),
   programStudi: z.string().min(1, "Program studi harus dipilih"),
+  jenjang: z.string().min(1, "Jenjang harus dipilih"),
   jalur: z.enum(["rpl", "non-rpl"]),
   // Document fields
   pasFoto: z.string().optional(),
@@ -49,8 +50,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Email sudah terdaftar" }, { status: 400 })
     }
 
-    // Check NISN for non-RPL pathway
-    if (validatedData.jalur === "non-rpl" && validatedData.nisn) {
+    // Check if NISN already exists (if provided)
+    if (validatedData.nisn) {
       const existingNisn = await prisma.pendaftaran.findUnique({
         where: { nisn: validatedData.nisn },
       })

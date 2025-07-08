@@ -2,7 +2,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -28,6 +27,7 @@ interface FormData {
     fakultas: string
     programStudi: string
     jalur: string
+    jenjang: string
 }
 
 interface Fakultas {
@@ -68,6 +68,7 @@ export default function PendaftaranNonRPLPage() {
         fakultas: "",
         programStudi: "",
         jalur: "non-rpl",
+        jenjang: "",
     })
 
     const [uploadedDocuments, setUploadedDocuments] = useState<Record<string, string>>({})
@@ -151,11 +152,19 @@ export default function PendaftaranNonRPLPage() {
     }, [formData.fakultas, toast])
 
     const handleInputChange = (field: keyof FormData, value: string) => {
-        setFormData((prev) => ({ ...prev, [field]: value }))
+        if (field === "programStudi") {
+            const [nama, jenjang] = value.split("|")
+            setFormData((prev) => ({
+                ...prev,
+                programStudi: nama,
+                jenjang: jenjang,
+            }))
+        } else {
+            setFormData((prev) => ({ ...prev, [field]: value }))
+        }
 
-        // Reset program studi when fakultas changes
         if (field === "fakultas") {
-            setFormData((prev) => ({ ...prev, programStudi: "" }))
+            setFormData((prev) => ({ ...prev, programStudi: "", jenjang: "" }))
         }
     }
 
@@ -253,14 +262,30 @@ export default function PendaftaranNonRPLPage() {
 
             const result = await response.json()
 
-            if (result.success) {
+            if (response.ok) {
                 toast({
                     title: "Pendaftaran berhasil!",
                     description: "Data pendaftaran Anda telah tersimpan",
                 })
                 router.push("/")
             } else {
-                throw new Error(result.error)
+                if (result.details) {
+                    const errorMessages = Object.entries(result.details)
+                        .map(([key, value]) => `- ${key}: ${value}`)
+                        .join("\n")
+
+                    toast({
+                        title: result.error || "Pendaftaran Gagal",
+                        description: (
+                            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                                <code className="text-white">{errorMessages}</code>
+                            </pre>
+                        ),
+                        variant: "destructive",
+                    })
+                } else {
+                    throw new Error(result.error || "Terjadi kesalahan yang tidak diketahui")
+                }
             }
         } catch (error: any) {
             toast({
@@ -323,10 +348,10 @@ export default function PendaftaranNonRPLPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+        <div className="min-h-screen bg-blue-50 py-12">
             <div className="container mx-auto px-4 max-w-4xl">
                 <Card className="shadow-xl">
-                    <CardHeader className="text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
+                    <CardHeader className="text-center bg-blue-600 text-white rounded-t-lg">
                         <CardTitle className="text-2xl font-bold">Pendaftaran Jalur Non-RPL</CardTitle>
                         <CardDescription className="text-blue-100">
                             Pendaftaran Reguler - Silakan lengkapi formulir pendaftaran di bawah ini
@@ -450,7 +475,7 @@ export default function PendaftaranNonRPLPage() {
                                     <div>
                                         <Label htmlFor="programStudi">Program Studi *</Label>
                                         <Select
-                                            value={formData.programStudi}
+                                            value={formData.programStudi ? `${formData.programStudi}|${formData.jenjang}` : ""}
                                             onValueChange={(value) => handleInputChange("programStudi", value)}
                                             disabled={!formData.fakultas || loadingProgramStudi}
                                         >
@@ -467,7 +492,7 @@ export default function PendaftaranNonRPLPage() {
                                             </SelectTrigger>
                                             <SelectContent>
                                                 {programStudiList.map((prodi) => (
-                                                    <SelectItem key={prodi.id} value={prodi.nama}>
+                                                    <SelectItem key={`${prodi.nama}-${prodi.jenjang}`} value={`${prodi.nama}|${prodi.jenjang}`}>
                                                         {prodi.nama} ({prodi.jenjang}) - Akreditasi {prodi.akreditasi}
                                                     </SelectItem>
                                                 ))}
@@ -600,7 +625,7 @@ export default function PendaftaranNonRPLPage() {
                                 <Button type="button" variant="outline" onClick={() => router.back()}>
                                     Batal
                                 </Button>
-                                <LoadingButton type="submit" isLoading={isLoading}>
+                                <LoadingButton type="submit" isLoading={isLoading} className="bg-blue-600 hover:bg-blue-700">
                                     Daftar Sekarang
                                 </LoadingButton>
                             </div>

@@ -21,6 +21,7 @@ model Pendaftaran {
   alamat       String
   fakultas     String
   programStudi String
+  jenjang      String
   
   // Pathway information
   jalur        String   // "rpl" or "non-rpl"
