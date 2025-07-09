@@ -11,7 +11,6 @@ import {
   GraduationCap,
   DollarSign,
   FileText,
-  Star,
   BookOpen,
   Target,
   Sparkles,
@@ -291,10 +290,7 @@ export default function AkademikPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-20">
-              <Badge className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-800 text-sm font-medium rounded-full mb-6">
-                <Star className="w-4 h-4 mr-2" />
-                Fakultas Unggulan
-              </Badge>
+
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Fakultas & <span className="text-purple-600">Program Studi</span>
               </h2>
@@ -447,10 +443,7 @@ export default function AkademikPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
-              <Badge className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 text-sm font-medium rounded-full mb-6">
-                <FileText className="w-4 h-4 mr-2" />
-                Persyaratan
-              </Badge>
+
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Persyaratan <span className="text-emerald-600">Pendaftaran</span>
               </h2>
@@ -501,10 +494,7 @@ export default function AkademikPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <Badge className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-amber-100 to-orange-100 text-amber-800 text-sm font-medium rounded-full mb-6">
-                <DollarSign className="w-4 h-4 mr-2" />
-                Biaya Kuliah
-              </Badge>
+
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Struktur <span className="text-amber-600">Biaya Kuliah</span>
               </h2>

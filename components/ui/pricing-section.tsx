@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AnimatedSection } from "@/components/ui/animated-section"
-import { DollarSign, CheckCircle, ArrowRight } from "lucide-react"
+import { CheckCircle, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 
@@ -51,10 +51,7 @@ export function PricingSection() {
             <div className="container mx-auto px-4 relative z-10">
                 <AnimatedSection>
                     <div className="text-center mb-16">
-                        <Badge className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 text-sm font-medium rounded-full mb-6">
-                            <DollarSign className="w-4 h-4 mr-2" />
-                            Biaya Kuliah Terjangkau
-                        </Badge>
+
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                             Pilih <span className="text-blue-600">Paket Kuliah</span> Sesuai Kebutuhanmu
                         </h2>
@@ -71,8 +68,8 @@ export function PricingSection() {
                                 <motion.div whileHover={{ y: -8 }} transition={{ duration: 0.3 }} className="h-full">
                                     <Card
                                         className={`${plan.isPopular
-                                                ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-2xl transform scale-105"
-                                                : "bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl"
+                                            ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-2xl transform scale-105"
+                                            : "bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl"
                                             } transition-all duration-500 h-full overflow-hidden relative group rounded-3xl`}
                                     >
                                         <CardHeader className="relative z-10 text-center pb-6 pt-8">
@@ -90,8 +87,8 @@ export function PricingSection() {
                                                 <div className="mb-3">
                                                     <Badge
                                                         className={`${plan.isPopular
-                                                                ? "bg-white/20 text-white border-white/30"
-                                                                : "bg-blue-100 text-blue-800 border-blue-200"
+                                                            ? "bg-white/20 text-white border-white/30"
+                                                            : "bg-blue-100 text-blue-800 border-blue-200"
                                                             } px-3 py-1 rounded-full text-sm border`}
                                                     >
                                                         {plan.level}
@@ -143,8 +140,8 @@ export function PricingSection() {
                                             {/* CTA Button */}
                                             <Button
                                                 className={`w-full ${plan.isPopular
-                                                        ? "bg-white text-blue-600 hover:bg-blue-50 shadow-lg"
-                                                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                                                    ? "bg-white text-blue-600 hover:bg-blue-50 shadow-lg"
+                                                    : "bg-blue-600 hover:bg-blue-700 text-white"
                                                     } text-lg py-4 rounded-2xl transition-all duration-300 transform group-hover:scale-105 font-semibold`}
                                                 asChild
                                             >

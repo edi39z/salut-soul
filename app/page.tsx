@@ -330,10 +330,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 relative z-10">
           <AnimatedSection>
             <div className="text-center mb-20">
-              <Badge className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-100 to-indigo-100 text-purple-800 text-sm font-medium rounded-full mb-6">
-                <Award className="w-4 h-4 mr-2" />
-                Keunggulan Terbaik
-              </Badge>
+
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Mengapa Memilih <span className="text-purple-600">Universitas Terbuka?</span>
               </h2>
