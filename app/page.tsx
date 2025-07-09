@@ -16,11 +16,8 @@ import {
   Target,
   Shield,
   Globe,
-  TrendingUp,
   Heart,
   Star,
-  Zap,
-  Sparkles,
   FileCheck,
   CheckCircle2,
   Bell,
@@ -31,46 +28,15 @@ import {
 } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { YouTubeSection } from "@/components/ui/youtube-section"
+import { PricingSection } from "@/components/ui/pricing-section"
+import { TargetUtamaSection } from "@/components/ui/target-utama-section"
+import { FacultySelection } from "@/components/ui/faculty-selection"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
 
 export default function HomePage() {
-  const statistics = [
-    {
-      icon: Users,
-      title: "600,000+",
-      description: "Mahasiswa Aktif",
-      color: "from-blue-500 to-blue-600",
-      bgColor: "bg-blue-50",
-      iconColor: "text-blue-600",
-    },
-    {
-      icon: Award,
-      title: "Akreditasi A",
-      description: "BAN-PT",
-      color: "from-emerald-500 to-emerald-600",
-      bgColor: "bg-emerald-50",
-      iconColor: "text-emerald-600",
-    },
-    {
-      icon: BookOpen,
-      title: "50",
-      description: "Program Studi",
-      color: "from-amber-500 to-amber-600",
-      bgColor: "bg-amber-50",
-      iconColor: "text-amber-600",
-    },
-    {
-      icon: GraduationCap,
-      title: "95%",
-      description: "Tingkat Kelulusan",
-      color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50",
-      iconColor: "text-purple-600",
-    },
-  ]
-
   const advantages = [
     {
       icon: Clock,
@@ -116,49 +82,6 @@ export default function HomePage() {
     },
   ]
 
-  const faculties = [
-    {
-      name: "FISIP",
-      fullName: "Fakultas Ilmu Sosial dan Ilmu Politik",
-      programs: ["Administrasi Negara", "Administrasi Niaga", "Ilmu Komunikasi", "Ilmu Perpustakaan"],
-      icon: Users,
-      students: "45,000+",
-      accreditation: "A",
-      color: "from-blue-500 to-indigo-500",
-      bgColor: "bg-gradient-to-br from-blue-50 to-indigo-50",
-    },
-    {
-      name: "FKIP",
-      fullName: "Fakultas Keguruan dan Ilmu Pendidikan",
-      programs: ["Pendidikan Bahasa Indonesia", "Pendidikan Matematika", "Pendidikan Biologi", "PGSD"],
-      icon: BookOpen,
-      students: "120,000+",
-      accreditation: "A",
-      color: "from-emerald-500 to-teal-500",
-      bgColor: "bg-gradient-to-br from-emerald-50 to-teal-50",
-    },
-    {
-      name: "FMIPA",
-      fullName: "Fakultas MIPA",
-      programs: ["Matematika", "Statistika", "Biologi", "Teknologi Pangan"],
-      icon: Target,
-      students: "35,000+",
-      accreditation: "A",
-      color: "from-purple-500 to-violet-500",
-      bgColor: "bg-gradient-to-br from-purple-50 to-violet-50",
-    },
-    {
-      name: "FE",
-      fullName: "Fakultas Ekonomi dan Bisnis",
-      programs: ["Manajemen", "Akuntansi", "Ekonomi Pembangunan", "Ekonomi Syariah"],
-      icon: TrendingUp,
-      students: "80,000+",
-      accreditation: "A",
-      color: "from-amber-500 to-orange-500",
-      bgColor: "bg-gradient-to-br from-amber-50 to-orange-50",
-    },
-  ]
-
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -180,25 +103,19 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-
-
               {/* Main Heading */}
               <div className="space-y-6">
-
-
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.6 }}
                   className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight"
                 >
-                  <br />
                   Kuliah Fleksibel Sesuai{" "}
                   <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                     Gayamu
                   </span>
                 </motion.h1>
-
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -227,7 +144,6 @@ export default function HomePage() {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-
                 <Button
                   asChild
                   size="lg"
@@ -402,73 +318,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Enhanced Statistics Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23000000' fillOpacity='1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          ></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <AnimatedSection>
-            <div className="text-center mb-20">
-              <Badge className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-6">
-                <Star className="w-4 h-4 mr-2" />
-                Dipercaya & Terpercaya
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Dipercaya <span className="text-blue-600">Ribuan Mahasiswa</span>
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Bergabunglah dengan komunitas besar mahasiswa UT yang telah merasakan kualitas pendidikan terbaik
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {statistics.map((stat, index) => (
-              <AnimatedSection key={index} delay={index * 0.1}>
-                <div className="group relative">
-                  {/* Card */}
-                  <div
-                    className={`${stat.bgColor} p-8 rounded-3xl border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden h-full`}
-                  >
-                    {/* Background Gradient */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-3xl`}
-                    ></div>
-
-                    {/* Icon */}
-                    <div className="relative z-10 mb-6">
-                      <div
-                        className={`w-16 h-16 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                      >
-                        <stat.icon className="w-8 h-8 text-white" />
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="relative z-10">
-                      <div className="text-4xl font-bold text-gray-900 mb-2 group-hover:scale-105 transition-transform duration-300">
-                        {stat.title}
-                      </div>
-                      <p className="text-gray-600 font-medium text-lg">{stat.description}</p>
-                    </div>
-
-                    {/* Decorative Element */}
-                    <div className="absolute top-4 right-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* YouTube Section */}
+      <YouTubeSection />
 
       {/* Enhanced Advantages Section */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
@@ -531,6 +382,15 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Pricing Section */}
+      <PricingSection />
+
+      {/* Target Utama Section */}
+      <TargetUtamaSection />
+
+      {/* Faculty Selection */}
+      <FacultySelection />
 
       {/* Alur Pendaftaran Section */}
       <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
@@ -890,180 +750,23 @@ export default function HomePage() {
                       asChild
                     >
                       <Link href="/pendaftaran">
-                        Daftar Sekarang
+                        Mulai Pendaftaran
                         <ArrowRight className="ml-2 w-5 h-5" />
                       </Link>
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-2 border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-4 rounded-full transition-all duration-300 bg-transparent"
+                      asChild
+                    >
+                      <Link href="/kontak">Butuh Bantuan?</Link>
                     </Button>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Enhanced Faculties Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <AnimatedSection>
-            <div className="text-center mb-20">
-              <Badge className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 text-sm font-medium rounded-full mb-6">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Program Unggulan
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Fakultas & <span className="text-emerald-600">Program Studi</span>
-              </h2>
-              <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-                Pilih program studi yang sesuai dengan minat dan passion Anda dari berbagai fakultas terakreditasi
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            {faculties.map((faculty, index) => (
-              <AnimatedSection key={index} delay={index * 0.1}>
-                <div className="group h-full">
-                  <div
-                    className={`${faculty.bgColor} p-8 rounded-3xl border border-white/50 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full relative overflow-hidden`}
-                  >
-                    {/* Background Gradient */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${faculty.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-3xl`}
-                    ></div>
-
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-8 relative z-10">
-                      <div className="flex items-center space-x-4">
-                        <div
-                          className={`w-16 h-16 bg-gradient-to-br ${faculty.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                        >
-                          <faculty.icon className="w-8 h-8 text-white" />
-                        </div>
-                        <div>
-                          <h3 className="text-3xl font-bold text-gray-900 group-hover:text-gray-800 transition-colors">
-                            {faculty.name}
-                          </h3>
-                          <p className="text-gray-600 font-medium text-lg">{faculty.fullName}</p>
-                        </div>
-                      </div>
-                      <div className="text-right flex-shrink-0">
-                        <Badge className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
-                          Akreditasi {faculty.accreditation}
-                        </Badge>
-                        <p className="text-sm text-gray-500 mt-2 font-medium">{faculty.students} Mahasiswa</p>
-                      </div>
-                    </div>
-
-                    {/* Programs */}
-                    <div className="relative z-10">
-                      <p className="font-bold text-gray-800 mb-6 text-lg">Program Studi Unggulan:</p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {faculty.programs.map((program, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center space-x-3 p-3 bg-white/60 rounded-xl hover:bg-white/80 transition-colors duration-200"
-                          >
-                            <div className={`w-2 h-2 bg-gradient-to-br ${faculty.color} rounded-full`}></div>
-                            <span className="text-gray-700 font-medium">{program}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Decorative Elements */}
-                    <div className="absolute top-6 right-6 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-                    <div className="absolute bottom-6 left-6 w-16 h-16 bg-white/5 rounded-full blur-lg"></div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection>
-            <div className="text-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-lg px-10 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-              >
-                <Link href="/akademik">
-                  <BookOpen className="mr-2 w-5 h-5" />
-                  Lihat Semua Program Studi
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* Enhanced CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 relative overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-indigo-400/10 to-purple-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
-        </div>
-
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <AnimatedSection>
-            <Badge className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm text-white text-base font-medium rounded-full mb-8 border border-white/20">
-              <Sparkles className="w-4 h-4 mr-2" />
-              Mulai Perjalanan Anda
-            </Badge>
-
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Siap Memulai{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
-                Perjalanan Pendidikan?
-              </span>
-            </h2>
-
-            <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Jangan tunda lagi impian Anda untuk meraih gelar sarjana. Bergabunglah dengan ribuan mahasiswa yang telah
-              merasakan kemudahan kuliah di Universitas Terbuka.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-              <Button
-                asChild
-                size="lg"
-                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-lg px-10 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
-              >
-                <Link href="/pendaftaran">
-                  <Zap className="mr-2 w-5 h-5" />
-                  Daftar Sekarang
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-
-              <Button
-                asChild
-                size="lg"
-                className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white text-lg px-10 py-4 rounded-full border-2 border-white/30 hover:border-white/50 transition-all duration-300"
-              >
-                <Link href="/kontak">Konsultasi Gratis</Link>
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              {[
-                { icon: CheckCircle, title: "Proses Mudah & Cepat", desc: "Pendaftaran online 24/7" },
-                { icon: Shield, title: "Terjamin & Terpercaya", desc: "Terakreditasi BAN-PT" },
-                { icon: Heart, title: "Dukungan Penuh", desc: "Bimbingan akademik lengkap" },
-              ].map((item, index) => (
-                <div key={index} className="text-center group">
-                  <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 border border-white/20">
-                    <item.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="text-white font-bold text-lg mb-2">{item.title}</h4>
-                  <p className="text-blue-100">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </AnimatedSection>
         </div>
       </section>
 
