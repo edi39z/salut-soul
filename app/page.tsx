@@ -192,7 +192,6 @@ export default function HomePage() {
                   transition={{ duration: 0.8, delay: 0.6 }}
                   className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight"
                 >
-                  <span className="text-pink-500">Kami</span>
                   <br />
                   Kuliah Fleksibel Sesuai{" "}
                   <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">

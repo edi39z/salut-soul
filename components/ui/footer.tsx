@@ -28,13 +28,25 @@ export function Footer() {
         { icon: Facebook, href: "#", label: "Facebook", color: "hover:text-blue-600" },
         { icon: Instagram, href: "#", label: "Instagram", color: "hover:text-pink-600" },
         { icon: Youtube, href: "#", label: "YouTube", color: "hover:text-red-600" },
-        { icon: MessageCircle, href: "https://wa.me/6281234567890", label: "WhatsApp", color: "hover:text-green-600" },
+        {
+            icon: MessageCircle,
+            href: "https://wa.me/6281234567890",
+            label: "WhatsApp",
+            color: "hover:text-green-600",
+        },
     ]
 
     return (
-        <footer className="bg-slate-900 text-white">
+        <footer className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0">
+                <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-blue-100/20 to-indigo-100/20 rounded-full blur-2xl"></div>
+                <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-indigo-100/20 to-purple-100/20 rounded-full blur-2xl"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-br from-blue-50/30 to-indigo-50/30 rounded-full blur-3xl"></div>
+            </div>
+
             {/* Main Footer Content */}
-            <div className="py-12">
+            <div className="relative z-10 py-16">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {/* Brand Section */}
@@ -45,19 +57,21 @@ export function Footer() {
                             transition={{ duration: 0.6 }}
                         >
                             <div className="flex items-center space-x-3 mb-6">
-                                <Image
-                                    src="/Logo_Universitas_Terbuka.ico"
-                                    alt="Logo Universitas Terbuka"
-                                    width={48}
-                                    height={48}
-                                    className="h-12 w-auto"
-                                />
+                                <div className="w-12 h-12 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-blue-100/50 shadow-sm">
+                                    <Image
+                                        src="/Logo_Universitas_Terbuka.ico"
+                                        alt="Logo Universitas Terbuka"
+                                        width={32}
+                                        height={32}
+                                        className="w-8 h-8 object-contain"
+                                    />
+                                </div>
                                 <div>
-                                    <span className="text-xl font-bold">SALUT Soul</span>
-                                    <p className="text-sm text-slate-300">Universitas Terbuka</p>
+                                    <span className="text-xl font-bold text-gray-900">SALUT Soul</span>
+                                    <p className="text-sm text-blue-600">Universitas Terbuka</p>
                                 </div>
                             </div>
-                            <p className="text-slate-200 leading-relaxed mb-6">
+                            <p className="text-gray-700 leading-relaxed mb-6">
                                 Sentra Layanan Universitas Terbuka untuk pendidikan tinggi berkualitas, fleksibel, dan terjangkau di
                                 seluruh Indonesia.
                             </p>
@@ -69,7 +83,7 @@ export function Footer() {
                                         href={social.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center text-slate-300 ${social.color} transition-colors duration-200 hover:bg-slate-700`}
+                                        className={`w-10 h-10 bg-white/60 backdrop-blur-sm rounded-xl flex items-center justify-center text-gray-600 ${social.color} transition-all duration-300 hover:bg-white/80 hover:shadow-md border border-white/50`}
                                         aria-label={social.label}
                                     >
                                         <social.icon className="w-5 h-5" />
@@ -85,13 +99,13 @@ export function Footer() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.1 }}
                         >
-                            <h3 className="text-lg font-semibold mb-6 text-white">Navigasi</h3>
+                            <h3 className="text-lg font-semibold mb-6 text-gray-900">Navigasi</h3>
                             <div className="space-y-3">
                                 {quickLinks.map((link) => (
                                     <Link
                                         key={link.href}
                                         href={link.href}
-                                        className="block text-slate-200 hover:text-white transition-colors duration-200"
+                                        className="block text-gray-700 hover:text-blue-600 transition-colors duration-300"
                                     >
                                         {link.label}
                                     </Link>
@@ -106,13 +120,13 @@ export function Footer() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            <h3 className="text-lg font-semibold mb-6 text-white">Program Populer</h3>
+                            <h3 className="text-lg font-semibold mb-6 text-gray-900">Program Populer</h3>
                             <div className="space-y-3">
                                 {programs.map((program) => (
                                     <Link
                                         key={program.name}
                                         href={program.href}
-                                        className="block text-slate-200 hover:text-white transition-colors duration-200"
+                                        className="block text-gray-700 hover:text-blue-600 transition-colors duration-300"
                                     >
                                         {program.name}
                                     </Link>
@@ -127,15 +141,17 @@ export function Footer() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
-                            <h3 className="text-lg font-semibold mb-6 text-white">Hubungi Kami</h3>
+                            <h3 className="text-lg font-semibold mb-6 text-gray-900">Hubungi Kami</h3>
                             <div className="space-y-4">
                                 <div className="flex items-start space-x-3">
-                                    <MapPin className="w-5 h-5 text-slate-300 mt-1 flex-shrink-0" />
+                                    <div className="w-8 h-8 bg-blue-100/60 backdrop-blur-sm rounded-lg flex items-center justify-center flex-shrink-0 mt-1 border border-blue-200/30">
+                                        <MapPin className="w-4 h-4 text-blue-600" />
+                                    </div>
                                     <div>
-                                        <p className="text-gray-100 font-medium">Alamat</p>
+                                        <p className="text-gray-900 font-medium text-sm mb-1">Alamat</p>
                                         <button
                                             onClick={() => window.open("https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6", "_blank")}
-                                            className="text-slate-200 text-sm hover:text-white transition-colors cursor-pointer text-left"
+                                            className="text-gray-700 text-sm hover:text-blue-600 transition-colors cursor-pointer text-left"
                                         >
                                             Jl. Ncole Permai No.18
                                             <br />
@@ -146,28 +162,40 @@ export function Footer() {
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-3">
-                                    <Phone className="w-5 h-5 text-slate-300 flex-shrink-0" />
+                                    <div className="w-8 h-8 bg-blue-100/60 backdrop-blur-sm rounded-lg flex items-center justify-center flex-shrink-0 border border-blue-200/30">
+                                        <Phone className="w-4 h-4 text-blue-600" />
+                                    </div>
                                     <div>
-                                        <p className="text-gray-100 font-medium">Telepon</p>
-                                        <a href="tel:+6281234567890" className="text-slate-200 hover:text-white transition-colors">
+                                        <p className="text-gray-900 font-medium text-sm">Telepon</p>
+                                        <a
+                                            href="tel:+6281234567890"
+                                            className="text-gray-700 hover:text-blue-600 transition-colors text-sm"
+                                        >
                                             +62 812-3456-7890
                                         </a>
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-3">
-                                    <Mail className="w-5 h-5 text-slate-300 flex-shrink-0" />
+                                    <div className="w-8 h-8 bg-blue-100/60 backdrop-blur-sm rounded-lg flex items-center justify-center flex-shrink-0 border border-blue-200/30">
+                                        <Mail className="w-4 h-4 text-blue-600" />
+                                    </div>
                                     <div>
-                                        <p className="text-gray-100 font-medium">Email</p>
-                                        <a href="mailto:info@salutsoul.ac.id" className="text-slate-200 hover:text-white transition-colors">
+                                        <p className="text-gray-900 font-medium text-sm">Email</p>
+                                        <a
+                                            href="mailto:info@salutsoul.ac.id"
+                                            className="text-gray-700 hover:text-blue-600 transition-colors text-sm"
+                                        >
                                             info@salutsoul.ac.id
                                         </a>
                                     </div>
                                 </div>
                                 <div className="flex items-start space-x-3">
-                                    <Clock className="w-5 h-5 text-slate-300 mt-1 flex-shrink-0" />
+                                    <div className="w-8 h-8 bg-blue-100/60 backdrop-blur-sm rounded-lg flex items-center justify-center flex-shrink-0 mt-1 border border-blue-200/30">
+                                        <Clock className="w-4 h-4 text-blue-600" />
+                                    </div>
                                     <div>
-                                        <p className="text-gray-100 font-medium">Jam Operasional</p>
-                                        <p className="text-slate-200 text-sm">
+                                        <p className="text-gray-900 font-medium text-sm">Jam Operasional</p>
+                                        <p className="text-gray-700 text-sm">
                                             Senin - Jumat: 08:00 - 17:00
                                             <br />
                                             Sabtu: 08:00 - 14:00
@@ -181,7 +209,7 @@ export function Footer() {
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-slate-700 py-6">
+            <div className="relative z-10 border-t border-blue-100/50 py-6 bg-white/40 backdrop-blur-sm">
                 <div className="container mx-auto px-4">
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -190,19 +218,19 @@ export function Footer() {
                         transition={{ duration: 0.6 }}
                         className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
                     >
-                        <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-slate-300 text-sm">
+                        <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm">
                             <p>© {currentYear} SALUT Soul. Semua hak cipta dilindungi.</p>
                             <div className="flex items-center space-x-4">
-                                <Link href="#" className="hover:text-white transition-colors">
+                                <Link href="#" className="hover:text-blue-600 transition-colors">
                                     Kebijakan Privasi
                                 </Link>
                                 <span>•</span>
-                                <Link href="#" className="hover:text-white transition-colors">
+                                <Link href="#" className="hover:text-blue-600 transition-colors">
                                     Syarat & Ketentuan
                                 </Link>
                             </div>
                         </div>
-                        <div className="text-slate-300 text-sm">Dibuat untuk pendidikan Indonesia yang lebih baik</div>
+                        <div className="text-gray-700 text-sm">Dibuat untuk pendidikan Indonesia yang lebih baik</div>
                     </motion.div>
                 </div>
             </div>
