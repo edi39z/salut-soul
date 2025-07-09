@@ -152,7 +152,7 @@ export default function HomePage() {
                 >
                   <Link href="/tentang">
                     <Play className="mr-2 w-5 h-5" />
-                    Cek Brosur
+                    Tentang Kami
                   </Link>
                 </Button>
               </motion.div>

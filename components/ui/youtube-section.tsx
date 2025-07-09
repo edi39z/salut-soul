@@ -5,14 +5,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import {
     Play,
-    Users,
-    Eye,
-    Calendar,
     Youtube,
     BookOpen,
     GraduationCap,
     Award,
-    Clock,
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -25,12 +21,7 @@ export function YouTubeSection() {
     const videoUrl = `https://www.youtube.com/embed/${videoId}?start=${startTime}&autoplay=1&rel=0`
     const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
 
-    const stats = [
-        { icon: Eye, label: "Views", value: "3.3K", color: "text-red-600" },
-        { icon: Users, label: "Subscribers", value: "5.76K", color: "text-blue-600" },
-        { icon: Calendar, label: "Published", value: "2 months ago", color: "text-green-600" },
-        { icon: Clock, label: "Duration", value: "7:14", color: "text-purple-600" },
-    ]
+
 
     const features = [
         {
@@ -111,21 +102,11 @@ export function YouTubeSection() {
                                                                 </div>
                                                                 <div>
                                                                     <h3 className="text-white font-bold text-xl">Video Teaser UT</h3>
-                                                                    <p className="text-gray-300 text-sm">UT Medan 12</p>
+
                                                                 </div>
                                                             </div>
 
-                                                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                                                {stats.map((stat, idx) => (
-                                                                    <div key={idx} className="text-center">
-                                                                        <div className="flex items-center justify-center space-x-2 mb-1">
-                                                                            <stat.icon className={`w-4 h-4 ${stat.color}`} />
-                                                                            <span className="text-white font-semibold text-sm">{stat.value}</span>
-                                                                        </div>
-                                                                        <p className="text-gray-400 text-xs">{stat.label}</p>
-                                                                    </div>
-                                                                ))}
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </>
