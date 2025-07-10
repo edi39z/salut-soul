@@ -198,7 +198,7 @@ export function BeritaSection() {
                                                         <Calendar className="w-4 h-4 mr-2" />
                                                         <span>{formatDate(item.tanggal)}</span>
                                                         <Clock className="w-4 h-4 ml-4 mr-2" />
-                                                        <span>5 min read</span>
+
                                                     </div>
 
                                                     {/* Title */}
@@ -260,7 +260,7 @@ export function BeritaSection() {
                         size="lg"
                         className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
                     >
-                        <Link href="/berita">
+                        <Link href="https://www.ut.ac.id/kategori/berita/">
                             Lihat Semua Berita
                             <ArrowRight className="ml-2 w-5 h-5" />
                         </Link>
