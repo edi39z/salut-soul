@@ -4,7 +4,6 @@ import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { WhatsappButton } from "@/components/ui/whatsapp-button"
-import BrosurPopup from "@/components/ui/brosur-popup"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -42,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${inter.variable} ${poppins.variable}`}>
       <body className={inter.className}>
-        <BrosurPopup />
+
         {children}
         <WhatsappButton />
         <Toaster />

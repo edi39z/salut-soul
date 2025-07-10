@@ -2,6 +2,7 @@
 
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
+import BrosurPopup from "@/components/ui/brosur-popup"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -769,6 +770,7 @@ export default function HomePage() {
 
       {/* Berita Section - Now positioned right before Footer */}
       <BeritaSection />
+      <BrosurPopup />
 
       <Footer />
     </div>

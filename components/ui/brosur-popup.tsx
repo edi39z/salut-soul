@@ -55,7 +55,8 @@ const BrosurPopup = () => {
         >
           <X size={20} />
         </button>
-        <a href={brosur.linkUrl} target="_blank" rel="noopener noreferrer" className="block">
+        <a href={brosur.linkUrl} className="block">
+
           <Image
             src={brosur.imageUrl || "/placeholder.svg"}
             alt="Brosur Universitas Terbuka"

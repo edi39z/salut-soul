@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
-
+import Image from "next/image"
 import type React from "react"
 import { useState } from "react"
 import { Navbar } from "@/components/ui/navbar"
@@ -161,7 +161,7 @@ export default function KontakPage() {
       icon: MapPin,
       title: "Alamat",
       content: "Jl. Ncole Permai No.18, Medan Tuntungan",
-      description: "Kunjungi kantor kami untuk konsultasi tatap muka",
+
       action: "https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6",
       actionText: "Buka Maps",
       color: "from-amber-500 to-amber-600",
@@ -340,9 +340,9 @@ export default function KontakPage() {
                 </CardContent>
               </Card>
 
-              {/* Location Map */}
               <Card className="border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 overflow-hidden relative">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gray-200/30 to-slate-200/30 rounded-full blur-2xl"></div>
+
                 <CardHeader className="relative z-10 p-8">
                   <CardTitle className="flex items-center space-x-4 text-2xl">
                     <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
@@ -350,37 +350,35 @@ export default function KontakPage() {
                     </div>
                     <span className="font-bold text-gray-900">Lokasi Kantor</span>
                   </CardTitle>
-                  <CardDescription className="text-gray-600 text-lg mt-2">SALUT Soul Medan</CardDescription>
                 </CardHeader>
+
                 <CardContent className="relative z-10 p-8 pt-0">
                   <div className="space-y-6">
-                    <div className="bg-white/80 p-6 rounded-2xl">
-                      <p className="font-bold text-gray-900 text-lg mb-3">Alamat Lengkap:</p>
-                      <p className="text-gray-600 leading-relaxed">
-                        Jl. Ncole Permai No.18
-                        <br />
-                        Kemenangan Tani, Kec. Medan Tuntungan
-                        <br />
-                        Kota Medan, Sumatera Utara 20134
-                      </p>
-                    </div>
-                    {/* Map Placeholder */}
+
+                    {/* ✅ Map Gambar Sesuai Warna Card */}
                     <div
-                      className="w-full h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center shadow-inner cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                      className="w-full h-64 rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-xl transition-shadow duration-300 bg-gradient-to-br from-white to-gray-50 relative"
                       onClick={() => window.open("https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6", "_blank")}
                     >
-                      <div className="text-center">
-                        <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                          <MapPin className="w-10 h-10 text-white" />
-                        </div>
-                        <p className="text-gray-600 font-semibold text-lg mb-2">Klik untuk membuka Google Maps</p>
-                        <p className="text-sm text-gray-500">
-                          Jl. Ncole Permai No.18
-                          <br />
-                          Medan Tuntungan, Medan
-                        </p>
-                      </div>
+                      <Image
+                        src="/images/lokasi.png"
+                        alt="Lokasi SALUT Soul"
+                        width={1200}
+                        height={400}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/10 hover:bg-black/20 transition" />
                     </div>
+
+                    <div className="text-center mt-6">
+                      <p className="text-gray-600 font-semibold text-lg mb-2">Klik untuk membuka Google Maps</p>
+                      <p className="text-sm text-gray-500">
+                        Jl. Ncole Permai No.18
+                        <br />
+                        Medan Tuntungan, Medan
+                      </p>
+                    </div>
+
                     <Button
                       className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
                       onClick={() => window.open("https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6", "_blank")}
@@ -391,6 +389,7 @@ export default function KontakPage() {
                   </div>
                 </CardContent>
               </Card>
+
             </div>
           </div>
         </div>

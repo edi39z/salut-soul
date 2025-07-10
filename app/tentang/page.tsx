@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
 "use client"
-
+import Image from "next/image"
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils"
 import { Poppins } from "next/font/google"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
 
 const fontHeading = Poppins({
   subsets: ["latin"],
@@ -399,28 +400,49 @@ export default function TentangPage() {
                 </Card>
                 <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 overflow-hidden relative">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gray-200/30 to-slate-200/30 rounded-full blur-2xl"></div>
-                  <CardHeader className="relative z-10">
-                    <CardTitle className="text-2xl">Peta Lokasi</CardTitle>
+
+                  <CardHeader className="relative z-10 px-6 pt-6">
+                    <CardTitle className="text-2xl font-semibold text-gray-900">Peta Lokasi</CardTitle>
                   </CardHeader>
-                  <CardContent className="relative z-10">
+
+                  <CardContent className="relative z-10 px-6 pb-6 pt-0 space-y-6">
+                    {/* Gambar Lokasi */}
                     <div
-                      className="w-full h-80 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center shadow-inner cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                      className="w-full h-80 rounded-2xl overflow-hidden cursor-pointer bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-xl transition-shadow duration-300 relative"
                       onClick={() => window.open("https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6", "_blank")}
                     >
-                      <div className="text-center">
-                        <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                          <MapPin className="w-10 h-10 text-white" />
-                        </div>
-                        <p className="text-gray-600 font-semibold text-lg mb-2">Klik untuk membuka Google Maps</p>
-                        <p className="text-sm text-gray-500">
-                          Jl. Ncole Permai No.18
-                          <br />
-                          Medan Tuntungan, Medan
-                        </p>
-                      </div>
+                      <Image
+                        src="/images/lokasi.png"
+                        alt="Lokasi SALUT Soul"
+                        width={1200}
+                        height={400}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/10 hover:bg-black/20 transition" />
                     </div>
+
+                    {/* Informasi Alamat */}
+                    <div className="text-center">
+                      <p className="text-gray-600 font-semibold text-lg mb-2">Klik gambar atau tombol untuk membuka Google Maps</p>
+                      <p className="text-sm text-gray-500 leading-snug">
+                        Jl. Ncole Permai No.18
+                        <br />
+                        Medan Tuntungan, Medan
+                      </p>
+                    </div>
+
+                    {/* Tombol */}
+                    <Button
+                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                      onClick={() => window.open("https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6", "_blank")}
+                    >
+                      <MapPin className="w-4 h-4 mr-2" />
+                      Buka di Google Maps
+                    </Button>
                   </CardContent>
                 </Card>
+
+
               </div>
             </div>
           </div>
