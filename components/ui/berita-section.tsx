@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, Clock, ArrowRight, Newspaper, ExternalLink } from "lucide-react"
+import { Calendar, ArrowRight, Newspaper, ExternalLink } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -197,7 +197,6 @@ export function BeritaSection() {
                                                     <div className="flex items-center text-sm text-gray-500 mb-4">
                                                         <Calendar className="w-4 h-4 mr-2" />
                                                         <span>{formatDate(item.tanggal)}</span>
-                                                        <Clock className="w-4 h-4 ml-4 mr-2" />
 
                                                     </div>
 
