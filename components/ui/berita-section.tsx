@@ -81,7 +81,7 @@ export function BeritaSection() {
                             Berita Terkini
                         </Badge>
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                            Kabar Terbaru <span className="text-blue-600">UT Medan</span>
+                            Kabar Terbaru <span className="text-blue-600">UT</span>
                         </h2>
                     </div>
                     <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto">
@@ -146,10 +146,10 @@ export function BeritaSection() {
                         Berita Terkini
                     </Badge>
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                        Kabar Terbaru <span className="text-blue-600">UT Medan</span>
+                        Kabar Terbaru <span className="text-blue-600">UT</span>
                     </h2>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                        Ikuti perkembangan terbaru dan berbagai kegiatan menarik di Universitas Terbuka Medan
+                        Ikuti perkembangan terbaru dan berbagai kegiatan menarik di Universitas Terbuka
                     </p>
                 </motion.div>
 
