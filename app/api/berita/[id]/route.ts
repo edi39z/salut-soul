@@ -3,53 +3,50 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+/**
+ * Ambil ID dari path URL seperti /api/berita/[id]
+ */
+function extractIdFromUrl(request: NextRequest): string {
+    const segments = request.nextUrl.pathname.split("/")
+    return segments[segments.length - 1]
+}
+
+export async function GET(request: NextRequest) {
     try {
-        const { id } = params
+        const id = extractIdFromUrl(request)
 
         const berita = await prisma.berita.findUnique({
             where: {
-                id: id,
+                id,
                 aktif: true,
             },
         })
 
         if (!berita) {
             return NextResponse.json(
-                {
-                    success: false,
-                    error: "Berita not found",
-                },
-                { status: 404 },
+                { success: false, error: "Berita tidak ditemukan" },
+                { status: 404 }
             )
         }
 
-        return NextResponse.json({
-            success: true,
-            data: berita,
-        })
+        return NextResponse.json({ success: true, data: berita })
     } catch (error) {
         console.error("Error fetching berita:", error)
         return NextResponse.json(
-            {
-                success: false,
-                error: "Failed to fetch berita",
-            },
-            { status: 500 },
+            { success: false, error: "Gagal mengambil data berita" },
+            { status: 500 }
         )
     }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest) {
     try {
-        const { id } = params
+        const id = extractIdFromUrl(request)
         const body = await request.json()
         const { judul, konten, gambar, slug, linkUrl, aktif } = body
 
         const berita = await prisma.berita.update({
-            where: {
-                id: id,
-            },
+            where: { id },
             data: {
                 ...(judul && { judul }),
                 ...(konten && { konten }),
@@ -60,44 +57,33 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
             },
         })
 
-        return NextResponse.json({
-            success: true,
-            data: berita,
-        })
+        return NextResponse.json({ success: true, data: berita })
     } catch (error) {
         console.error("Error updating berita:", error)
         return NextResponse.json(
-            {
-                success: false,
-                error: "Failed to update berita",
-            },
-            { status: 500 },
+            { success: false, error: "Gagal memperbarui data berita" },
+            { status: 500 }
         )
     }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest) {
     try {
-        const { id } = params
+        const id = extractIdFromUrl(request)
 
         await prisma.berita.delete({
-            where: {
-                id: id,
-            },
+            where: { id },
         })
 
         return NextResponse.json({
             success: true,
-            message: "Berita deleted successfully",
+            message: "Berita berhasil dihapus",
         })
     } catch (error) {
         console.error("Error deleting berita:", error)
         return NextResponse.json(
-            {
-                success: false,
-                error: "Failed to delete berita",
-            },
-            { status: 500 },
+            { success: false, error: "Gagal menghapus berita" },
+            { status: 500 }
         )
     }
 }
