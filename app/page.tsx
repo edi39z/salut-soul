@@ -330,7 +330,6 @@ export default function HomePage() {
         <div className="container mx-auto px-4 relative z-10">
           <AnimatedSection>
             <div className="text-center mb-20">
-
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Mengapa Memilih <span className="text-purple-600">Universitas Terbuka?</span>
               </h2>

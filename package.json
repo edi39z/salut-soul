@@ -9,6 +9,7 @@
         "lint": "next lint",
         "db:generate": "prisma generate",
         "db:push": "prisma db push",
+        "test": "vitest",
         "db:seed": "tsx prisma/seed.ts"
     },
     "dependencies": {
@@ -50,7 +51,8 @@
         "prisma": "^6.10.1",
         "tailwindcss": "^3.4.17",
         "tsx": "^4.19.2",
-        "typescript": "^5"
+        "typescript": "^5",
+        "vitest": "^3.2.4"
     },
     "prisma": {
         "seed": "tsx prisma/seed.ts"
