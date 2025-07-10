@@ -32,6 +32,7 @@ import { YouTubeSection } from "@/components/ui/youtube-section"
 import { PricingSection } from "@/components/ui/pricing-section"
 import { TargetUtamaSection } from "@/components/ui/target-utama-section"
 import { FacultySelection } from "@/components/ui/faculty-selection"
+import { BeritaSection } from "@/components/ui/berita-section"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import Image from "next/image"
@@ -387,6 +388,9 @@ export default function HomePage() {
 
       {/* Faculty Selection */}
       <FacultySelection />
+
+      {/* Berita Section */}
+      <BeritaSection />
 
       {/* Alur Pendaftaran Section */}
       <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
