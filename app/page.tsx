@@ -389,9 +389,6 @@ export default function HomePage() {
       {/* Faculty Selection */}
       <FacultySelection />
 
-      {/* Berita Section */}
-      <BeritaSection />
-
       {/* Alur Pendaftaran Section */}
       <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="container mx-auto px-4">
@@ -769,6 +766,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Berita Section - Now positioned right before Footer */}
+      <BeritaSection />
 
       <Footer />
     </div>
