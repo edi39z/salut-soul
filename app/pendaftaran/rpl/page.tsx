@@ -606,11 +606,11 @@ export default function PendaftaranRPLPage() {
                                     </div>
                                     <div>
                                         <Label htmlFor="programStudi">Program Studi *</Label>
-                                            <Select
-                                                value={formData.programStudi ? `${formData.programStudi}|${formData.jenjang}` : ""}
-                                                onValueChange={(value) => handleInputChange("programStudi", value)}
-                                                disabled={!formData.fakultas || loadingProgramStudi}
-                                            >
+                                        <Select
+                                            value={formData.programStudi ? `${formData.programStudi}|${formData.jenjang}` : ""}
+                                            onValueChange={(value) => handleInputChange("programStudi", value)}
+                                            disabled={!formData.fakultas || loadingProgramStudi}
+                                        >
                                             <SelectTrigger>
                                                 <SelectValue
                                                     placeholder={
@@ -739,12 +739,12 @@ export default function PendaftaranRPLPage() {
                                                     Screenshot data pribadi PDDIKTI mahasiswa dapat diakses di:
                                                 </p>
                                                 <a
-                                                    href="https://pddikti.kemendikbud.go.id"
+                                                    href="https://pddikti.kemdiktisaintek.go.id/"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="text-emerald-600 hover:text-emerald-800 underline text-sm font-medium"
                                                 >
-                                                    https://pddikti.kemendikbud.go.id
+                                                    https://pddikti.kemdiktisaintek.go.id
                                                 </a>
                                             </div>
                                         </div>
