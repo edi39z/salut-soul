@@ -1,5 +1,5 @@
 "use client"
-
+import QRCodeLokasi from "@/components/QRCodeLokasi";
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
@@ -89,6 +89,9 @@ export function Footer() {
                                         <social.icon className="w-5 h-5" />
                                     </a>
                                 ))}
+                            </div>
+                            <div>
+                                <QRCodeLokasi />
                             </div>
                         </motion.div>
 
