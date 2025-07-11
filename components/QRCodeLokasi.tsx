@@ -2,7 +2,7 @@
 import QRCode from "react-qr-code"
 
 export default function QRCodeLokasi() {
-    const url = "https://maps.app.goo.gl/dUmmZ3b3CvDH35MP6"
+    const url = "https://maps.app.goo.gl/GuR58Zg6qn8jXgoT8"
 
     return (
         <div className="mt-6 flex flex-col items-start">
