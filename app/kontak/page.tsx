@@ -497,7 +497,6 @@ export default function KontakPage() {
           </div>
         </div>
       </section>
-
       <Footer />
     </div>
   )

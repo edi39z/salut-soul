@@ -150,7 +150,8 @@ export default function HomePage() {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="text-lg px-8 py-4 rounded-full border-2 border-orange-300 text-orange-600 hover:bg-orange-50 hover:border-orange-400 transition-all duration-300 bg-transparent"
+                  className="text-lg px-8 py-4 rounded-full border-2 border-orange-300 text-orange-600 bg-transparent hover:bg-orange-500 hover:text-white hover:border-orange-600 transition-all duration-300"
+
                 >
                   <Link href="/tentang">
                     <Play className="mr-2 w-5 h-5" />
