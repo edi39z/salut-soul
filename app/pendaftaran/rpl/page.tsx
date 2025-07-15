@@ -729,7 +729,6 @@ export default function PendaftaranRPLPage() {
                                         </div>
                                     </div>
 
-                                    {/* PDDIKTI Information */}
                                     <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
                                         <div className="flex items-start gap-2">
                                             <AlertCircle className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
