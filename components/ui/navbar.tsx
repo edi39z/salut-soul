@@ -3,7 +3,15 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Menu, ChevronDown } from "lucide-react"
 import { motion } from "framer-motion"
@@ -177,7 +185,11 @@ export function Navbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-80 bg-white/95 backdrop-blur-xl">
-              <div className="flex flex-col space-y-4 mt-8">
+              <SheetHeader className="sr-only">
+                <SheetTitle>Menu</SheetTitle>
+                <SheetDescription>Navigasi utama situs web</SheetDescription>
+              </SheetHeader>
+              <div className="flex flex-col space-y-2 mt-8">
                 <Link
                   href="/"
                   className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
@@ -186,68 +198,86 @@ export function Navbar() {
                   Beranda
                 </Link>
 
-                {/* Mobile Akademik */}
-                <div className="space-y-2">
-                  <div className="px-4 py-2 font-semibold text-gray-900 border-b border-blue-100">Akademik</div>
-                  {akademikItems.map((item, index) => (
-                    <Link
-                      key={index}
-                      href={item.href}
-                      className="block px-6 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
+                <Accordion type="single" collapsible className="w-full">
+                  {/* Mobile Akademik */}
+                  <AccordionItem value="akademik" className="border-none">
+                    <AccordionTrigger className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:no-underline">
+                      Akademik
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-0">
+                      <div className="flex flex-col space-y-1 pl-4 border-l-2 border-blue-100 ml-4">
+                        {akademikItems.map((item, index) => (
+                          <Link
+                            key={index}
+                            href={item.href}
+                            className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
 
-                <Link
-                  href="https://www.ut.ac.id/kategori/berita/"
-                  className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Berita
-                </Link>
+                  <Link
+                    href="https://www.ut.ac.id/kategori/berita/"
+                    className="block px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Berita
+                  </Link>
 
-                {/* Mobile Layanan Mahasiswa */}
-                <div className="space-y-2">
-                  <div className="px-4 py-2 font-semibold text-gray-900 border-b border-blue-100">
-                    Layanan Mahasiswa
-                  </div>
-                  {layananItems.map((item, index) => (
-                    <Link
-                      key={index}
-                      href={item.href}
-                      className="block px-6 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
+                  {/* Mobile Layanan Mahasiswa */}
+                  <AccordionItem value="layanan" className="border-none">
+                    <AccordionTrigger className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:no-underline">
+                      Layanan Mahasiswa
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-0">
+                      <div className="flex flex-col space-y-1 pl-4 border-l-2 border-blue-100 ml-4">
+                        {layananItems.map((item, index) => (
+                          <Link
+                            key={index}
+                            href={item.href}
+                            className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
 
-                <Link
-                  href="/tentang"
-                  className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Tentang
-                </Link>
+                  <Link
+                    href="/tentang"
+                    className="block px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Tentang
+                  </Link>
 
-                {/* Mobile Kontak */}
-                <div className="space-y-2">
-                  <div className="px-4 py-2 font-semibold text-gray-900 border-b border-blue-100">Kontak</div>
-                  {kontakItems.map((item, index) => (
-                    <Link
-                      key={index}
-                      href={item.href}
-                      className="block px-6 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
+                  {/* Mobile Kontak */}
+                  <AccordionItem value="kontak" className="border-none">
+                    <AccordionTrigger className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:no-underline">
+                      Kontak
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-0">
+                      <div className="flex flex-col space-y-1 pl-4 border-l-2 border-blue-100 ml-4">
+                        {kontakItems.map((item, index) => (
+                          <Link
+                            key={index}
+                            href={item.href}
+                            className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-300"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
 
                 <Button
                   asChild
