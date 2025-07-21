@@ -93,6 +93,7 @@
 }
 
 @layer components {
+
   /* Academic Buttons */
   .btn-primary {
     @apply bg-blue-700 hover:bg-blue-800 text-white font-medium px-6 py-3 rounded-lg transition-colors duration-200 border-0 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
@@ -342,4 +343,9 @@ html {
 
 .hover-scale:hover {
   transform: scale(1.02);
+}
+
+/* Custom text shadow for readability on images */
+.text-shadow-lg {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
 }
