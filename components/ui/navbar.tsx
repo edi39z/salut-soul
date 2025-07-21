@@ -1,16 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Menu, ChevronDown } from "lucide-react"
@@ -19,6 +12,20 @@ import Image from "next/image"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true)
+      } else {
+        setScrolled(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const akademikItems = [
     { name: "Kalender Akademik", href: "https://www.ut.ac.id/kalender-akademik/" },
@@ -48,140 +55,61 @@ export function Navbar() {
   ]
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-lg border-b border-gray-100 shadow-sm">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-100"
-            >
-              <Image
-                src="/Logo_Universitas_Terbuka.ico"
-                alt="Logo Universitas Terbuka"
-                width={32}
-                height={32}
-                className="w-8 h-8 object-contain"
-              />
-            </motion.div>
-            <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
-                Salut Soul
-              </h1>
-              <p className="text-sm text-gray-500">Universitas Terbuka</p>
-            </div>
-          </Link>
+    <nav
+      className={`fixed top-0 z-50 w-full transition-colors duration-300 ${scrolled ? "bg-white/95 backdrop-blur-lg border-b border-gray-100 shadow-sm" : "bg-transparent"
+        }`}
+    >
+      {/* Tier 1: Logos (visible on all screen sizes, but simplified on mobile) */}
+      <div className="container mx-auto px-4 h-28 flex items-center justify-between lg:h-24">
+        {/* Left: Vercel Logo and Text */}
+        <Link
+          href="https://vercel.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center space-x-2 group"
+        >
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+            className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-md border border-gray-100"
+          >
+            <Image src="/vercel.png" alt="Vercel Logo" width={24} height={24} className="w-6 h-6 object-contain" />
+          </motion.div>
+          <span
+            className={`text-lg font-bold ${scrolled ? "text-gray-900" : "text-white text-shadow-lg"} group-hover:text-blue-600 transition-colors duration-300 hidden sm:block`}
+          >
+            Vercel
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {/* Beranda */}
-            <Link
-              href="/"
-              className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105"
-            >
-              Beranda
-            </Link>
+        {/* Right: UT Logo and Salut Soul Text */}
+        <Link href="/" className="flex items-center space-x-2 group">
+          <span
+            className={`text-lg font-bold ${scrolled ? "text-gray-900" : "text-white text-shadow-lg"} group-hover:text-blue-600 transition-colors duration-300 hidden sm:block`}
+          >
+            Salut Soul
+          </span>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+            className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-md border border-gray-100"
+          >
+            <Image
+              src="/Logo_Universitas_Terbuka.ico"
+              alt="Logo Universitas Terbuka"
+              width={24}
+              height={24}
+              className="w-6 h-6 object-contain"
+            />
+          </motion.div>
+        </Link>
 
-            {/* Akademik Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105 group">
-                  Akademik
-                  <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-64 p-2 bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-2xl">
-                {akademikItems.map((item, index) => (
-                  <DropdownMenuItem key={index} asChild>
-                    <Link
-                      href={item.href}
-                      className="flex items-center w-full px-4 py-3 text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer"
-                    >
-                      {item.name}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Berita */}
-            <Link
-              href="https://www.ut.ac.id/kategori/berita/"
-              className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105"
-            >
-              Berita
-            </Link>
-
-            {/* Layanan Mahasiswa Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105 group">
-                  Layanan Mahasiswa
-                  <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 p-2 bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-2xl">
-                {layananItems.map((item, index) => (
-                  <DropdownMenuItem key={index} asChild>
-                    <Link
-                      href={item.href}
-                      className="flex items-center w-full px-4 py-3 text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer"
-                    >
-                      {item.name}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Tentang */}
-            <Link
-              href="/tentang"
-              className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105"
-            >
-              Tentang
-            </Link>
-
-            {/* Kontak Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="flex items-center px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105 group">
-                  Kontak
-                  <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180" />
-                </button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 p-2 bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-2xl">
-                {kontakItems.map((item, index) => (
-                  <DropdownMenuItem key={index} asChild>
-                    <Link
-                      href={item.href}
-                      className="flex items-center w-full px-4 py-3 text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer"
-                    >
-                      {item.name}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <Button
-              asChild
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            >
-              <Link href="/pendaftaran">Daftar Sekarang</Link>
-            </Button>
-          </div>
-
-          {/* Mobile Menu */}
+        {/* Mobile Menu Trigger (moved to Tier 1 for better visibility) */}
+        <div className="lg:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="lg:hidden">
+            <SheetTrigger asChild>
               <Button variant="ghost" size="sm" className="p-2">
-                <Menu className="h-6 w-6" />
+                <Menu className={`h-6 w-6 ${scrolled ? "text-gray-900" : "text-white"}`} />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-80 bg-white/95 backdrop-blur-xl">
@@ -290,6 +218,113 @@ export function Navbar() {
               </div>
             </SheetContent>
           </Sheet>
+        </div>
+      </div>
+
+      {/* Tier 2: Navigation Links (Desktop Only) */}
+      <div className={`hidden lg:flex justify-center h-16 items-center ${scrolled ? "border-t border-gray-100" : ""}`}>
+        <div className="flex items-center space-x-1">
+          {/* Beranda */}
+          <Link
+            href="/"
+            className={`px-4 py-2 font-medium rounded-xl transition-all duration-300 hover:scale-105 ${scrolled ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50" : "text-white hover:text-blue-200 text-shadow-lg"}`}
+          >
+            Beranda
+          </Link>
+
+          {/* Akademik Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className={`flex items-center px-4 py-2 font-medium rounded-xl transition-all duration-300 hover:scale-105 group ${scrolled ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50" : "text-white hover:text-blue-200 text-shadow-lg"}`}
+              >
+                Akademik
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180 ${scrolled ? "" : "text-white"}`}
+                />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-64 p-2 bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-2xl">
+              {akademikItems.map((item, index) => (
+                <DropdownMenuItem key={index} asChild>
+                  <Link
+                    href={item.href}
+                    className="flex items-center w-full px-4 py-3 text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer"
+                  >
+                    {item.name}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Berita */}
+          <Link
+            href="https://www.ut.ac.id/kategori/berita/"
+            className={`px-4 py-2 font-medium rounded-xl transition-all duration-300 hover:scale-105 ${scrolled ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50" : "text-white hover:text-blue-200 text-shadow-lg"}`}
+          >
+            Berita
+          </Link>
+
+          {/* Layanan Mahasiswa Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className={`flex items-center px-4 py-2 font-medium rounded-xl transition-all duration-300 hover:scale-105 group ${scrolled ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50" : "text-white hover:text-blue-200 text-shadow-lg"}`}
+              >
+                Layanan Mahasiswa
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180 ${scrolled ? "" : "text-white"}`}
+                />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 p-2 bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-2xl">
+              {layananItems.map((item, index) => (
+                <DropdownMenuItem key={index} asChild>
+                  <Link
+                    href={item.href}
+                    className="flex items-center w-full px-4 py-3 text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer"
+                  >
+                    {item.name}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Tentang */}
+          <Link
+            href="/tentang"
+            className={`px-4 py-2 font-medium rounded-xl transition-all duration-300 hover:scale-105 ${scrolled ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50" : "text-white hover:text-blue-200 text-shadow-lg"}`}
+          >
+            Tentang
+          </Link>
+
+          {/* Kontak Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className={`flex items-center px-4 py-2 font-medium rounded-xl transition-all duration-300 hover:scale-105 group ${scrolled ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50" : "text-white hover:text-blue-200 text-shadow-lg"}`}
+              >
+                Kontak
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transition-transform duration-300 group-hover:rotate-180 ${scrolled ? "" : "text-white"}`}
+                />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 p-2 bg-white/95 backdrop-blur-xl border border-gray-100 shadow-2xl rounded-2xl">
+              {kontakItems.map((item, index) => (
+                <DropdownMenuItem key={index} asChild>
+                  <Link
+                    href={item.href}
+                    className="flex items-center w-full px-4 py-3 text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg cursor-pointer"
+                  >
+                    {item.name}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </nav>

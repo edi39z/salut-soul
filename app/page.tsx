@@ -6,26 +6,21 @@ import BrosurPopup from "@/components/ui/brosur-popup"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
-  Users,
-  Award,
   BookOpen,
   Clock,
   DollarSign,
-  CheckCircle,
   ArrowRight,
   GraduationCap,
-  Target,
-  Shield,
-  Globe,
-  Heart,
-  Star,
   FileCheck,
   CheckCircle2,
   Bell,
   UserCheck,
   Calendar,
   AlertCircle,
-  Play,
+  Shield,
+  Heart,
+  Globe,
+  Target,
 } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -36,7 +31,7 @@ import { FacultySelection } from "@/components/ui/faculty-selection"
 import { BeritaSection } from "@/components/ui/berita-section"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import Image from "next/image"
+import { HeroCarousel } from "@/components/ui/hero-carousel" // Import the new carousel component
 
 export default function HomePage() {
   const advantages = [
@@ -88,238 +83,8 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Modern Hero Section with Two-Column Layout */}
-      <section className="relative py-12 lg:py-20 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-200/30 to-indigo-200/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-cyan-200/20 to-blue-200/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-8"
-            >
-              {/* Main Heading */}
-              <div className="space-y-6">
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                  className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight"
-                >
-                  Kuliah Fleksibel Sesuai{" "}
-                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    Gayamu
-                  </span>
-                </motion.h1>
-                <motion.p
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                  className="text-xl text-gray-600 leading-relaxed max-w-lg"
-                >
-                  Bergabunglah dengan <span className="font-bold text-blue-600">600,000+ mahasiswa</span> yang telah
-                  merasakan kemudahan kuliah fleksibel, berkualitas, dan terjangkau.
-                </motion.p>
-              </div>
-
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1 }}
-                className="flex flex-col sm:flex-row gap-4"
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <Link href="/pendaftaran">
-                    Daftar Sekarang
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="text-lg px-8 py-4 rounded-full border-2 border-orange-300 text-orange-600 bg-transparent hover:bg-orange-500 hover:text-white hover:border-orange-600 transition-all duration-300"
-
-                >
-                  <Link href="/tentang">
-                    <Play className="mr-2 w-5 h-5" />
-                    Tentang Kami
-                  </Link>
-                </Button>
-              </motion.div>
-
-              {/* Trust Indicators as Cards */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-                className="flex flex-wrap items-center gap-4 pt-8"
-              >
-                {[
-                  {
-                    icon: CheckCircle,
-                    text: "Terakreditasi A",
-                    color: "from-emerald-500 to-emerald-600",
-                    bgColor: "bg-emerald-50",
-                    textColor: "text-emerald-700",
-                  },
-                  {
-                    icon: Shield,
-                    text: "Ijazah Diakui",
-                    color: "from-blue-500 to-blue-600",
-                    bgColor: "bg-blue-50",
-                    textColor: "text-blue-700",
-                  },
-                  {
-                    icon: Clock,
-                    text: "Fleksibel 24/7",
-                    color: "from-purple-500 to-purple-600",
-                    bgColor: "bg-purple-50",
-                    textColor: "text-purple-700",
-                  },
-                ].map((item, index) => (
-                  <div key={index} className="group">
-                    <div
-                      className={`${item.bgColor} px-4 py-3 rounded-2xl border border-white/50 shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1`}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <div
-                          className={`w-8 h-8 bg-gradient-to-br ${item.color} rounded-full flex items-center justify-center group-hover:scale-110 transition-transform`}
-                        >
-                          <item.icon className="w-4 h-4 text-white" />
-                        </div>
-                        <span className={`font-semibold ${item.textColor} group-hover:scale-105 transition-transform`}>
-                          {item.text}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            </motion.div>
-
-            {/* Right Image with Floating Elements */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative"
-            >
-              <div className="relative">
-                {/* Main Talent Image */}
-                <div className="relative z-10 flex justify-center">
-                  <div className="relative">
-                    <Image
-                      src="/images/talent1.png"
-                      alt="UT Students"
-                      width={500}
-                      height={600}
-                      className="w-full max-w-md h-auto object-contain"
-                      priority
-                    />
-                  </div>
-                </div>
-
-                {/* Floating Stats Cards */}
-                <motion.div
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                  className="absolute top-8 left-4 bg-white rounded-2xl p-4 shadow-xl border border-gray-100 z-20"
-                >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center">
-                      <Users className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-gray-900">600K+</p>
-                      <p className="text-xs text-gray-500">Mahasiswa</p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [5, -5, 5] }}
-                  transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
-                  className="absolute top-32 right-4 bg-white rounded-2xl p-3 shadow-xl border border-gray-100 z-20"
-                >
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-5 h-5 text-emerald-500" />
-                    <span className="text-sm font-semibold text-gray-700">Lulus Tepat Waktu</span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [-3, 7, -3] }}
-                  transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 2 }}
-                  className="absolute bottom-32 left-8 bg-white rounded-2xl p-3 shadow-xl border border-gray-100 z-20"
-                >
-                  <div className="flex items-center space-x-2">
-                    <Star className="w-5 h-5 text-amber-500" />
-                    <span className="text-sm font-semibold text-gray-700">IPK Memuaskan</span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [7, -3, 7] }}
-                  transition={{ duration: 3.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1.5 }}
-                  className="absolute bottom-8 right-8 bg-white rounded-2xl p-4 shadow-xl border border-gray-100 z-20"
-                >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center">
-                      <Award className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-gray-900">Akreditasi A</p>
-                      <p className="text-xs text-gray-500">BAN-PT</p>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Floating Decorative Elements */}
-                <motion.div
-                  animate={{ y: [-10, 10, -10] }}
-                  transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                  className="absolute top-16 right-16 w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg z-10"
-                >
-                  <BookOpen className="w-6 h-6 text-white" />
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [10, -10, 10] }}
-                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
-                  className="absolute top-48 left-2 w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-lg flex items-center justify-center shadow-lg z-10"
-                >
-                  <GraduationCap className="w-5 h-5 text-white" />
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [-5, 15, -5] }}
-                  transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 2 }}
-                  className="absolute bottom-48 right-2 w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg z-10"
-                >
-                  <Award className="w-7 h-7 text-white" />
-                </motion.div>
-
-                {/* Background Gradient Circles */}
-                <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-indigo-200/30 rounded-full blur-2xl z-0"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-gradient-to-br from-cyan-200/20 to-blue-200/20 rounded-full blur-3xl z-0"></div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Carousel Section */}
+      <HeroCarousel />
 
       {/* YouTube Section */}
       <YouTubeSection />
