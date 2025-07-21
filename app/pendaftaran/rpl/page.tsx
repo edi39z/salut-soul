@@ -3,6 +3,7 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
+import { ImageCropper } from "@/components/ui/image-cropper"
 import { useRouter } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -15,6 +16,7 @@ import { useToast } from "@/hooks/use-toast"
 import { LoadingButton } from "@/components/ui/loading-button"
 import { FileText, User, GraduationCap, AlertCircle, CheckCircle, X } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 interface FormData {
     namaLengkap: string
@@ -59,6 +61,8 @@ export default function PendaftaranRPLPage() {
     const [loadingProgramStudi, setLoadingProgramStudi] = useState(false)
     const [agreementChecked, setAgreementChecked] = useState(false)
     const [errors, setErrors] = useState<FormErrors>({})
+  const [cropSrc, setCropSrc] = useState<string | null>(null)
+  const [cropFile, setCropFile] = useState<File | null>(null)
 
     const [formData, setFormData] = useState<FormData>({
         namaLengkap: "",
@@ -202,28 +206,24 @@ export default function PendaftaranRPLPage() {
         if (!file) return
 
         if (documentType === "pasFoto") {
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                const img = new Image()
-                img.onload = () => {
-                    const aspectRatio = img.width / img.height
-                    if (Math.abs(aspectRatio - 2 / 3) > 0.05) {
-                        toast({
-                            title: "Ukuran foto tidak sesuai",
-                            description: "Pas foto harus memiliki rasio 4x6.",
-                            variant: "destructive",
-                        })
-                    } else {
-                        uploadFile(documentType, file)
-                    }
-                }
-                img.src = e.target?.result as string
-            }
-            reader.readAsDataURL(file)
+            setCropFile(file)
+            setCropSrc(URL.createObjectURL(file))
         } else {
             uploadFile(documentType, file)
         }
     }
+
+  const handleCropComplete = (croppedImageBlob: Blob) => {
+    if (cropFile) {
+      const croppedFile = new File([croppedImageBlob], cropFile.name, {
+        type: cropFile.type,
+        lastModified: Date.now(),
+      })
+      uploadFile("pasFoto", croppedFile)
+    }
+    setCropSrc(null)
+    setCropFile(null)
+  }
 
     const uploadFile = async (documentType: string, file: File) => {
         setUploadingFiles((prev) => ({ ...prev, [documentType]: true }))
@@ -265,17 +265,17 @@ export default function PendaftaranRPLPage() {
         }
     }
 
-    const handleRemoveFile = (documentType: string) => {
-        setUploadedDocuments((prev) => {
-            const newDocs = { ...prev }
-            delete newDocs[documentType]
-            return newDocs
-        })
-        toast({
-            title: "File dihapus",
-            description: `${getDocumentLabel(documentType)} berhasil dihapus`,
-        })
-    }
+  const handleRemoveFile = (documentType: string) => {
+    setUploadedDocuments((prev) => {
+      const newDocs = { ...prev }
+      delete newDocs[documentType]
+      return newDocs
+    })
+    toast({
+      title: "File dihapus",
+      description: `${getDocumentLabel(documentType)} berhasil dihapus`,
+    })
+  }
 
     const getDocumentLabel = (documentType: string) => {
         const labels: Record<string, string> = {
@@ -283,39 +283,46 @@ export default function PendaftaranRPLPage() {
             ktp: "Kartu Tanda Penduduk",
             ijazah: "Scan Ijazah Terakhir",
             formulir: "Formulir Kebenaran dan Keabsahan Dokumen",
-            skPengangkatan: "SK Pengangkatan Guru",
-            skMengajar: "SK Mengajar dari Kepala Sekolah",
             ijazahSMA: "Scan Ijazah SMA/Sederajat Asli",
             screenshotPDDIKTI: "Screenshot Data Pribadi PDDIKTI",
         }
         return labels[documentType] || documentType
     }
 
-    const validateForm = () => {
-        const newErrors: FormErrors = {}
-        let isValid = true
+  const validateForm = () => {
+    const newErrors: FormErrors = {}
+    let isValid = true
 
-        Object.keys(formData).forEach((key) => {
-            const field = key as keyof FormData
-            const error = validateField(field, formData[field])
-            if (error) {
-                newErrors[field] = error
-                isValid = false
-            }
-        })
+    Object.keys(formData).forEach((key) => {
+      const field = key as keyof FormData
+      const error = validateField(field, formData[field])
+      if (error) {
+        newErrors[field] = error
+        isValid = false
+      }
+    })
 
-        if (!formData.fakultas) {
-            newErrors.fakultas = "Fakultas harus dipilih"
-            isValid = false
-        }
-        if (!formData.programStudi) {
-            newErrors.programStudi = "Program studi harus dipilih"
-            isValid = false
-        }
-
-        setErrors(newErrors)
-        return isValid
+    if (!formData.fakultas) {
+      newErrors.fakultas = "Fakultas harus dipilih"
+      isValid = false
     }
+    if (!formData.programStudi) {
+      newErrors.programStudi = "Program studi harus dipilih"
+      isValid = false
+    }
+
+    if (!uploadedDocuments.pasFoto) {
+      isValid = false
+      toast({
+        title: "Upload Dokumen",
+        description: "Pas foto wajib diunggah.",
+        variant: "destructive",
+      })
+    }
+
+    setErrors(newErrors)
+    return isValid
+  }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -455,6 +462,13 @@ export default function PendaftaranRPLPage() {
 
     return (
         <div className="min-h-screen bg-emerald-50 py-12">
+            {cropSrc && (
+                <ImageCropper
+                    src={cropSrc}
+                    onCropComplete={handleCropComplete}
+                    onClose={() => setCropSrc(null)}
+                />
+            )}
             <div className="container mx-auto px-4 max-w-4xl">
                 <Card className="shadow-xl">
                     <CardHeader className="text-center bg-emerald-600 text-white rounded-t-lg">
@@ -690,6 +704,26 @@ export default function PendaftaranRPLPage() {
                                                     <div className="flex items-center gap-2 text-green-700">
                                                         <CheckCircle className="w-5 h-5" />
                                                         <span className="font-medium">File berhasil diupload</span>
+                                                        {uploadedDocuments[doc.key] && (
+                                                            doc.key === "pasFoto" ? (
+                                                                <Image
+                                                                    src={uploadedDocuments[doc.key]}
+                                                                    alt="Preview"
+                                                                    width={40}
+                                                                    height={60}
+                                                                    className="rounded-md object-cover"
+                                                                />
+                                                            ) : (
+                                                                <a 
+                                                                    href={uploadedDocuments[doc.key]} 
+                                                                    target="_blank" 
+                                                                    rel="noopener noreferrer"
+                                                                    className="text-blue-600 hover:underline ml-2"
+                                                                >
+                                                                    {/* Lihat Dokumen */}
+                                                                </a>
+                                                            )
+                                                        )}
                                                     </div>
                                                     <Button
                                                         type="button"
