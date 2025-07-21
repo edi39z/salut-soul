@@ -59,8 +59,6 @@ export function HeroCarousel() {
         setCurrentIndex(index)
     }
 
-
-
     const truncateText = (text: string, maxLength: number) => {
         if (text.length <= maxLength) return text
         return text.substring(0, maxLength) + "..."
@@ -116,17 +114,18 @@ export function HeroCarousel() {
                         priority
                         className="z-0"
                     />
-                    <div className="absolute inset-0 bg-black/50 z-10"></div> {/* Darker overlay for text readability */}
+                    {/* Darker overlay for better text readability */}
+                    <div className="absolute inset-0 bg-black/70 z-10"></div>
                 </motion.div>
             </AnimatePresence>
 
-            <div className="relative z-20 flex items-center h-full px-4 md:px-8 lg:px-16">
-                <div className="max-w-3xl text-white space-y-6">
+            <div className="relative z-20 flex flex-col justify-end h-full px-4 md:px-8 lg:px-16 pb-8 md:pb-16">
+                <div className="max-w-3xl text-white space-y-4 md:space-y-6">
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
-                        className="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-shadow-lg"
+                        className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight !text-white text-shadow-lg" // Explicitly set to white
                     >
                         {currentNews.judul}
                     </motion.h1>
@@ -134,9 +133,9 @@ export function HeroCarousel() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.6 }}
-                        className="text-lg md:text-xl leading-relaxed max-w-xl opacity-90 text-shadow-lg"
+                        className="text-sm md:text-base lg:text-lg leading-relaxed max-w-xl !text-white opacity-90 text-shadow-lg" // Explicitly set to white
                     >
-                        {truncateText(currentNews.konten, 200)}
+                        {truncateText(currentNews.konten, 150)}
                     </motion.p>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -147,22 +146,22 @@ export function HeroCarousel() {
                             <Button
                                 asChild
                                 size="lg"
-                                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-base md:text-lg px-6 py-3 md:px-8 md:py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
                             >
                                 <a href={getReadMoreUrl(currentNews)} target="_blank" rel="noopener noreferrer">
                                     Selengkapnya
-                                    <ExternalLink className="ml-2 w-5 h-5" />
+                                    <ExternalLink className="ml-2 w-4 h-4 md:w-5 md:h-5" />
                                 </a>
                             </Button>
                         ) : (
                             <Button
                                 asChild
                                 size="lg"
-                                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-base md:text-lg px-6 py-3 md:px-8 md:py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
                             >
                                 <Link href={getReadMoreUrl(currentNews)}>
                                     Selengkapnya
-                                    <ArrowRight className="ml-2 w-5 h-5" />
+                                    <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
                                 </Link>
                             </Button>
                         )}
@@ -175,29 +174,29 @@ export function HeroCarousel() {
                 <>
                     <button
                         onClick={handlePrev}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/20 hover:bg-white/40 rounded-full text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white/50"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 bg-white/20 hover:bg-white/40 rounded-full text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white/50"
                         aria-label="Previous slide"
                     >
-                        <ArrowLeft className="w-6 h-6" />
+                        <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
                     <button
                         onClick={handleNext}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 bg-white/20 hover:bg-white/40 rounded-full text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white/50"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 md:p-3 bg-white/20 hover:bg-white/40 rounded-full text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white/50"
                         aria-label="Next slide"
                     >
-                        <ArrowRight className="w-6 h-6" />
+                        <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
                     </button>
                 </>
             )}
 
             {/* Navigation Dots */}
             {berita.length > 1 && (
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
+                <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
                     {berita.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => handleDotClick(index)}
-                            className={`w-3 h-3 rounded-full transition-all duration-300 ${currentIndex === index ? "bg-white w-6" : "bg-white/50"
+                            className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${currentIndex === index ? "bg-white w-4 md:w-6" : "bg-white/50"
                                 }`}
                             aria-label={`Go to slide ${index + 1}`}
                         />

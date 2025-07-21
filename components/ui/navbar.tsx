@@ -1,5 +1,4 @@
 "use client"
-
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -22,7 +21,6 @@ export function Navbar() {
         setScrolled(false)
       }
     }
-
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -41,13 +39,11 @@ export function Navbar() {
     { name: "Program Studi", href: "/akademik" },
     { name: "Panduan", href: "https://www.ut.ac.id/panduan/" },
   ]
-
   const layananItems = [
     { name: "Perpustakaan Digital", href: "https://pustaka.ut.ac.id/lib/" },
     { name: "E-Learning", href: "https://elearning.ut.ac.id/" },
     { name: "Wifi.ID", href: "https://www.ut.ac.id/wifi-id/" },
   ]
-
   const kontakItems = [
     { name: "Kontak UT Medan", href: "https://medan.ut.ac.id/contact/" },
     { name: "Kontak UT Pusat", href: "https://www.ut.ac.id/kontak/" },
@@ -60,46 +56,47 @@ export function Navbar() {
         }`}
     >
       {/* Tier 1: Logos (visible on all screen sizes, but simplified on mobile) */}
-      <div className="container mx-auto px-4 h-28 flex items-center justify-between lg:h-24">
-        {/* Left: Vercel Logo and Text */}
-        <Link
-          href="https://vercel.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center space-x-2 group"
-        >
+      <div className="container mx-auto px-4 h-24 md:h-28 lg:h-32 flex items-center justify-between">
+        {/* Left: Universitas Terbuka Logo and Text */}
+        <Link href="/" className="flex items-center space-x-2 md:space-x-3 lg:space-x-4 group">
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
-            className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-md border border-gray-100"
+            className="flex items-center justify-center"
           >
-            <Image src="/vercel.png" alt="Vercel Logo" width={24} height={24} className="w-6 h-6 object-contain" />
+            <Image
+              src="/ut.png"
+              alt="Universitas Terbuka Logo"
+              width={100} // Set base width
+              height={100} // Set base height
+              className="w-20 h-20 md:w-22 md:h-22 lg:w-30 lg:h-30 object-contain" // Responsive image sizing
+            />
           </motion.div>
           <span
-            className={`text-lg font-bold ${scrolled ? "text-gray-900" : "text-white text-shadow-lg"} group-hover:text-blue-600 transition-colors duration-300 hidden sm:block`}
+            className={`text-lg md:text-xl lg:text-2xl font-extrabold ${scrolled ? "text-gray-900" : "text-white text-shadow-lg"} group-hover:text-blue-600 transition-colors duration-300 hidden sm:block`}
           >
-            Vercel
+            Universitas Terbuka
           </span>
         </Link>
 
-        {/* Right: UT Logo and Salut Soul Text */}
-        <Link href="/" className="flex items-center space-x-2 group">
+        {/* Right: Salut Soul Logo and Text */}
+        <Link href="/" className="flex items-center space-x-2 md:space-x-3 lg:space-x-4 group">
           <span
-            className={`text-lg font-bold ${scrolled ? "text-gray-900" : "text-white text-shadow-lg"} group-hover:text-blue-600 transition-colors duration-300 hidden sm:block`}
+            className={`text-lg md:text-xl lg:text-2xl font-extrabold ${scrolled ? "text-gray-900" : "text-white text-shadow-lg"} group-hover:text-blue-600 transition-colors duration-300 hidden sm:block`}
           >
             Salut Soul
           </span>
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
-            className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-md border border-gray-100"
+            className="flex items-center justify-center"
           >
             <Image
-              src="/Logo_Universitas_Terbuka.ico"
-              alt="Logo Universitas Terbuka"
-              width={24}
-              height={24}
-              className="w-6 h-6 object-contain"
+              src="/soul.png"
+              alt="Salut Soul Logo"
+              width={128} // Set base width
+              height={128} // Set base height
+              className="w-20 h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 object-contain" // Responsive image sizing
             />
           </motion.div>
         </Link>
@@ -125,7 +122,6 @@ export function Navbar() {
                 >
                   Beranda
                 </Link>
-
                 <Accordion type="single" collapsible className="w-full">
                   {/* Mobile Akademik */}
                   <AccordionItem value="akademik" className="border-none">
@@ -147,7 +143,6 @@ export function Navbar() {
                       </div>
                     </AccordionContent>
                   </AccordionItem>
-
                   <Link
                     href="https://www.ut.ac.id/kategori/berita/"
                     className="block px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
@@ -155,7 +150,6 @@ export function Navbar() {
                   >
                     Berita
                   </Link>
-
                   {/* Mobile Layanan Mahasiswa */}
                   <AccordionItem value="layanan" className="border-none">
                     <AccordionTrigger className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:no-underline">
@@ -176,7 +170,6 @@ export function Navbar() {
                       </div>
                     </AccordionContent>
                   </AccordionItem>
-
                   <Link
                     href="/tentang"
                     className="block px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
@@ -184,7 +177,6 @@ export function Navbar() {
                   >
                     Tentang
                   </Link>
-
                   {/* Mobile Kontak */}
                   <AccordionItem value="kontak" className="border-none">
                     <AccordionTrigger className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:no-underline">
@@ -206,7 +198,6 @@ export function Navbar() {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-
                 <Button
                   asChild
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white mx-4 mt-6 rounded-full shadow-xl"
@@ -222,7 +213,7 @@ export function Navbar() {
       </div>
 
       {/* Tier 2: Navigation Links (Desktop Only) */}
-      <div className={`hidden lg:flex justify-center h-16 items-center ${scrolled ? "border-t border-gray-100" : ""}`}>
+      <div className={`hidden lg:flex justify-center h-14 items-center ${scrolled ? "border-t border-gray-100" : ""}`}>
         <div className="flex items-center space-x-1">
           {/* Beranda */}
           <Link
@@ -231,7 +222,6 @@ export function Navbar() {
           >
             Beranda
           </Link>
-
           {/* Akademik Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -257,7 +247,6 @@ export function Navbar() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-
           {/* Berita */}
           <Link
             href="https://www.ut.ac.id/kategori/berita/"
@@ -265,7 +254,6 @@ export function Navbar() {
           >
             Berita
           </Link>
-
           {/* Layanan Mahasiswa Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -291,7 +279,6 @@ export function Navbar() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-
           {/* Tentang */}
           <Link
             href="/tentang"
@@ -299,7 +286,6 @@ export function Navbar() {
           >
             Tentang
           </Link>
-
           {/* Kontak Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
