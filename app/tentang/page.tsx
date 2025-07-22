@@ -22,9 +22,9 @@ export default function TentangPage() {
   return (
     <div className="min-h-screen">
       <Navbar />
-
-      {/* Enhanced Hero Section */}
-      <section className="relative py-24 overflow-hidden">
+      <main className="pt-20">
+        {/* Enhanced Hero Section */}
+        <section className="relative py-24 overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-orange-50 to-red-50"></div>
@@ -450,6 +450,7 @@ export default function TentangPage() {
       </AnimatedSection>
 
       <Footer />
+      </main>
     </div>
   )
 }

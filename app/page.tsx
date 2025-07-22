@@ -24,14 +24,13 @@ import {
 } from "lucide-react"
 import { AnimatedSection } from "@/components/ui/animated-section"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { YouTubeSection } from "@/components/ui/youtube-section"
 import { PricingSection } from "@/components/ui/pricing-section"
 import { TargetUtamaSection } from "@/components/ui/target-utama-section"
 import { FacultySelection } from "@/components/ui/faculty-selection"
 import { BeritaSection } from "@/components/ui/berita-section"
+import { FeaturedNews } from "@/components/ui/featured-news"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { HeroCarousel } from "@/components/ui/hero-carousel" // Import the new carousel component
 
 export default function HomePage() {
   const advantages = [
@@ -81,13 +80,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
-
-      {/* Hero Carousel Section */}
-      <HeroCarousel />
-
-      {/* YouTube Section */}
-      <YouTubeSection />
+      <Navbar showImageHeader={true} />
+      <main>
+        <FeaturedNews />
 
       {/* Enhanced Advantages Section */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
@@ -539,6 +534,7 @@ export default function HomePage() {
       <BrosurPopup />
 
       <Footer />
+      </main>
     </div>
   )
 }
