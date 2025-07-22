@@ -6,17 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import {
-  GraduationCap,
-  Users,
-  ArrowRight,
-  CheckCircle,
-  FileText,
-  Award,
-  Clock,
-  User,
-
-} from "lucide-react"
+import { GraduationCap, Users, ArrowRight, CheckCircle, FileText, Award, Clock, User } from "lucide-react"
 import { motion } from "framer-motion"
 
 export default function PendaftaranPage() {
