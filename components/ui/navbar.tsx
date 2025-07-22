@@ -1,5 +1,6 @@
 "use client"
 
+
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -23,6 +24,7 @@ export function Navbar() {
       }
     }
 
+
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -42,11 +44,13 @@ export function Navbar() {
     { name: "Panduan", href: "https://www.ut.ac.id/panduan/" },
   ]
 
+
   const layananItems = [
     { name: "Perpustakaan Digital", href: "https://pustaka.ut.ac.id/lib/" },
     { name: "E-Learning", href: "https://elearning.ut.ac.id/" },
     { name: "Wifi.ID", href: "https://www.ut.ac.id/wifi-id/" },
   ]
+
 
   const kontakItems = [
     { name: "Kontak UT Medan", href: "https://medan.ut.ac.id/contact/" },
@@ -122,6 +126,7 @@ export function Navbar() {
                 >
                   Beranda
                 </Link>
+
                 <Accordion type="single" collapsible className="w-full">
                   {/* Mobile Akademik */}
                   <AccordionItem value="akademik" className="border-none">
@@ -143,6 +148,7 @@ export function Navbar() {
                       </div>
                     </AccordionContent>
                   </AccordionItem>
+
                   <Link
                     href="https://www.ut.ac.id/kategori/berita/"
                     className="block px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
@@ -150,6 +156,7 @@ export function Navbar() {
                   >
                     Berita
                   </Link>
+
                   {/* Mobile Layanan Mahasiswa */}
                   <AccordionItem value="layanan" className="border-none">
                     <AccordionTrigger className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:no-underline">
@@ -170,6 +177,7 @@ export function Navbar() {
                       </div>
                     </AccordionContent>
                   </AccordionItem>
+
                   <Link
                     href="/tentang"
                     className="block px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300"
@@ -177,6 +185,7 @@ export function Navbar() {
                   >
                     Tentang
                   </Link>
+
                   {/* Mobile Kontak */}
                   <AccordionItem value="kontak" className="border-none">
                     <AccordionTrigger className="px-4 py-3 text-gray-700 hover:text-blue-600 font-medium rounded-xl hover:bg-blue-50 transition-all duration-300 hover:no-underline">
@@ -198,6 +207,7 @@ export function Navbar() {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
+
                 <Button
                   asChild
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white mx-4 mt-6 rounded-full shadow-xl"
@@ -223,6 +233,7 @@ export function Navbar() {
             Beranda
           </Link>
 
+
           {/* Akademik Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -245,6 +256,7 @@ export function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+
           {/* Berita */}
           <Link
             href="https://www.ut.ac.id/kategori/berita/"
@@ -252,6 +264,7 @@ export function Navbar() {
           >
             Berita
           </Link>
+
 
           {/* Layanan Mahasiswa Dropdown */}
           <DropdownMenu>
@@ -275,6 +288,7 @@ export function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+
           {/* Tentang */}
           <Link
             href="/tentang"
@@ -282,6 +296,7 @@ export function Navbar() {
           >
             Tentang
           </Link>
+
 
           {/* Kontak Dropdown */}
           <DropdownMenu>
