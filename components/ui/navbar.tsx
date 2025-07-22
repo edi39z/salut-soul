@@ -76,13 +76,10 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
               <Image
                 src="/ut.png"
                 alt="Universitas Terbuka Logo"
-                width={60}
-                height={60}
+                width={300}
+                height={150}
                 className="object-contain"
               />
-              <span className="text-xl font-bold text-gray-800 hidden sm:block">
-                Universitas Terbuka
-              </span>
             </Link>
           </div>
           <div
@@ -110,13 +107,10 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
               <Image
                 src="/ut.png"
                 alt="Universitas Terbuka Logo"
-                width={50}
-                height={50}
+                width={150}
+                height={150}
                 className="object-contain"
               />
-              <span className={`text-lg font-bold ${textColorClass} hidden sm:block`}>
-                Universitas Terbuka
-              </span>
             </Link>
           )}
 
