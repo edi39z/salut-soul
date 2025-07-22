@@ -1,7 +1,12 @@
 "use client"
 
 import React, { useState, useRef } from "react"
-import ReactCrop, { centerCrop, makeAspectCrop, type Crop } from "react-image-crop"
+import ReactCrop, {
+  centerCrop,
+  makeAspectCrop,
+  type Crop,
+  type PixelCrop,
+} from "react-image-crop"
 import "react-image-crop/dist/ReactCrop.css"
 import { Button } from "@/components/ui/button"
 
@@ -11,23 +16,25 @@ interface ImageCropperProps {
   onClose: () => void
 }
 
-export function ImageCropper({ src, onCropComplete, onClose }: ImageCropperProps) {
-  const [crop, setCrop] = useState<Crop>({
-    unit: "px",
-    x: 0,
-    y: 0,
-    width: 100,
-    height: 150, // Default 4:6 ratio (100x150)
-  })
+export function ImageCropper({
+  src,
+  onCropComplete,
+  onClose,
+}: ImageCropperProps) {
+  const [crop, setCrop] = useState<Crop>()
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
   const [aspect] = useState(4 / 6)
   const imgRef = useRef<HTMLImageElement | null>(null)
 
-  const getCroppedImg = (image: HTMLImageElement, crop: Crop): Promise<Blob> => {
+  const getCroppedImg = (
+    image: HTMLImageElement,
+    crop: PixelCrop
+  ): Promise<Blob> => {
     const canvas = document.createElement("canvas")
     const scaleX = image.naturalWidth / image.width
     const scaleY = image.naturalHeight / image.height
-    canvas.width = crop.width * scaleX
-    canvas.height = crop.height * scaleY
+    canvas.width = crop.width
+    canvas.height = crop.height
     const ctx = canvas.getContext("2d")
 
     if (ctx) {
@@ -39,25 +46,28 @@ export function ImageCropper({ src, onCropComplete, onClose }: ImageCropperProps
         crop.height * scaleY,
         0,
         0,
-        crop.width * scaleX,
-        crop.height * scaleY
+        crop.width,
+        crop.height
       )
     }
 
     return new Promise((resolve, reject) => {
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          reject(new Error("Canvas is empty"))
-          return
-        }
-        resolve(blob)
-      }, "image/jpeg")
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            reject(new Error("Canvas is empty"))
+            return
+          }
+          resolve(blob)
+        },
+        "image/jpeg"
+      )
     })
   }
 
   const handleCrop = async () => {
-    if (imgRef.current && crop.width && crop.height) {
-      const croppedImageBlob = await getCroppedImg(imgRef.current, crop)
+    if (imgRef.current && completedCrop?.width && completedCrop?.height) {
+      const croppedImageBlob = await getCroppedImg(imgRef.current, completedCrop)
       onCropComplete(croppedImageBlob)
     }
   }
@@ -70,8 +80,8 @@ export function ImageCropper({ src, onCropComplete, onClose }: ImageCropperProps
           <ReactCrop
             crop={crop}
             onChange={(c) => setCrop(c)}
+            onComplete={(c) => setCompletedCrop(c)}
             aspect={aspect}
-            onComplete={(c) => setCrop(c)}
           >
             <img
               ref={imgRef}
@@ -94,6 +104,15 @@ export function ImageCropper({ src, onCropComplete, onClose }: ImageCropperProps
                   height
                 )
                 setCrop(newCrop)
+                // Convert percent crop to pixel crop
+                const pixelCrop: PixelCrop = {
+                  unit: "px",
+                  x: (newCrop.x / 100) * width,
+                  y: (newCrop.y / 100) * height,
+                  width: (newCrop.width / 100) * width,
+                  height: (newCrop.height / 100) * height,
+                }
+                setCompletedCrop(pixelCrop)
               }}
             />
           </ReactCrop>

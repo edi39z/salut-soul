@@ -1,11 +1,11 @@
 "use client"
 
-import Link from "next/link"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
+import Link from "next/link"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react"
-import { AnimatePresence, motion } from "framer-motion"
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react"
 
 interface Berita {
     id: string
@@ -47,11 +47,7 @@ export function HeroCarousel() {
         fetchBerita()
     }, [])
 
-    const goToNext = useCallback(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % berita.length)
-    }, [berita.length])
-
-    const goToPrevious = useCallback(() => {
+    const handlePrev = () => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + berita.length) % berita.length)
     }
 
@@ -78,18 +74,18 @@ export function HeroCarousel() {
 
     if (loading) {
         return (
-            <section className="relative w-full py-8 lg:py-12 flex items-center justify-center">
-                <div className="text-gray-700 text-xl animate-pulse">Loading Berita...</div>
+            <section className="relative w-full h-screen bg-gray-900 flex items-center justify-center">
+                <div className="text-white text-xl animate-pulse">Loading Berita...</div>
             </section>
         )
     }
 
     if (error || berita.length === 0) {
         return (
-            <section className="relative w-full py-8 lg:py-12 flex items-center justify-center text-center p-4">
-                <div className="text-gray-700 text-xl">
+            <section className="relative w-full h-screen bg-gray-900 flex items-center justify-center text-center p-4">
+                <div className="text-white text-xl">
                     {error || "Tidak ada berita aktif untuk ditampilkan."}
-                    <p className="text-sm text-gray-500 mt-2">
+                    <p className="text-sm text-gray-300 mt-2">
                         Silakan tambahkan berita melalui admin panel atau periksa koneksi Anda.
                     </p>
                 </div>
@@ -167,9 +163,9 @@ export function HeroCarousel() {
                                     Selengkapnya
                                     <ArrowRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
                                 </Link>
-                            )}
-                        </Button>
-                    </div>
+                            </Button>
+                        )}
+                    </motion.div>
                 </div>
             </div>
 
