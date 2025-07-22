@@ -6,43 +6,40 @@ const prisma = new PrismaClient()
 export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url)
-        const limit = Number.parseInt(searchParams.get("limit") || "10")
-        const page = Number.parseInt(searchParams.get("page") || "1")
-        const skip = (page - 1) * limit
+        const limit = searchParams.get("limit")
+
+        console.log("API: Fetching berita with limit:", limit)
 
         const berita = await prisma.berita.findMany({
-            where: {
-                aktif: true,
-            },
             orderBy: {
                 tanggal: "desc",
             },
-            take: limit,
-            skip: skip,
+            ...(limit && { take: Number.parseInt(limit) }),
         })
 
-        const total = await prisma.berita.count({
-            where: {
-                aktif: true,
-            },
-        })
+        console.log("API: Found berita count:", berita.length)
+        console.log(
+            "API: Berita data:",
+            berita.map((b) => ({
+                id: b.id,
+                judul: b.judul,
+                aktif: b.aktif,
+                linkUrl: b.linkUrl,
+            })),
+        )
 
         return NextResponse.json({
             success: true,
             data: berita,
-            pagination: {
-                page,
-                limit,
-                total,
-                totalPages: Math.ceil(total / limit),
-            },
+            count: berita.length,
         })
     } catch (error) {
-        console.error("Error fetching berita:", error)
+        console.error("API Error:", error)
         return NextResponse.json(
             {
                 success: false,
                 error: "Failed to fetch berita",
+                details: error instanceof Error ? error.message : "Unknown error",
             },
             { status: 500 },
         )
@@ -52,17 +49,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json()
-        const { judul, konten, gambar, slug, linkUrl } = body
-
-        if (!judul || !konten || !gambar || !slug) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    error: "Missing required fields",
-                },
-                { status: 400 },
-            )
-        }
+        const { judul, konten, gambar, slug, linkUrl, aktif } = body
 
         const berita = await prisma.berita.create({
             data: {
@@ -71,8 +58,8 @@ export async function POST(request: NextRequest) {
                 gambar,
                 slug,
                 linkUrl: linkUrl || null,
+                aktif: aktif ?? true,
                 tanggal: new Date(),
-                aktif: true,
             },
         })
 
@@ -82,12 +69,6 @@ export async function POST(request: NextRequest) {
         })
     } catch (error) {
         console.error("Error creating berita:", error)
-        return NextResponse.json(
-            {
-                success: false,
-                error: "Failed to create berita",
-            },
-            { status: 500 },
-        )
+        return NextResponse.json({ success: false, error: "Failed to create berita" }, { status: 500 })
     }
 }
