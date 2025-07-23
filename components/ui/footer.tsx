@@ -30,7 +30,7 @@ export function Footer() {
         { icon: Youtube, href: "#", label: "YouTube", color: "hover:text-red-600" },
         {
             icon: MessageCircle,
-            href: "https://wa.me/6281234567890",
+            href: "https://wa.me/628225961678290",
             label: "WhatsApp",
             color: "hover:text-green-600",
         },
@@ -171,10 +171,10 @@ export function Footer() {
                                     <div>
                                         <p className="text-gray-900 font-medium text-sm">Telepon</p>
                                         <a
-                                            href="tel:+6281234567890"
+                                            href="https://wa.me/628225961678290"
                                             className="text-gray-700 hover:text-blue-600 transition-colors text-sm"
                                         >
-                                            +62 812-3456-7890
+                                            +62 822-5961-6782
                                         </a>
                                     </div>
                                 </div>

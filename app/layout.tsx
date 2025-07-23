@@ -4,6 +4,7 @@ import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { WhatsappButton } from "@/components/ui/whatsapp-button"
+import Head from "next/head" // tambahkan ini
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     icon: "/Logo_Universitas_Terbuka.ico",
   },
   description:
-    "Pendaftaran mahasiswa baru Universitas Terbuka. Kuliah fleksibel, berkualitas, dan terjangkau. Daftar sekarang!",
+      "Pendaftaran mahasiswa baru Universitas Terbuka. Kuliah fleksibel, berkualitas, dan terjangkau. Daftar sekarang!",
   keywords: "universitas terbuka, kuliah online, pendidikan jarak jauh, SALUT, pendaftaran mahasiswa",
   authors: [{ name: "SALUT Soul" }],
   openGraph: {
@@ -34,18 +35,21 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children,
-}: {
+                                     children,
+                                   }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="id" className={`${inter.variable} ${poppins.variable}`}>
+      <html lang="id" className={`${inter.variable} ${poppins.variable}`}>
+      <head>
+        {/* 👇 Tambahkan ini */}
+        <link rel="canonical" href="https://salutsoul.com/" />
+      </head>
       <body className={inter.className}>
-
-        {children}
-        <WhatsappButton />
-        <Toaster />
+      {children}
+      <WhatsappButton />
+      <Toaster />
       </body>
-    </html>
+      </html>
   )
 }

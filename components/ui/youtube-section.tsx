@@ -71,6 +71,7 @@ export function YouTubeSection() {
                                             {!isPlaying ? (
                                                 <>
                                                     {/* Video Thumbnail */}
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
                                                     <img
                                                         src={thumbnailUrl || "/placeholder.svg"}
                                                         alt="Video Teaser UT"

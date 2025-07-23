@@ -70,7 +70,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
     { name: "Layanan Mahasiswa", href: "#", dropdown: layananItems },
     { name: "Tentang", href: "/tentang" },
     { name: "Kontak", href: "/kontak", dropdown: kontakItems },
-    { name: "Daftar", href: "/pendaftaran" },
+    { name: "Daftar", href: "/pendaftaran", isButton: true },
   ]
 
   const isActiveLink = (href: string) => {
@@ -244,6 +244,17 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                       ))}
                     </DropdownMenuContent>
                   </DropdownMenu>
+                ) : item.isButton ? (
+                  // Special styling for "Daftar" button
+                  <Link
+                    href={item.href}
+                    className={`px-6 py-2 font-semibold rounded-lg transition-all duration-200 border-2 ${isActiveLink(item.href)
+                      ? "bg-[#FFD700] text-[#002F86] border-[#FFD700] shadow-lg"
+                      : "bg-[#FFD700] text-[#002F86] border-[#FFD700] hover:bg-[#FFA500] hover:border-[#FFA500] shadow-md hover:shadow-lg"
+                      }`}
+                  >
+                    {item.name}
+                  </Link>
                 ) : (
                   <Link
                     href={item.href}
@@ -362,6 +373,18 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                                 </AccordionContent>
                               </AccordionItem>
                             </Accordion>
+                          ) : item.isButton ? (
+                            // Special styling for "Daftar" button in mobile menu
+                            <Link
+                              href={item.href}
+                              className={`block px-4 py-3 font-semibold rounded-xl text-center transition-colors duration-200 border-2 ${isActiveLink(item.href)
+                                ? "bg-[#FFD700] text-[#002F86] border-[#FFD700]"
+                                : "bg-[#FFD700] text-[#002F86] border-[#FFD700] hover:bg-[#FFA500] hover:border-[#FFA500]"
+                                }`}
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {item.name}
+                            </Link>
                           ) : (
                             <Link
                               href={item.href}
