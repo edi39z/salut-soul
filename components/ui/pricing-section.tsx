@@ -43,17 +43,12 @@ export function PricingSection() {
     ]
 
     return (
-        <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
-            {/* Background Elements */}
-            <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-indigo-200/20 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl"></div>
-
-            <div className="container mx-auto px-4 relative z-10">
+        <section className="py-20 bg-white">
+            <div className="container mx-auto px-4">
                 <AnimatedSection>
                     <div className="text-center mb-16">
-
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                            Pilih <span className="text-blue-600">Paket Kuliah</span> Sesuai Kebutuhanmu
+                            Pilih <span className="text-[#002F86]">Paket Kuliah</span> Sesuai Kebutuhanmu
                         </h2>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                             Sistem pembayaran fleksibel dengan biaya terjangkau untuk semua kalangan
@@ -68,9 +63,9 @@ export function PricingSection() {
                                 <motion.div whileHover={{ y: -8 }} transition={{ duration: 0.3 }} className="h-full">
                                     <Card
                                         className={`${plan.isPopular
-                                            ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-2xl transform scale-105"
-                                            : "bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl"
-                                            } transition-all duration-500 h-full overflow-hidden relative group rounded-3xl`}
+                                                ? "bg-[#002F86] text-white shadow-2xl border-2 border-[#002F86]"
+                                                : "bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl"
+                                            } transition-all duration-500 h-full overflow-hidden relative group rounded-2xl`}
                                     >
                                         <CardHeader className="relative z-10 text-center pb-6 pt-8">
                                             <div className="mb-6">
@@ -87,9 +82,9 @@ export function PricingSection() {
                                                 <div className="mb-3">
                                                     <Badge
                                                         className={`${plan.isPopular
-                                                            ? "bg-white/20 text-white border-white/30"
-                                                            : "bg-blue-100 text-blue-800 border-blue-200"
-                                                            } px-3 py-1 rounded-full text-sm border`}
+                                                                ? "bg-[#FFD700] text-[#002F86] border-[#FFD700]"
+                                                                : "bg-[#002F86] text-white border-[#002F86]"
+                                                            } px-3 py-1 rounded-full text-sm border font-semibold`}
                                                     >
                                                         {plan.level}
                                                     </Badge>
@@ -124,10 +119,10 @@ export function PricingSection() {
                                                 {plan.features.map((feature, idx) => (
                                                     <div key={idx} className="flex items-start space-x-3">
                                                         <div
-                                                            className={`w-6 h-6 ${plan.isPopular ? "bg-white/20" : "bg-green-500"
+                                                            className={`w-6 h-6 ${plan.isPopular ? "bg-[#FFD700]" : "bg-[#002F86]"
                                                                 } rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}
                                                         >
-                                                            <CheckCircle className={`w-4 h-4 ${plan.isPopular ? "text-white" : "text-white"}`} />
+                                                            <CheckCircle className={`w-4 h-4 ${plan.isPopular ? "text-[#002F86]" : "text-white"}`} />
                                                         </div>
                                                         <span
                                                             className={`${plan.isPopular ? "text-blue-50" : "text-gray-700"} text-sm leading-relaxed`}
@@ -140,9 +135,9 @@ export function PricingSection() {
                                             {/* CTA Button */}
                                             <Button
                                                 className={`w-full ${plan.isPopular
-                                                    ? "bg-white text-blue-600 hover:bg-blue-50 shadow-lg"
-                                                    : "bg-blue-600 hover:bg-blue-700 text-white"
-                                                    } text-lg py-4 rounded-2xl transition-all duration-300 transform group-hover:scale-105 font-semibold`}
+                                                        ? "bg-white text-[#002F86] hover:bg-[#FFD700] hover:text-[#002F86] shadow-lg"
+                                                        : "bg-[#002F86] hover:bg-[#FFD700] hover:text-[#002F86] text-white"
+                                                    } text-lg py-4 rounded-xl transition-all duration-300 transform group-hover:scale-105 font-semibold`}
                                                 asChild
                                             >
                                                 <Link href="/pendaftaran">
