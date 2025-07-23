@@ -148,7 +148,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
           </div>
 
           {/* Yellow/Gold Separator Line */}
-          <div className="relative h-2 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] shadow-lg">
+          <div className="relative h-1 bg-gradient-to-r from-[#FFD700] via-[#FFA500] to-[#FFD700] shadow-lg">
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10"></div>
             <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#FFD700]/50 to-transparent blur-sm"></div>
             <div className="absolute -top-1 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>

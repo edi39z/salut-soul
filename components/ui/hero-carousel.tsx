@@ -123,28 +123,27 @@ export function HeroCarousel() {
         return `/berita/${item.slug}`
     }
 
-    // Simple slide animation variants
+    // Seamless slide animation - no white background
     const slideVariants = {
         enter: (direction: number) => ({
-            x: direction > 0 ? 300 : -300,
-            opacity: 0,
+            x: direction > 0 ? "100%" : "-100%",
         }),
         center: {
-            zIndex: 1,
-            x: 0,
-            opacity: 1,
+            x: "0%",
         },
         exit: (direction: number) => ({
-            zIndex: 0,
-            x: direction < 0 ? 300 : -300,
-            opacity: 0,
+            x: direction < 0 ? "100%" : "-100%",
         }),
     }
 
-    // Simple transition settings
+    // Faster, smoother transition to avoid white gaps
     const transition = {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.3 },
+        x: {
+            type: "spring",
+            stiffness: 400,
+            damping: 35,
+            mass: 0.6,
+        },
     }
 
     // Loading state
@@ -154,17 +153,17 @@ export function HeroCarousel() {
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white rounded-lg shadow-lg overflow-hidden animate-pulse">
-                            <div className="h-[220px] bg-gray-200"></div>
-                            <div className="bg-[#003366] p-4">
-                                <div className="h-3 bg-gray-200 rounded w-20 mb-2"></div>
+                            <div className="h-[240px] bg-gray-200"></div>
+                            <div className="absolute inset-x-0 top-[220px] flex justify-center py-2">
+                                <div className="flex space-x-1">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
+                                </div>
+                            </div>
+                            <div className="bg-[#003366] p-4 mt-4">
                                 <div className="h-4 bg-gray-200 rounded mb-2"></div>
                                 <div className="h-3 bg-gray-200 rounded w-2/3 mb-3"></div>
-                                <div className="h-8 bg-gray-200 rounded w-32"></div>
-                            </div>
-                            <div className="h-10 bg-[#003366] flex justify-center items-center space-x-2 py-2">
-                                <div className="w-2 h-2 rounded-full bg-gray-200"></div>
-                                <div className="w-2 h-2 rounded-full bg-gray-200"></div>
-                                <div className="w-2 h-2 rounded-full bg-gray-200"></div>
                             </div>
                         </div>
                     </div>
@@ -213,91 +212,93 @@ export function HeroCarousel() {
     return (
         <section className="py-6">
             <div className="container mx-auto px-4">
-                <div className="max-w-4xl mx-auto relative group">
-                    {/* Carousel card */}
-                    <div className="relative w-full overflow-hidden rounded-lg shadow-lg bg-white">
-                        {/* Simple Navigation Arrows */}
+                <div className="max-w-4xl mx-auto relative">
+                    {/* Carousel card with seamless background */}
+                    <div className="relative w-full overflow-hidden rounded-lg shadow-lg bg-[#003366]">
+                        {/* Arrow positioned at top corners of the card */}
                         {berita.length > 1 && (
                             <>
                                 <button
                                     onClick={handlePrev}
-                                    className="absolute left-4 top-[110px] -translate-y-1/2 z-20 w-10 h-10 bg-amber-500/90 text-white flex items-center justify-center rounded-full shadow-lg hover:bg-amber-600 transition-all duration-300 opacity-80 hover:opacity-100"
+                                    className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 bg-[#FFD700] hover:bg-[#FFA500] text-[#003366] flex items-center justify-center transition-all duration-300 rounded-none"
                                     aria-label="Previous slide"
                                 >
-                                    <ChevronLeft className="w-5 h-5" />
+                                    <ChevronLeft className="w-4 h-4" />
                                 </button>
                                 <button
                                     onClick={handleNext}
-                                    className="absolute right-4 top-[110px] -translate-y-1/2 z-20 w-10 h-10 bg-amber-500/90 text-white flex items-center justify-center rounded-full shadow-lg hover:bg-amber-600 transition-all duration-300 opacity-80 hover:opacity-100"
+                                    className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-9 h-9 bg-[#FFD700] hover:bg-[#FFA500] text-[#003366] flex items-center justify-center transition-all duration-300 rounded-none"
                                     aria-label="Next slide"
                                 >
-                                    <ChevronRight className="w-5 h-5" />
+                                    <ChevronRight className="w-4 h-4" />
                                 </button>
                             </>
                         )}
 
-                        {/* Simple carousel slides */}
-                        <AnimatePresence initial={false} custom={direction} mode="wait">
-                            <motion.div
-                                key={`carousel-item-${currentNews.id}`}
-                                custom={direction}
-                                variants={slideVariants}
-                                initial="enter"
-                                animate="center"
-                                exit="exit"
-                                transition={transition}
-                                className="w-full"
-                            >
-                                {/* Image section */}
-                                <div className="relative w-full h-[220px] overflow-hidden">
-                                    <Image
-                                        src={currentNews.gambar || "/placeholder.svg?height=220&width=800&text=Berita+Image"}
-                                        alt={currentNews.judul || "Berita"}
-                                        fill
-                                        style={{ objectFit: "cover" }}
-                                        className="transition-transform duration-300 hover:scale-105"
-                                        priority
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
-                                </div>
-
-                                {/* Content section */}
-                                <div className="bg-[#003366] px-6 py-4 relative">
-                                    <div className="text-amber-400 text-xs font-medium mb-2 uppercase tracking-wide">Pendidikan</div>
-
-                                    <h2 className="text-white text-lg font-bold mb-2 line-clamp-1">{currentNews.judul}</h2>
-
-                                    <p className="text-blue-100 text-sm mb-4 line-clamp-2">{truncateText(currentNews.konten, 100)}</p>
-
-                                    <Link
-                                        href={getReadMoreUrl(currentNews)}
-                                        className="inline-flex items-center text-amber-400 text-sm font-medium hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-4 py-2 rounded-md border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300"
-                                    >
-                                        Baca Selengkapnya
-                                        <span className="ml-2">→</span>
+                        {/* Carousel slides with seamless transition */}
+                        <div className="relative w-full h-[359px] bg-[#003366]">
+                            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                                <motion.div
+                                    key={`carousel-item-${currentNews.id}`}
+                                    custom={direction}
+                                    variants={slideVariants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    transition={transition}
+                                    className="absolute inset-0 w-full h-full bg-[#003366]"
+                                >
+                                    {/* Clickable image section */}
+                                    <Link href={getReadMoreUrl(currentNews)} className="block">
+                                        <div className="relative w-full h-[240px] overflow-hidden cursor-pointer group">
+                                            <Image
+                                                src={currentNews.gambar || "/placeholder.svg?height=240&width=800&text=Berita+Image"}
+                                                alt={currentNews.judul || "Berita"}
+                                                fill
+                                                style={{ objectFit: "cover" }}
+                                                className="transition-transform duration-300 group-hover:scale-105"
+                                                priority
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/30 via-transparent to-transparent group-hover:from-[#003366]/40 transition-all duration-300" />
+                                        </div>
                                     </Link>
-                                </div>
 
-                                {/* Simple slider indicators */}
-                                {berita.length > 1 && (
-                                    <div className="flex justify-center py-3 space-x-2 bg-[#003366] border-t border-blue-800/20">
-                                        {berita.map((_, index) => (
-                                            <button
-                                                key={`dot-${index}`}
-                                                onClick={() => handleDotClick(index)}
-                                                className="relative"
-                                                aria-label={`Go to slide ${index + 1}`}
-                                            >
-                                                <div
-                                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${currentIndex === index ? "bg-amber-500 scale-110" : "bg-white/40 hover:bg-white/60"
-                                                        }`}
-                                                />
-                                            </button>
-                                        ))}
+                                    {/* Small minimalist dot indicators positioned as separator */}
+                                    {berita.length > 1 && (
+                                        <div className="absolute inset-x-0 top-[220px] flex justify-center py-2 z-10">
+                                            <div className="flex space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
+                                                {berita.map((_, index) => (
+                                                    <button
+                                                        key={`dot-${index}`}
+                                                        onClick={() => handleDotClick(index)}
+                                                        className="relative"
+                                                        aria-label={`Go to slide ${index + 1}`}
+                                                    >
+                                                        <div
+                                                            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${currentIndex === index ? "bg-[#FFD700] scale-125" : "bg-white/60 hover:bg-white/80"
+                                                                }`}
+                                                        />
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Content section with better spacing and clickable title */}
+                                    <div className="bg-[#003366] px-6 py-4 max-h-[130px] overflow-hidden">
+                                        <Link href={getReadMoreUrl(currentNews)} className="block group">
+                                            <h2 className="text-white text-base font-bold line-clamp-2 leading-snug group-hover:text-amber-100 transition-colors duration-300">
+                                                {currentNews.judul}
+                                            </h2>
+                                        </Link>
+                                        <p className="text-blue-100 text-sm line-clamp-2 mt-1 leading-relaxed">
+                                            {truncateText(currentNews.konten, 150)}
+                                        </p>
                                     </div>
-                                )}
-                            </motion.div>
-                        </AnimatePresence>
+
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
                     </div>
                 </div>
             </div>
