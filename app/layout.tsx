@@ -4,7 +4,6 @@ import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { WhatsappButton } from "@/components/ui/whatsapp-button"
-import Head from "next/head" // tambahkan ini
 
 const inter = Inter({
   subsets: ["latin"],
