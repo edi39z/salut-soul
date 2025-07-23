@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, ArrowRight, Newspaper, ExternalLink } from "lucide-react"
+import { ArrowRight, Newspaper, ExternalLink } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -48,14 +48,7 @@ export function BeritaSection() {
         }
     }
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString)
-        return date.toLocaleDateString("id-ID", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-        })
-    }
+
 
     const truncateText = (text: string, maxLength: number) => {
         if (text.length <= maxLength) return text
@@ -193,12 +186,7 @@ export function BeritaSection() {
                                             {/* Content Section */}
                                             <div className="md:col-span-3 p-8 flex flex-col justify-between">
                                                 <div>
-                                                    {/* Date */}
-                                                    <div className="flex items-center text-sm text-gray-500 mb-4">
-                                                        <Calendar className="w-4 h-4 mr-2" />
-                                                        <span>{formatDate(item.tanggal)}</span>
 
-                                                    </div>
 
                                                     {/* Title */}
                                                     <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 leading-tight hover:text-blue-600 transition-colors duration-300">

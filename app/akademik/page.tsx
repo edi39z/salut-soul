@@ -16,10 +16,15 @@ import {
   Sparkles,
   CheckCircle,
   Loader2,
+  Users,
+  TrendingUp,
+  Building,
+  School,
+  type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
-import { useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useState, useRef } from "react"
 import { useToast } from "@/hooks/use-toast"
 
 const AnimatedSection = motion.section
@@ -41,16 +46,22 @@ interface FacultyWithPrograms {
   programs: ProgramStudi[]
   programsLoaded: boolean
   programsLoading: boolean
-  color: string
-  bgColor: string
-  borderColor: string
   description: string
+  icon: LucideIcon
 }
 
 export default function AkademikPage() {
   const { toast } = useToast()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  })
 
-  // Data fakultas statis - tidak perlu fetch
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50])
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+
+  // Data fakultas statis dengan tema konsisten
   const staticFaculties = [
     {
       id: "1",
@@ -59,9 +70,7 @@ export default function AkademikPage() {
       akreditasi: "A",
       description:
         "Fakultas yang mengembangkan ilmu sosial dan politik untuk membangun masyarakat yang demokratis dan berkeadilan.",
-      color: "from-blue-500 to-indigo-500",
-      bgColor: "bg-gradient-to-br from-blue-50 to-indigo-50",
-      borderColor: "border-blue-200",
+      icon: Users,
     },
     {
       id: "2",
@@ -69,9 +78,7 @@ export default function AkademikPage() {
       namaLengkap: "Fakultas Keguruan dan Ilmu Pendidikan",
       akreditasi: "A",
       description: "Fakultas yang mencetak tenaga pendidik profesional untuk berbagai jenjang pendidikan.",
-      color: "from-emerald-500 to-teal-500",
-      bgColor: "bg-gradient-to-br from-emerald-50 to-teal-50",
-      borderColor: "border-emerald-200",
+      icon: School,
     },
     {
       id: "3",
@@ -79,9 +86,7 @@ export default function AkademikPage() {
       namaLengkap: "Fakultas Sains dan Teknologi",
       akreditasi: "A",
       description: "Fakultas yang mengembangkan ilmu pengetahuan alam dan matematika untuk kemajuan teknologi.",
-      color: "from-purple-500 to-violet-500",
-      bgColor: "bg-gradient-to-br from-purple-50 to-violet-50",
-      borderColor: "border-purple-200",
+      icon: Target,
     },
     {
       id: "4",
@@ -89,9 +94,7 @@ export default function AkademikPage() {
       namaLengkap: "Fakultas Ekonomi dan Bisnis",
       akreditasi: "A",
       description: "Fakultas yang mengembangkan ilmu ekonomi dan bisnis untuk pembangunan ekonomi nasional.",
-      color: "from-amber-500 to-orange-500",
-      bgColor: "bg-gradient-to-br from-amber-50 to-orange-50",
-      borderColor: "border-amber-200",
+      icon: TrendingUp,
     },
     {
       id: "5",
@@ -100,9 +103,7 @@ export default function AkademikPage() {
       akreditasi: "A",
       description:
         "Unit penyelenggara program Magister (S2) dan Doktor (S3) Universitas Terbuka dengan sistem pembelajaran jarak jauh yang fleksibel dan berkualitas.",
-      color: "from-red-500 to-pink-500",
-      bgColor: "bg-gradient-to-br from-red-50 to-pink-50",
-      borderColor: "border-red-200",
+      icon: Building,
     },
   ]
 
@@ -179,24 +180,18 @@ export default function AkademikPage() {
       registration: "Rp 150.000",
       semester: "Rp 1.300.000 - Rp 1.800.000",
       note: "Tergantung jumlah SKS yang diambil",
-      color: "from-blue-500 to-blue-600",
-      bgColor: "bg-gradient-to-br from-blue-50 to-blue-100",
     },
     {
       level: "D3",
       registration: "Rp 150.000",
       semester: "Rp 1.000.000 - Rp 1.400.000",
       note: "Tergantung jumlah SKS yang diambil",
-      color: "from-emerald-500 to-emerald-600",
-      bgColor: "bg-gradient-to-br from-emerald-50 to-emerald-100",
     },
     {
       level: "S2",
       registration: "Rp 200.000",
       semester: "Rp 2.000.000 - Rp 2.500.000",
       note: "Tergantung program studi",
-      color: "from-purple-500 to-purple-600",
-      bgColor: "bg-gradient-to-br from-purple-50 to-purple-100",
     },
   ]
 
@@ -211,25 +206,40 @@ export default function AkademikPage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" ref={containerRef}>
       <Navbar />
 
       {/* Enhanced Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        {/* Animated Background */}
+      <motion.section className="relative py-24 overflow-hidden bg-white" style={{ y, opacity }}>
+        {/* Clean Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
-          {/* Geometric Patterns */}
-          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-200/30 to-indigo-200/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-indigo-200/20 to-purple-200/20 rounded-full blur-2xl animate-pulse delay-500"></div>
-          {/* Floating Elements */}
-          <div className="absolute top-32 right-1/4 animate-bounce delay-300">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg rotate-45 opacity-60"></div>
-          </div>
-          <div className="absolute bottom-40 left-1/4 animate-bounce delay-700">
-            <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-60"></div>
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30"></div>
+          {/* Subtle Geometric Patterns */}
+          <motion.div
+            className="absolute top-20 left-10 w-72 h-72 bg-[#002F86]/5 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-[#FFD700]/8 rounded-full blur-3xl"
+            animate={{
+              scale: [1.1, 1, 1.1],
+              opacity: [0.4, 0.6, 0.4],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+          />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
@@ -239,65 +249,64 @@ export default function AkademikPage() {
               transition={{ duration: 0.8 }}
               className="mb-8"
             >
-              <Badge className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-base font-medium rounded-full shadow-lg">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Program Akademik
-              </Badge>
+
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight"
+              className="text-5xl md:text-7xl font-bold mb-8 leading-tight"
             >
-              Jelajahi Program
+              <span className="text-slate-800">Jelajahi Program</span>
               <br />
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="text-[#002F86] relative">
                 Akademik Terbaik
+                <motion.div
+                  className="absolute -bottom-2 left-0 right-0 h-2 bg-[#FFD700] rounded-full"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 1 }}
+                />
               </span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
+              className="text-xl md:text-2xl text-slate-700 max-w-4xl mx-auto leading-relaxed font-medium"
             >
               Temukan berbagai fakultas dan program studi berkualitas yang tersedia di{" "}
-              <span className="font-bold text-blue-600">Universitas Terbuka</span> untuk masa depan karier yang
+              <span className="font-bold text-[#002F86]">Universitas Terbuka</span> untuk masa depan karier yang
               cemerlang
             </motion.p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Faculties Section */}
       <AnimatedSection
         className="py-24 bg-white relative overflow-hidden"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
       >
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23000000' fillOpacity='1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          ></div>
-        </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-20">
-
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Fakultas & <span className="text-purple-600">Program Studi</span>
+            <motion.div
+              className="text-center mb-20"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                Fakultas & <span className="text-[#002F86]">Program Studi</span>
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto font-medium">
                 Klik pada fakultas untuk melihat program studi yang tersedia
               </p>
-            </div>
+            </motion.div>
 
             <Accordion
               type="single"
@@ -312,117 +321,164 @@ export default function AkademikPage() {
                 }
               }}
             >
-              {faculties.map((faculty) => (
-                <AccordionItem
+              {faculties.map((faculty, index) => (
+                <motion.div
                   key={faculty.id}
-                  value={faculty.id}
-                  className={cn(
-                    "border-2 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300",
-                    faculty.borderColor,
-                    faculty.bgColor,
-                  )}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <AccordionTrigger className="px-8 py-6 hover:no-underline group">
-                    <div className="flex items-center justify-between w-full">
-                      <div className="flex items-center space-x-6">
-                        <div
-                          className={`w-16 h-16 bg-gradient-to-br ${faculty.color} rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                        >
-                          <GraduationCap className="w-8 h-8 text-white" />
+                  <AccordionItem
+                    value={faculty.id}
+                    className="border-2 border-slate-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white group"
+                  >
+                    <AccordionTrigger className="px-8 py-6 hover:no-underline">
+                      <div className="flex items-center justify-between w-full">
+                        <div className="flex items-center space-x-6">
+                          <motion.div
+                            className="w-16 h-16 bg-[#002F86] rounded-2xl flex items-center justify-center shadow-lg"
+                            whileHover={{
+                              scale: 1.1,
+                              rotate: 5,
+                              backgroundColor: "#FFD700",
+                            }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <faculty.icon className="w-8 h-8 text-white group-hover:text-[#002F86] transition-colors duration-300" />
+                          </motion.div>
+                          <div className="text-left">
+                            <h3 className="text-2xl md:text-3xl font-bold text-[#002F86] group-hover:text-[#001F66] transition-colors duration-300">
+                              {faculty.nama}
+                            </h3>
+                            <p className="text-slate-700 font-semibold text-base md:text-lg">{faculty.namaLengkap}</p>
+                          </div>
                         </div>
-                        <div className="text-left">
-                          <h3 className="text-3xl font-bold text-gray-900 group-hover:text-gray-800 transition-colors">
-                            {faculty.nama}
-                          </h3>
-                          <p className="text-gray-700 font-medium text-lg">{faculty.namaLengkap}</p>
+                        <div className="flex items-center space-x-4">
+                          <Badge
+                            className={cn(
+                              "px-4 py-2 font-bold shadow-lg transition-all duration-300",
+                              faculty.akreditasi === "A"
+                                ? "bg-[#FFD700] text-[#002F86] hover:bg-[#E6C200]"
+                                : "bg-slate-500 text-white",
+                            )}
+                          >
+                            Akreditasi {faculty.akreditasi}
+                          </Badge>
+                          <motion.div
+                            className="w-12 h-12 bg-[#002F86] rounded-xl flex items-center justify-center shadow-lg"
+                            whileHover={{
+                              scale: 1.1,
+                              backgroundColor: "#FFD700",
+                            }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <BookOpen className="w-6 h-6 text-white group-hover:text-[#002F86] transition-colors duration-300" />
+                          </motion.div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-4">
-                        <Badge
-                          className={cn(
-                            "px-4 py-2 text-white font-semibold shadow-lg",
-                            faculty.akreditasi === "A"
-                              ? "bg-gradient-to-r from-emerald-500 to-teal-500"
-                              : "bg-gradient-to-r from-amber-500 to-orange-500",
-                          )}
-                        >
-                          Akreditasi {faculty.akreditasi}
-                        </Badge>
-                        <div
-                          className={`w-12 h-12 bg-gradient-to-br ${faculty.color} rounded-xl flex items-center justify-center shadow-lg`}
-                        >
-                          <BookOpen className="w-6 h-6 text-white" />
+                    </AccordionTrigger>
+                    <AccordionContent className="px-8 pb-8">
+                      <motion.div
+                        className="space-y-8"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                          <p className="text-slate-700 text-lg leading-relaxed font-medium">{faculty.description}</p>
                         </div>
-                      </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-8 pb-8">
-                    <div className="space-y-8">
-                      <div className="bg-white/60 p-6 rounded-2xl">
-                        <p className="text-gray-700 text-lg leading-relaxed">{faculty.description}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-2xl text-gray-900 mb-6 flex items-center">
-                          <Target className="w-6 h-6 mr-3 text-purple-600" />
-                          Program Studi Tersedia:
-                        </h4>
+                        <div>
+                          <h4 className="font-bold text-2xl text-[#002F86] mb-6 flex items-center">
+                            <Target className="w-6 h-6 mr-3" />
+                            Program Studi Tersedia:
+                          </h4>
 
-                        {faculty.programsLoading ? (
-                          <div className="flex items-center justify-center py-12">
-                            <div className="text-center">
-                              <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
-                              <p className="text-gray-600">Memuat program studi...</p>
+                          {faculty.programsLoading ? (
+                            <motion.div
+                              className="flex items-center justify-center py-12"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <div className="text-center">
+                                <motion.div
+                                  animate={{ rotate: 360 }}
+                                  transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                                >
+                                  <Loader2 className="h-8 w-8 text-[#002F86] mx-auto mb-4" />
+                                </motion.div>
+                                <p className="text-slate-600 font-medium">Memuat program studi...</p>
+                              </div>
+                            </motion.div>
+                          ) : faculty.programs.length === 0 && faculty.programsLoaded ? (
+                            <div className="text-center py-8">
+                              <p className="text-slate-500 font-medium">
+                                Belum ada program studi yang tersedia untuk fakultas ini.
+                              </p>
                             </div>
-                          </div>
-                        ) : faculty.programs.length === 0 && faculty.programsLoaded ? (
-                          <div className="text-center py-8">
-                            <p className="text-gray-500">Belum ada program studi yang tersedia untuk fakultas ini.</p>
-                          </div>
-                        ) : faculty.programs.length === 0 ? (
-                          <div className="text-center py-8 bg-blue-50 rounded-xl border-2 border-dashed border-blue-200">
-                            <BookOpen className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-                            <p className="text-blue-600 font-medium">Klik untuk memuat program studi...</p>
-                          </div>
-                        ) : (
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {faculty.programs.map((program) => (
-                              <Card
-                                key={program.id}
-                                className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white/80 backdrop-blur-sm"
-                              >
-                                <CardContent className="p-6">
-                                  <div className="flex items-start justify-between">
-                                    <div className="flex-1">
-                                      <h5 className="font-bold text-gray-900 text-lg mb-2">{program.nama}</h5>
-                                      <div className="space-y-1">
-                                        <p className="text-gray-600 font-medium">Jenjang {program.jenjang}</p>
-                                        <p className="text-sm text-gray-500">
-                                          Biaya: {formatCurrency(program.biayaSemester)}/semester
-                                        </p>
+                          ) : faculty.programs.length === 0 ? (
+                            <motion.div
+                              className="text-center py-8 bg-blue-50 rounded-xl border-2 border-dashed border-[#002F86]/30"
+                              whileHover={{ scale: 1.02 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              <BookOpen className="h-12 w-12 text-[#002F86] mx-auto mb-4" />
+                              <p className="text-[#002F86] font-semibold">Klik untuk memuat program studi...</p>
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.5, staggerChildren: 0.1 }}
+                            >
+                              {faculty.programs.map((program, programIndex) => (
+                                <motion.div
+                                  key={program.id}
+                                  initial={{ opacity: 0, y: 20 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ duration: 0.3, delay: programIndex * 0.05 }}
+                                >
+                                  <Card className="border-2 border-slate-200 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white group">
+                                    <CardContent className="p-6">
+                                      <div className="flex items-start justify-between">
+                                        <div className="flex-1">
+                                          <h5 className="font-bold text-[#002F86] text-lg mb-2 group-hover:text-[#001F66] transition-colors duration-300">
+                                            {program.nama}
+                                          </h5>
+                                          <div className="space-y-1">
+                                            <p className="text-slate-700 font-semibold">Jenjang {program.jenjang}</p>
+                                            <p className="text-sm text-slate-600 font-medium">
+                                              Biaya: {formatCurrency(program.biayaSemester)}/semester
+                                            </p>
+                                          </div>
+                                        </div>
+                                        <Badge
+                                          className={cn(
+                                            "ml-4 px-3 py-1 font-bold transition-all duration-300",
+                                            program.akreditasi === "A"
+                                              ? "bg-[#FFD700] text-[#002F86] hover:bg-[#E6C200]"
+                                              : program.akreditasi === "B"
+                                                ? "bg-slate-500 text-white"
+                                                : "bg-slate-400 text-white",
+                                          )}
+                                        >
+                                          {program.akreditasi === "-" ? "Baru" : program.akreditasi}
+                                        </Badge>
                                       </div>
-                                    </div>
-                                    <Badge
-                                      className={cn(
-                                        "ml-4 px-3 py-1 text-white font-semibold",
-                                        program.akreditasi === "A"
-                                          ? "bg-gradient-to-r from-emerald-500 to-teal-500"
-                                          : program.akreditasi === "B"
-                                            ? "bg-gradient-to-r from-amber-500 to-orange-500"
-                                            : "bg-gradient-to-r from-gray-500 to-slate-500",
-                                      )}
-                                    >
-                                      {program.akreditasi === "-" ? "Baru" : program.akreditasi}
-                                    </Badge>
-                                  </div>
-                                </CardContent>
-                              </Card>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+                                    </CardContent>
+                                  </Card>
+                                </motion.div>
+                              ))}
+                            </motion.div>
+                          )}
+                        </div>
+                      </motion.div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </motion.div>
               ))}
             </Accordion>
           </div>
@@ -431,54 +487,76 @@ export default function AkademikPage() {
 
       {/* Requirements Section */}
       <AnimatedSection
-        className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden"
+        className="py-24 bg-slate-50 relative overflow-hidden"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
       >
-        {/* Background Elements */}
-        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-200/20 to-indigo-200/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-purple-200/20 to-pink-200/20 rounded-full blur-3xl"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Persyaratan <span className="text-emerald-600">Pendaftaran</span>
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                Persyaratan <span className="text-[#002F86]">Pendaftaran</span>
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto font-medium">
                 Dokumen dan persyaratan yang harus dipenuhi untuk menjadi mahasiswa Universitas Terbuka
               </p>
-            </div>
-            <Card className="border-0 shadow-2xl bg-white/80 backdrop-blur-sm overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white p-8">
-                <CardTitle className="flex items-center space-x-4 text-2xl">
-                  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                    <FileText className="w-6 h-6 text-white" />
-                  </div>
-                  <span>Persyaratan Umum</span>
-                </CardTitle>
-                <CardDescription className="text-emerald-100 text-lg mt-2">
-                  Dokumen dan persyaratan yang harus dipenuhi untuk mendaftar sebagai mahasiswa UT
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {requirements.map((requirement, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start space-x-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl hover:shadow-md transition-shadow duration-200"
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Card className="border-0 shadow-2xl bg-white overflow-hidden">
+                <CardHeader className="bg-[#002F86] text-white p-8">
+                  <CardTitle className="flex items-center space-x-4 text-2xl">
+                    <motion.div
+                      className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                        <CheckCircle className="w-4 h-4 text-white" />
-                      </div>
-                      <p className="text-gray-700 font-medium leading-relaxed">{requirement}</p>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                      <FileText className="w-6 h-6 text-white" />
+                    </motion.div>
+                    <span className="font-bold">Persyaratan Umum</span>
+                  </CardTitle>
+                  <CardDescription className="text-blue-100 text-lg mt-2 font-medium">
+                    Dokumen dan persyaratan yang harus dipenuhi untuk mendaftar sebagai mahasiswa UT
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {requirements.map((requirement, index) => (
+                      <motion.div
+                        key={index}
+                        className="flex items-start space-x-4 p-4 bg-slate-50 rounded-xl hover:shadow-md transition-all duration-300 group border border-slate-100"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: index * 0.05 }}
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <motion.div
+                          className="w-6 h-6 bg-[#002F86] rounded-full flex items-center justify-center flex-shrink-0 mt-1"
+                          whileHover={{ scale: 1.2, backgroundColor: "#FFD700" }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <CheckCircle className="w-4 h-4 text-white group-hover:text-[#002F86] transition-colors duration-300" />
+                        </motion.div>
+                        <p className="text-slate-700 font-semibold leading-relaxed">{requirement}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </AnimatedSection>
@@ -488,124 +566,194 @@ export default function AkademikPage() {
         className="py-24 bg-white relative overflow-hidden"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
       >
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Struktur <span className="text-amber-600">Biaya Kuliah</span>
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-6">
+                Struktur <span className="text-[#002F86]">Biaya Kuliah</span>
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto font-medium">
                 Investasi pendidikan yang terjangkau dengan kualitas terjamin untuk masa depan yang lebih cerah
               </p>
-            </div>
+            </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {feeStructure.map((fee, index) => (
-                <Card
+                <motion.div
                   key={index}
-                  className="border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden relative"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
                 >
-                  <div className={`absolute inset-0 ${fee.bgColor} opacity-60`}></div>
-                  <CardHeader className="relative z-10 p-8">
-                    <CardTitle className="flex items-center space-x-4 text-2xl">
-                      <div
-                        className={`w-16 h-16 bg-gradient-to-br ${fee.color} rounded-2xl flex items-center justify-center shadow-lg`}
+                  <Card className="border-2 border-slate-200 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden relative bg-white group h-full">
+                    <CardHeader className="relative z-10 p-8">
+                      <CardTitle className="flex items-center space-x-4 text-2xl">
+                        <motion.div
+                          className="w-16 h-16 bg-[#002F86] rounded-2xl flex items-center justify-center shadow-lg"
+                          whileHover={{
+                            scale: 1.1,
+                            backgroundColor: "#FFD700",
+                          }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <DollarSign className="w-8 h-8 text-white group-hover:text-[#002F86] transition-colors duration-300" />
+                        </motion.div>
+                        <span className="text-[#002F86] font-bold">Jenjang {fee.level}</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="relative z-10 p-8 pt-0 space-y-6">
+                      <motion.div
+                        className="bg-slate-50 p-6 rounded-2xl border border-slate-100"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.2 }}
                       >
-                        <DollarSign className="w-8 h-8 text-white" />
+                        <p className="font-bold text-slate-800 text-lg mb-2">Biaya Registrasi:</p>
+                        <p className="text-3xl font-bold text-[#002F86]">{fee.registration}</p>
+                      </motion.div>
+                      <motion.div
+                        className="bg-slate-50 p-6 rounded-2xl border border-slate-100"
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <p className="font-bold text-slate-800 text-lg mb-2">Biaya per Semester:</p>
+                        <p className="text-3xl font-bold text-[#002F86]">{fee.semester}</p>
+                      </motion.div>
+                      <div className="bg-yellow-50 p-4 rounded-xl border-l-4 border-[#FFD700]">
+                        <p className="text-slate-700 font-semibold">{fee.note}</p>
                       </div>
-                      <span className="text-gray-900">Jenjang {fee.level}</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="relative z-10 p-8 pt-0 space-y-6">
-                    <div className="bg-white/80 p-6 rounded-2xl">
-                      <p className="font-bold text-gray-900 text-lg mb-2">Biaya Registrasi:</p>
-                      <p className="text-3xl font-bold text-blue-600">{fee.registration}</p>
-                    </div>
-                    <div className="bg-white/80 p-6 rounded-2xl">
-                      <p className="font-bold text-gray-900 text-lg mb-2">Biaya per Semester:</p>
-                      <p className="text-3xl font-bold text-emerald-600">{fee.semester}</p>
-                    </div>
-                    <div className="bg-white/80 p-4 rounded-xl border-l-4 border-amber-400">
-                      <p className="text-gray-700 font-medium">{fee.note}</p>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               ))}
             </div>
-            <Card className="bg-gradient-to-br from-yellow-50 to-amber-50 border-2 border-yellow-200 shadow-xl">
-              <CardContent className="p-8">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-2xl flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-yellow-800 text-xl mb-4">Catatan Penting:</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {[
-                        "Biaya dapat berubah sesuai kebijakan UT pusat",
-                        "Biaya semester tergantung jumlah SKS yang diambil (minimal 12 SKS)",
-                        "Tersedia program beasiswa untuk mahasiswa berprestasi",
-                        "Pembayaran dapat dilakukan secara bertahap",
-                      ].map((note, index) => (
-                        <div key={index} className="flex items-start space-x-3">
-                          <CheckCircle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-yellow-700 font-medium">{note}</span>
-                        </div>
-                      ))}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <Card className="bg-yellow-50 border-2 border-[#FFD700] shadow-xl">
+                <CardContent className="p-8">
+                  <div className="flex items-start space-x-4">
+                    <motion.div
+                      className="w-12 h-12 bg-[#FFD700] rounded-2xl flex items-center justify-center flex-shrink-0"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Sparkles className="w-6 h-6 text-[#002F86]" />
+                    </motion.div>
+                    <div>
+                      <h4 className="font-bold text-[#002F86] text-xl mb-4">Catatan Penting:</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {[
+                          "Biaya dapat berubah sesuai kebijakan UT pusat",
+                          "Biaya semester tergantung jumlah SKS yang diambil (minimal 12 SKS)",
+                          "Tersedia program beasiswa untuk mahasiswa berprestasi",
+                          "Pembayaran dapat dilakukan secara bertahap",
+                        ].map((note, index) => (
+                          <motion.div
+                            key={index}
+                            className="flex items-start space-x-3"
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                          >
+                            <CheckCircle className="w-5 h-5 text-[#002F86] mt-0.5 flex-shrink-0" />
+                            <span className="text-slate-700 font-semibold">{note}</span>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </AnimatedSection>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 relative overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
+      <motion.section
+        className="py-24 bg-[#002F86] relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+      >
+        {/* Background Animation */}
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            background: [
+              "linear-gradient(45deg, #002F86, #001F66)",
+              "linear-gradient(45deg, #001F66, #002F86)",
+              "linear-gradient(45deg, #002F86, #001F66)",
+            ],
+          }}
+          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+        />
         <div className="container mx-auto px-4 text-center relative z-10">
-          <Badge className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-sm text-white text-base font-medium rounded-full mb-8 border border-white/20">
-            <Sparkles className="w-4 h-4 mr-2" />
-            Mulai Perjalanan Anda
-          </Badge>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Siap Memulai{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
-              Pendidikan Anda?
-            </span>
-          </h2>
-          <p className="text-xl md:text-2xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed">
+
+          <motion.h2
+            className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Siap Memulai <span className="text-[#FFD700]">Pendidikan Anda?</span>
+          </motion.h2>
+          <motion.p
+            className="text-xl md:text-2xl text-blue-100 mb-12 max-w-4xl mx-auto leading-relaxed font-medium"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Pilih program studi yang sesuai dengan minat Anda dan mulai perjalanan pendidikan tinggi bersama UT
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-lg px-10 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
-              asChild
-            >
-              <Link href="/pendaftaran">
-                <GraduationCap className="w-5 h-5 mr-2" />
-                Daftar Sekarang
-              </Link>
-            </Button>
-            <Button
-              size="lg"
-              className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white text-lg px-10 py-4 rounded-full border-2 border-white/30 hover:border-white/50 transition-all duration-300"
-              asChild
-            >
-              <Link href="/kontak">Konsultasi Gratis</Link>
-            </Button>
-          </div>
+          </motion.p>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-6 justify-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                size="lg"
+                className="bg-[#FFD700] hover:bg-[#E6C200] text-[#002F86] text-lg px-10 py-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 font-bold"
+                asChild
+              >
+                <Link href="/pendaftaran">
+                  <GraduationCap className="w-5 h-5 mr-2" />
+                  Daftar Sekarang
+                </Link>
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                size="lg"
+                className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white text-lg px-10 py-4 rounded-full border-2 border-white/30 hover:border-white/50 transition-all duration-300 font-semibold"
+                asChild
+              >
+                <Link href="/kontak">Konsultasi Gratis</Link>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       <Footer />
     </div>
