@@ -22,7 +22,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
     if (!showImageHeader) return
 
     const handleScroll = () => {
-      const threshold = 220 // Increased threshold for taller header
+      const threshold = 220
       if (window.scrollY > threshold) {
         setIsScrolled(true)
       } else {
@@ -82,29 +82,28 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
     <>
       {showImageHeader && (
         <div className="relative w-full bg-white">
-          {/* Header Section with Full Height Building Images - Increased Height */}
+          {/* Header Section with Building Images */}
           <div className="relative flex items-center justify-between bg-white h-48 overflow-hidden">
-            {/* Left Building Image - UT Medan - Full Height, No Cropping */}
-            <div className="absolute left-0 top-0 w-1/3 h-full">
+            {/* Left Building Image - UT Medan */}
+            <div className="absolute left-0 top-0 w-1/5 h-full">
               <div className="relative w-full h-full">
                 <Image
                   src="/utmedan.png"
                   alt="UT Medan Building"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-[center_20%]"
                   priority
-                  sizes="33vw"
+                  sizes="20vw"
                 />
-                {/* Gradient overlay - fade from transparent to white (left to right) */}
+                {/* Gradient overlay - fade from transparent to white */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white"></div>
-                {/* Additional gradient for better fade effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-white/90"></div>
               </div>
             </div>
 
-            {/* Center Logo Section - Positioned above images with larger UT logo */}
+            {/* Center Logo Section */}
             <div className="relative z-10 flex items-center justify-center space-x-10 flex-grow mx-8">
-              {/* UT Logo - Much Larger Size for Better Visual Balance */}
+              {/* UT Logo */}
               <div className="flex items-center justify-center">
                 <Image
                   src="/ut.png"
@@ -118,7 +117,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
               {/* Vertical Separator */}
               <div className="w-px h-20 bg-gray-400 shadow-sm"></div>
 
-              {/* Salut Soul Logo - Maintained Size */}
+              {/* Salut Soul Logo */}
               <div className="flex items-center justify-center">
                 <Image
                   src="/soul.png"
@@ -130,20 +129,19 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
               </div>
             </div>
 
-            {/* Right Building Image - NCOLE Corner - Full Height, No Cropping */}
-            <div className="absolute right-0 top-0 w-1/3 h-full">
+            {/* Right Building Image - NCOLE Corner - Show More Building Structure */}
+            <div className="absolute right-0 top-0 w-1/4 h-full">
               <div className="relative w-full h-full">
                 <Image
                   src="/ncole.jpg"
                   alt="NCOLE Corner Building"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-[center_25%]"
                   priority
-                  sizes="33vw"
+                  sizes="25vw"
                 />
-                {/* Gradient overlay - fade from white to transparent (right to left) */}
+                {/* Gradient overlay - fade from white to transparent */}
                 <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-white"></div>
-                {/* Additional gradient for better fade effect */}
                 <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/20 to-white/90"></div>
               </div>
             </div>
@@ -160,13 +158,43 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
 
       {/* Navigation Bar */}
       <header className={`${showImageHeader ? "sticky" : "fixed"} top-0 z-50 w-full bg-[#002F86] shadow-lg`}>
-        <div className="container mx-auto px-4 h-16 flex items-center">
-          {/* Left Logo - Salut Soul (Only show when scrolled) */}
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          {/* Mobile Logo Section - Left Side */}
+          <div className="flex items-center lg:hidden">
+            <div className="flex items-center space-x-3">
+              {/* UT Logo - Mobile */}
+              <div className="flex items-center">
+                <Image
+                  src="/ut2.png"
+                  alt="Universitas Terbuka Logo"
+                  width={60}
+                  height={30}
+                  className="object-contain drop-shadow-md"
+                />
+              </div>
+
+              {/* Vertical Separator - Mobile */}
+              <div className="w-px h-8 bg-gradient-to-b from-[#FFD700] via-[#FFA500] to-[#FFD700] shadow-sm"></div>
+
+              {/* Salut Soul Logo - Mobile */}
+              <div className="flex items-center">
+                <Image
+                  src="/soul2.png"
+                  alt="Salut Soul Logo"
+                  width={50}
+                  height={25}
+                  className="object-contain drop-shadow-md"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Left Logo - Salut Soul (Only show when scrolled) */}
           {showImageHeader && (
             <div
-              className={`transition-all duration-700 ease-out ${isScrolled
-                  ? "opacity-100 transform translate-y-0"
-                  : "opacity-0 transform -translate-y-8 pointer-events-none"
+              className={`hidden lg:block transition-all duration-700 ease-out ${isScrolled
+                ? "opacity-100 transform translate-y-0"
+                : "opacity-0 transform -translate-y-8 pointer-events-none"
                 }`}
             >
               <Image
@@ -179,9 +207,9 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
             </div>
           )}
 
-          {/* Left Logo for non-image header pages - UT Logo */}
+          {/* Desktop Left Logo for non-image header pages - UT Logo */}
           {!showImageHeader && (
-            <div className="flex items-center">
+            <div className="hidden lg:flex items-center">
               <Image src="/ut2.png" alt="Universitas Terbuka Logo" width={120} height={60} className="object-contain" />
             </div>
           )}
@@ -195,8 +223,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                     <DropdownMenuTrigger asChild>
                       <button
                         className={`flex items-center px-4 py-2 font-medium rounded-lg transition-all duration-200 group ${isActiveLink(item.href)
-                            ? "text-[#FFD700] bg-white/10"
-                            : "text-white hover:text-[#FFD700] hover:bg-white/10"
+                          ? "text-[#FFD700] bg-white/10"
+                          : "text-white hover:text-[#FFD700] hover:bg-white/10"
                           }`}
                       >
                         {item.name}
@@ -220,8 +248,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                   <Link
                     href={item.href}
                     className={`px-4 py-2 font-medium rounded-lg transition-all duration-200 ${isActiveLink(item.href)
-                        ? "text-[#FFD700] bg-white/10"
-                        : "text-white hover:text-[#FFD700] hover:bg-white/10"
+                      ? "text-[#FFD700] bg-white/10"
+                      : "text-white hover:text-[#FFD700] hover:bg-white/10"
                       }`}
                   >
                     {item.name}
@@ -231,51 +259,51 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
             ))}
           </nav>
 
-          {/* Right Logo - UT (Only show when scrolled) or Salut Soul for non-image header */}
+          {/* Desktop Right Logo - UT (Only show when scrolled) */}
           {showImageHeader && (
             <div
-              className={`transition-all duration-700 ease-out ${isScrolled
-                  ? "opacity-100 transform translate-y-0"
-                  : "opacity-0 transform -translate-y-8 pointer-events-none"
+              className={`hidden lg:block transition-all duration-700 ease-out ${isScrolled
+                ? "opacity-100 transform translate-y-0"
+                : "opacity-0 transform -translate-y-8 pointer-events-none"
                 }`}
             >
               <Image src="/ut2.png" alt="UT Logo" width={120} height={60} className="object-contain drop-shadow-md" />
             </div>
           )}
 
-          {/* Right Logo for non-image header pages - Salut Soul Logo */}
+          {/* Desktop Right Logo for non-image header pages - Salut Soul Logo */}
           {!showImageHeader && (
-            <div className="flex items-center">
+            <div className="hidden lg:flex items-center">
               <Image src="/soul2.png" alt="Salut Soul Logo" width={90} height={45} className="object-contain" />
             </div>
           )}
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu Button - Right Side */}
           <div className="lg:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-white hover:text-[#FFD700] hover:bg-white/10 h-10 w-10"
+                  className="text-white hover:text-[#FFD700] hover:bg-white/10 h-12 w-12 rounded-lg"
                 >
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent className="bg-[#002F86]/95 backdrop-blur-lg border-l border-white/20 w-80 p-0">
+              <SheetContent side="right" className="bg-[#002F86]/95 backdrop-blur-lg border-l border-white/20 w-80 p-0">
                 <div className="flex flex-col h-full">
                   {/* Fixed Header */}
                   <SheetHeader className="p-6 pb-4 border-b border-white/10">
-                    <SheetTitle className="text-white text-lg font-bold text-center">Menu</SheetTitle>
+                    <SheetTitle className="text-white text-lg font-bold text-center">Menu Navigasi</SheetTitle>
                   </SheetHeader>
 
                   {/* Scrollable Content */}
                   <div className="flex-1 overflow-y-auto px-6 py-4">
-                    {/* Mobile Logo Section - Side by Side */}
+                    {/* Mobile Logo Section - Centered in Menu */}
                     <div className="mb-6">
-                      <div className="flex items-center justify-between gap-4 p-4 bg-white/10 rounded-lg">
-                        {/* UT Logo - Left Side */}
-                        <div className="flex items-center justify-center flex-1">
+                      <div className="flex items-center justify-center gap-4 p-4 bg-white/10 rounded-lg">
+                        {/* UT Logo */}
+                        <div className="flex items-center justify-center">
                           <Image
                             src="/ut2.png"
                             alt="Universitas Terbuka Logo"
@@ -292,8 +320,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                           <div className="absolute -left-1 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-white/30 to-transparent"></div>
                         </div>
 
-                        {/* Salut Soul Logo - Right Side */}
-                        <div className="flex items-center justify-center flex-1">
+                        {/* Salut Soul Logo */}
+                        <div className="flex items-center justify-center">
                           <Image
                             src="/soul2.png"
                             alt="Salut Soul Logo"
@@ -314,8 +342,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                               <AccordionItem value={`item-${index}`} className="border-none">
                                 <AccordionTrigger
                                   className={`px-4 py-3 font-medium rounded-xl transition-colors duration-200 text-left hover:no-underline ${isActiveLink(item.href)
-                                      ? "text-[#FFD700] bg-white/10"
-                                      : "text-white hover:text-[#FFD700] hover:bg-white/10"
+                                    ? "text-[#FFD700] bg-white/10"
+                                    : "text-white hover:text-[#FFD700] hover:bg-white/10"
                                     }`}
                                 >
                                   {item.name}
@@ -338,8 +366,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                             <Link
                               href={item.href}
                               className={`block px-4 py-3 font-medium rounded-xl transition-colors duration-200 ${isActiveLink(item.href)
-                                  ? "text-[#FFD700] bg-white/10"
-                                  : "text-white hover:text-[#FFD700] hover:bg-white/10"
+                                ? "text-[#FFD700] bg-white/10"
+                                : "text-white hover:text-[#FFD700] hover:bg-white/10"
                                 }`}
                               onClick={() => setIsOpen(false)}
                             >
@@ -358,7 +386,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
       </header>
 
       {/* Spacer for fixed navbar on non-image header pages */}
-      {!showImageHeader && <div className="h-20"></div>}
+      {!showImageHeader && <div className="h-16"></div>}
     </>
   )
 }

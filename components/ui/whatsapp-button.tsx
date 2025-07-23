@@ -15,7 +15,7 @@ export function WhatsappButton() {
   };
 
   const handleClick = () => {
-    window.open("https://wa.me/+628123456789", "_blank");
+    window.open("https://wa.me/+6282259616782", "_blank");
   };
 
   return (
