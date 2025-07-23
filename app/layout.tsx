@@ -1,20 +1,36 @@
-import "./globals.css"
+import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Poppins } from "next/font/google"
-import Link from "next/link"
-import Head from "next/head"
+import "./globals.css"
+import { Toaster } from "@/components/ui/toaster"
+import { WhatsappButton } from "@/components/ui/whatsapp-button"
+import Head from "next/head" // tambahkan ini
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+})
+
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
 })
 
 export const metadata: Metadata = {
   title: "SALUT Soul - Sentra Layanan Universitas Terbuka",
-  description: "Pendaftaran mahasiswa baru Universitas Terbuka. Kuliah fleksibel, berkualitas, dan terjangkau.",
   icons: {
     icon: "/Logo_Universitas_Terbuka.ico",
+  },
+  description:
+      "Pendaftaran mahasiswa baru Universitas Terbuka. Kuliah fleksibel, berkualitas, dan terjangkau. Daftar sekarang!",
+  keywords: "universitas terbuka, kuliah online, pendidikan jarak jauh, SALUT, pendaftaran mahasiswa",
+  authors: [{ name: "SALUT Soul" }],
+  openGraph: {
+    title: "SALUT Soul - Sentra Layanan Universitas Terbuka",
+    description: "Pendaftaran mahasiswa baru Universitas Terbuka. Kuliah fleksibel, berkualitas, dan terjangkau.",
+    type: "website",
+    locale: "id_ID",
   },
 }
 
@@ -24,26 +40,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-      <html lang="id" className={`${inter.className} ${poppins.className}`}>
-      <Head>
+      <html lang="id" className={`${inter.variable} ${poppins.variable}`}>
+      <head>
+        {/* 👇 Tambahkan ini */}
         <link rel="canonical" href="https://salutsoul.com/" />
-      </Head>
-      <body className="min-h-screen bg-white text-gray-800">
-      <header className="bg-blue-900 text-white p-4">
-        <nav className="container mx-auto flex gap-6 text-sm font-medium">
-          <Link href="/">Beranda</Link>
-          <Link href="/akademik">Akademik</Link>
-          <Link href="/pendaftaran">Pendaftaran</Link>
-          <Link href="/kontak">Kontak</Link>
-          <Link href="/tentang">Tentang</Link>
-        </nav>
-      </header>
-
-      <main className="container mx-auto px-4 py-6">{children}</main>
-
-      <footer className="bg-blue-100 text-center text-sm text-gray-600 py-4 mt-10">
-        &copy; {new Date().getFullYear()} SALUT Soul - Universitas Terbuka
-      </footer>
+      </head>
+      <body className={inter.className}>
+      {children}
+      <WhatsappButton />
+      <Toaster />
       </body>
       </html>
   )
