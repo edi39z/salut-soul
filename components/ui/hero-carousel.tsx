@@ -153,17 +153,18 @@ export function HeroCarousel() {
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-white rounded-lg shadow-lg overflow-hidden animate-pulse">
-                            <div className="h-[240px] bg-gray-200"></div>
-                            <div className="absolute inset-x-0 top-[220px] flex justify-center py-2">
+                            <div className="h-[380px] bg-gray-200"></div>
+                            <div className="absolute inset-x-0 top-[360px] flex justify-center py-2">
                                 <div className="flex space-x-1">
                                     <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
                                     <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
                                     <div className="w-1.5 h-1.5 rounded-full bg-gray-300"></div>
                                 </div>
                             </div>
-                            <div className="bg-[#003366] p-4 mt-4">
-                                <div className="h-4 bg-gray-200 rounded mb-2"></div>
-                                <div className="h-3 bg-gray-200 rounded w-2/3 mb-3"></div>
+                            <div className="bg-[#003366] p-8">
+                                <div className="h-6 bg-gray-200 rounded mb-4"></div>
+                                <div className="h-4 bg-gray-200 rounded w-4/5 mb-2"></div>
+                                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                             </div>
                         </div>
                     </div>
@@ -213,9 +214,9 @@ export function HeroCarousel() {
         <section className="py-6">
             <div className="container mx-auto px-4">
                 <div className="max-w-4xl mx-auto relative">
-                    {/* Carousel card with seamless background */}
+                    {/* Carousel card dengan tinggi yang cukup untuk menampilkan semua konten */}
                     <div className="relative w-full overflow-hidden rounded-lg shadow-lg bg-[#003366]">
-                        {/* Arrow positioned at top corners of the card */}
+                        {/* Arrow dengan desain asli - positioned at edges */}
                         {berita.length > 1 && (
                             <>
                                 <button
@@ -235,8 +236,8 @@ export function HeroCarousel() {
                             </>
                         )}
 
-                        {/* Carousel slides with seamless transition */}
-                        <div className="relative w-full h-[359px] bg-[#003366]">
+                        {/* Carousel slides dengan tinggi yang diperbesar untuk konten */}
+                        <div className="relative w-full h-[560px] bg-[#003366]">
                             <AnimatePresence initial={false} custom={direction} mode="popLayout">
                                 <motion.div
                                     key={`carousel-item-${currentNews.id}`}
@@ -248,14 +249,17 @@ export function HeroCarousel() {
                                     transition={transition}
                                     className="absolute inset-0 w-full h-full bg-[#003366]"
                                 >
-                                    {/* Clickable image section */}
+                                    {/* Gambar section dengan tinggi yang disesuaikan */}
                                     <Link href={getReadMoreUrl(currentNews)} className="block">
-                                        <div className="relative w-full h-[240px] overflow-hidden cursor-pointer group">
+                                        <div className="relative w-full h-[380px] overflow-hidden cursor-pointer group">
                                             <Image
-                                                src={currentNews.gambar || "/placeholder.svg?height=240&width=800&text=Berita+Image"}
+                                                src={currentNews.gambar || "/placeholder.svg?height=380&width=800&text=Berita+Image"}
                                                 alt={currentNews.judul || "Berita"}
                                                 fill
-                                                style={{ objectFit: "cover" }}
+                                                style={{
+                                                    objectFit: "cover",
+                                                    objectPosition: "center",
+                                                }}
                                                 className="transition-transform duration-300 group-hover:scale-105"
                                                 priority
                                             />
@@ -263,9 +267,9 @@ export function HeroCarousel() {
                                         </div>
                                     </Link>
 
-                                    {/* Small minimalist dot indicators positioned as separator */}
+                                    {/* Dot indicators dengan posisi yang disesuaikan */}
                                     {berita.length > 1 && (
-                                        <div className="absolute inset-x-0 top-[220px] flex justify-center py-2 z-10">
+                                        <div className="absolute inset-x-0 top-[360px] flex justify-center py-2 z-10">
                                             <div className="flex space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
                                                 {berita.map((_, index) => (
                                                     <button
@@ -284,18 +288,17 @@ export function HeroCarousel() {
                                         </div>
                                     )}
 
-                                    {/* Content section with better spacing and clickable title */}
-                                    <div className="bg-[#003366] px-6 py-4 max-h-[130px] overflow-hidden">
-                                        <Link href={getReadMoreUrl(currentNews)} className="block group">
-                                            <h2 className="text-white text-base font-bold line-clamp-2 leading-snug group-hover:text-amber-100 transition-colors duration-300">
+                                    {/* Content section dengan tinggi yang lebih besar dan padding yang cukup */}
+                                    <div className="bg-[#003366] px-8 py-6 h-[180px] flex flex-col justify-start">
+                                        <Link href={getReadMoreUrl(currentNews)} className="block group mb-3">
+                                            <h2 className="text-white text-xl font-bold line-clamp-2 leading-tight group-hover:text-amber-100 transition-colors duration-300">
                                                 {currentNews.judul}
                                             </h2>
                                         </Link>
-                                        <p className="text-blue-100 text-sm line-clamp-2 mt-1 leading-relaxed">
-                                            {truncateText(currentNews.konten, 150)}
+                                        <p className="text-blue-100 text-sm line-clamp-3 leading-relaxed">
+                                            {truncateText(currentNews.konten, 180)}
                                         </p>
                                     </div>
-
                                 </motion.div>
                             </AnimatePresence>
                         </div>
