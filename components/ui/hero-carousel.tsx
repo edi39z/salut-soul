@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useState, useEffect } from "react"
@@ -111,18 +112,6 @@ export function HeroCarousel() {
         return text.substring(0, maxLength) + "..."
     }
 
-    const formatDate = (dateString: string) => {
-        try {
-            const date = new Date(dateString)
-            return date.toLocaleDateString("id-ID", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-            })
-        } catch (error) {
-            return "Tanggal tidak valid"
-        }
-    }
 
     const getReadMoreUrl = (item: Berita) => {
         if (item.linkUrl && item.linkUrl.trim() !== "") {
