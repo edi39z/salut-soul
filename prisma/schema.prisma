@@ -144,7 +144,7 @@ updatedAt DateTime @updatedAt
 }
 
 model Berita {
- id              String   @id @default(cuid())
+id              String   @id @default(cuid())
   judul           String
   slug            String   @unique
   konten          String
