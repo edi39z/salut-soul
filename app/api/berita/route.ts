@@ -10,13 +10,19 @@ export async function GET(request: NextRequest) {
         const search = searchParams.get("search")
         const jenis = searchParams.get("jenis") // "internal", "eksternal", or null for all
         const page = searchParams.get("page") || "1"
+        const carousel = searchParams.get("carousel") // "true" for carousel items only
         const pageSize = limit ? Number.parseInt(limit) : 10
 
-        console.log("API: Fetching berita with params:", { limit, search, jenis, page })
+        console.log("API: Fetching berita with params:", { limit, search, jenis, page, carousel })
 
         // Build where clause
         const whereClause: any = {
             aktif: true,
+        }
+
+        // If carousel parameter is true, only show items with tampilDiCarousel = true
+        if (carousel === "true") {
+            whereClause.tampilDiCarousel = true
         }
 
         if (search) {
@@ -55,6 +61,7 @@ export async function GET(request: NextRequest) {
                 judul: b.judul,
                 jenis: b.jenis,
                 aktif: b.aktif,
+                tampilDiCarousel: b.tampilDiCarousel,
                 linkUrl: b.linkUrl,
             })),
         )
@@ -102,6 +109,7 @@ export async function POST(request: NextRequest) {
             tags,
             author,
             aktif = true,
+            tampilDiCarousel = false,
         } = body
 
         // Generate slug if not provided
@@ -128,6 +136,7 @@ export async function POST(request: NextRequest) {
                 author,
                 tanggal: new Date().toISOString(),
                 aktif,
+                tampilDiCarousel,
             },
         })
 

@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 
 interface Berita {
     id: string
@@ -15,8 +15,10 @@ interface Berita {
     gambar: string
     slug: string
     linkUrl?: string | null
+    jenis: string
     tanggal: string
     aktif: boolean
+    tampilDiCarousel: boolean
 }
 
 export function HeroCarousel() {
@@ -27,12 +29,12 @@ export function HeroCarousel() {
     const [isAutoPlaying, setIsAutoPlaying] = useState(false)
     const [direction, setDirection] = useState(0)
 
-    // Fetch berita data
+    // Fetch berita data - only carousel items
     useEffect(() => {
         const fetchBerita = async () => {
             try {
                 setLoading(true)
-                const response = await fetch("/api/berita", {
+                const response = await fetch("/api/berita?carousel=true&limit=10", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -45,12 +47,25 @@ export function HeroCarousel() {
                 }
 
                 const data = await response.json()
+                console.log("Carousel: API Response:", data)
 
                 if (data.success && Array.isArray(data.data)) {
-                    const activeBerita = data.data.filter((item: any) => Boolean(item.aktif))
+                    // Double check the filtering - use the correct field name
+                    const carouselBerita = data.data.filter((item: any) => {
+                        console.log("Carousel: Filtering item:", {
+                            id: item.id,
+                            judul: item.judul,
+                            aktif: item.aktif,
+                            tampilDiCarousel: item.tampilDiCarousel,
+                            shouldShow: Boolean(item.aktif) && Boolean(item.tampilDiCarousel),
+                        })
+                        return Boolean(item.aktif) && Boolean(item.tampilDiCarousel)
+                    })
 
-                    if (activeBerita.length > 0) {
-                        setBerita(activeBerita)
+                    console.log("Carousel: Filtered berita count:", carouselBerita.length)
+
+                    if (carouselBerita.length > 0) {
+                        setBerita(carouselBerita)
                         setCurrentIndex(0)
                         setError(null)
 
@@ -58,12 +73,13 @@ export function HeroCarousel() {
                             setIsAutoPlaying(true)
                         }, 1000)
                     } else {
-                        setError("Tidak ada berita aktif")
+                        setError("Tidak ada berita carousel aktif")
                     }
                 } else {
                     setError("Format respons API tidak valid")
                 }
             } catch (err) {
+                console.error("Carousel: Fetch error:", err)
                 setError(`Error: ${err instanceof Error ? err.message : "Unknown error"}`)
             } finally {
                 setLoading(false)
@@ -110,20 +126,37 @@ export function HeroCarousel() {
     }
 
     // Utility functions
+    const stripHtmlTags = (html: string) => {
+        if (typeof window === "undefined") {
+            // Server-side fallback
+            return html.replace(/<[^>]*>/g, "")
+        }
+        const tmp = document.createElement("div")
+        tmp.innerHTML = html
+        return tmp.textContent || tmp.innerText || ""
+    }
+
     const truncateText = (text: string, maxLength: number) => {
         if (!text) return ""
-        if (text.length <= maxLength) return text
-        return text.substring(0, maxLength) + "..."
+        const plainText = stripHtmlTags(text)
+        if (plainText.length <= maxLength) return plainText
+        return plainText.substring(0, maxLength) + "..."
     }
 
     const getReadMoreUrl = (item: Berita) => {
-        if (item.linkUrl && item.linkUrl.trim() !== "") {
+        // For external news, use linkUrl if available
+        if (item.jenis === "eksternal" && item.linkUrl && item.linkUrl.trim() !== "") {
             return item.linkUrl
         }
+        // For internal news or external without linkUrl, use slug
         return `/berita/${item.slug}`
     }
 
-    // Seamless slide animation - no white background
+    const isExternalLink = (item: Berita) => {
+        return item.jenis === "eksternal" && item.linkUrl && item.linkUrl.trim() !== ""
+    }
+
+    // Seamless slide animation
     const slideVariants = {
         enter: (direction: number) => ({
             x: direction > 0 ? "100%" : "-100%",
@@ -136,7 +169,6 @@ export function HeroCarousel() {
         }),
     }
 
-    // Faster, smoother transition to avoid white gaps
     const transition = {
         x: {
             type: "spring",
@@ -180,7 +212,9 @@ export function HeroCarousel() {
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto text-center">
                         <div className="bg-white rounded-lg shadow-lg p-6">
-                            <div className="text-gray-600 text-lg font-medium mb-4">{error || "Tidak ada berita tersedia"}</div>
+                            <div className="text-gray-600 text-lg font-medium mb-4">
+                                {error || "Tidak ada berita carousel tersedia"}
+                            </div>
                             <Button
                                 onClick={() => window.location.reload()}
                                 className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md"
@@ -214,9 +248,8 @@ export function HeroCarousel() {
         <section className="py-6">
             <div className="container mx-auto px-4">
                 <div className="max-w-4xl mx-auto relative">
-                    {/* Carousel card dengan tinggi yang cukup untuk menampilkan semua konten */}
                     <div className="relative w-full overflow-hidden rounded-lg shadow-lg bg-[#003366]">
-                        {/* Arrow dengan desain asli - positioned at edges */}
+                        {/* Navigation arrows */}
                         {berita.length > 1 && (
                             <>
                                 <button
@@ -236,7 +269,7 @@ export function HeroCarousel() {
                             </>
                         )}
 
-                        {/* Carousel slides dengan tinggi yang diperbesar untuk konten */}
+                        {/* Carousel slides */}
                         <div className="relative w-full h-[560px] bg-[#003366]">
                             <AnimatePresence initial={false} custom={direction} mode="popLayout">
                                 <motion.div
@@ -249,25 +282,48 @@ export function HeroCarousel() {
                                     transition={transition}
                                     className="absolute inset-0 w-full h-full bg-[#003366]"
                                 >
-                                    {/* Gambar section dengan tinggi yang disesuaikan */}
-                                    <Link href={getReadMoreUrl(currentNews)} className="block">
-                                        <div className="relative w-full h-[380px] overflow-hidden cursor-pointer group">
-                                            <Image
-                                                src={currentNews.gambar || "/placeholder.svg?height=380&width=800&text=Berita+Image"}
-                                                alt={currentNews.judul || "Berita"}
-                                                fill
-                                                style={{
-                                                    objectFit: "cover",
-                                                    objectPosition: "center",
-                                                }}
-                                                className="transition-transform duration-300 group-hover:scale-105"
-                                                priority
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/30 via-transparent to-transparent group-hover:from-[#003366]/40 transition-all duration-300" />
-                                        </div>
-                                    </Link>
+                                    {/* Image section */}
+                                    {isExternalLink(currentNews) ? (
+                                        <a href={getReadMoreUrl(currentNews)} target="_blank" rel="noopener noreferrer" className="block">
+                                            <div className="relative w-full h-[380px] overflow-hidden cursor-pointer group">
+                                                <Image
+                                                    src={currentNews.gambar || "/placeholder.svg?height=380&width=800&text=Berita+Image"}
+                                                    alt={currentNews.judul || "Berita"}
+                                                    fill
+                                                    style={{
+                                                        objectFit: "cover",
+                                                        objectPosition: "center",
+                                                    }}
+                                                    className="transition-transform duration-300 group-hover:scale-105"
+                                                    priority
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/30 via-transparent to-transparent group-hover:from-[#003366]/40 transition-all duration-300" />
+                                                {/* External link indicator */}
+                                                <div className="absolute top-4 right-4 bg-blue-600 text-white p-2 rounded-full shadow-lg">
+                                                    <ExternalLink className="w-4 h-4" />
+                                                </div>
+                                            </div>
+                                        </a>
+                                    ) : (
+                                        <Link href={getReadMoreUrl(currentNews)} className="block">
+                                            <div className="relative w-full h-[380px] overflow-hidden cursor-pointer group">
+                                                <Image
+                                                    src={currentNews.gambar || "/placeholder.svg?height=380&width=800&text=Berita+Image"}
+                                                    alt={currentNews.judul || "Berita"}
+                                                    fill
+                                                    style={{
+                                                        objectFit: "cover",
+                                                        objectPosition: "center",
+                                                    }}
+                                                    className="transition-transform duration-300 group-hover:scale-105"
+                                                    priority
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-[#003366]/30 via-transparent to-transparent group-hover:from-[#003366]/40 transition-all duration-300" />
+                                            </div>
+                                        </Link>
+                                    )}
 
-                                    {/* Dot indicators dengan posisi yang disesuaikan */}
+                                    {/* Dot indicators */}
                                     {berita.length > 1 && (
                                         <div className="absolute inset-x-0 top-[360px] flex justify-center py-2 z-10">
                                             <div className="flex space-x-1 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
@@ -288,15 +344,32 @@ export function HeroCarousel() {
                                         </div>
                                     )}
 
-                                    {/* Content section dengan tinggi yang lebih besar dan padding yang cukup */}
+                                    {/* Content section */}
                                     <div className="bg-[#003366] px-8 py-6 h-[180px] flex flex-col justify-start">
-                                        <Link href={getReadMoreUrl(currentNews)} className="block group mb-3">
-                                            <h2 className="text-white text-xl font-bold line-clamp-2 leading-tight group-hover:text-amber-100 transition-colors duration-300">
-                                                {currentNews.judul}
-                                            </h2>
-                                        </Link>
+                                        {isExternalLink(currentNews) ? (
+                                            <a
+                                                href={getReadMoreUrl(currentNews)}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="block group mb-3"
+                                            >
+                                                <h2 className="text-white text-xl font-bold line-clamp-2 leading-tight group-hover:text-amber-100 transition-colors duration-300 flex items-center gap-2">
+                                                    {currentNews.judul}
+                                                    <ExternalLink className="w-4 h-4 flex-shrink-0" />
+                                                </h2>
+                                            </a>
+                                        ) : (
+                                            <Link href={getReadMoreUrl(currentNews)} className="block group mb-3">
+                                                <h2 className="text-white text-xl font-bold line-clamp-2 leading-tight group-hover:text-amber-100 transition-colors duration-300">
+                                                    {currentNews.judul}
+                                                </h2>
+                                            </Link>
+                                        )}
+
                                         <p className="text-blue-100 text-sm line-clamp-3 leading-relaxed">
-                                            {truncateText(currentNews.konten, 180)}
+                                            {currentNews.jenis === "internal"
+                                                ? truncateText(currentNews.konten, 200)
+                                                : truncateText(currentNews.konten, 180)}
                                         </p>
                                     </div>
                                 </motion.div>

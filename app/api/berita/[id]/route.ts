@@ -5,17 +5,20 @@ const prisma = new PrismaClient()
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
-        console.log("API: Fetching berita with ID/slug:", params.id)
+        const { id } = params
 
+        console.log("API: Fetching berita detail for ID:", id)
+
+        // Try to find by ID first, then by slug
         const berita = await prisma.berita.findFirst({
             where: {
-                OR: [{ id: params.id }, { slug: params.id }],
+                OR: [{ id: id }, { slug: id }],
                 aktif: true,
             },
         })
 
         if (!berita) {
-            console.log("API: Berita not found")
+            console.log("API: Berita not found for ID/slug:", id)
             return NextResponse.json(
                 {
                     success: false,
@@ -29,7 +32,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
             id: berita.id,
             judul: berita.judul,
             jenis: berita.jenis,
-            slug: berita.slug,
+            aktif: berita.aktif,
+            linkUrl: berita.linkUrl,
         })
 
         return NextResponse.json({
@@ -51,12 +55,27 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
     try {
+        const { id } = params
         const body = await request.json()
-        const { judul, konten, gambar, slug, linkUrl, jenis, excerpt, metaTitle, metaDescription, tags, author, aktif } =
-            body
+
+        const {
+            judul,
+            konten,
+            gambar,
+            slug,
+            linkUrl,
+            jenis,
+            excerpt,
+            metaTitle,
+            metaDescription,
+            tags,
+            author,
+            aktif,
+            tampilDiCarousel,
+        } = body
 
         const berita = await prisma.berita.update({
-            where: { id: params.id },
+            where: { id },
             data: {
                 judul,
                 konten,
@@ -70,6 +89,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
                 tags,
                 author,
                 aktif,
+                tampilDiCarousel,
             },
         })
 
@@ -92,8 +112,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     try {
+        const { id } = params
+
         await prisma.berita.delete({
-            where: { id: params.id },
+            where: { id },
         })
 
         return NextResponse.json({

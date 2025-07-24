@@ -1,21 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from "next/server"
 import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-export async function GET(request: NextRequest, context: { params: { id: string } }) {
-    // ❗ FIXED: Tidak destructuring di parameter function
-    const id = context.params.id
-
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     try {
+        const { id } = params
         const { searchParams } = new URL(request.url)
         const limit = Number.parseInt(searchParams.get("limit") || "6")
 
-        // Get the current article
+        console.log("API: Fetching related berita for ID:", id, "with limit:", limit)
+
+        // First, get the current berita to extract its tags
         const currentBerita = await prisma.berita.findFirst({
             where: {
-                OR: [{ id }, { slug: id }],
+                OR: [{ id: id }, { slug: id }],
                 aktif: true,
             },
         })
@@ -24,101 +23,76 @@ export async function GET(request: NextRequest, context: { params: { id: string 
             return NextResponse.json(
                 {
                     success: false,
-                    error: "Berita not found",
+                    error: "Current berita not found",
                 },
-                { status: 404 }
+                { status: 404 },
             )
         }
 
-        const currentTags = currentBerita.tags
-            ? currentBerita.tags
-                .split(",")
-                .map((tag) => tag.trim())
-                .filter((tag) => tag.length > 0)
-            : []
-
-        let relatedBerita: any[] = []
-
-        if (currentTags.length > 0) {
-            const tagConditions = currentTags.map((tag) => ({
-                tags: {
-                    contains: tag,
-                    mode: "insensitive" as const,
-                },
-            }))
-
-            relatedBerita = await prisma.berita.findMany({
-                where: {
-                    AND: [
-                        { aktif: true },
-                        { id: { not: currentBerita.id } },
-                        { OR: tagConditions },
-                    ],
-                },
-                orderBy: {
-                    createdAt: "desc",
-                },
-                take: limit,
-            })
-        }
-
-        if (relatedBerita.length < limit) {
-            const remainingLimit = limit - relatedBerita.length
-            const excludeIds = [currentBerita.id, ...relatedBerita.map((b) => b.id)]
-
-            const otherBerita = await prisma.berita.findMany({
-                where: {
-                    AND: [{ aktif: true }, { id: { notIn: excludeIds } }],
-                },
-                orderBy: {
-                    createdAt: "desc",
-                },
-                take: remainingLimit,
-            })
-
-            relatedBerita = [...relatedBerita, ...otherBerita]
-        }
-
-        const result = relatedBerita.map((berita) => {
-            const beritaTags = berita.tags
-                ? berita.tags
-                    .split(",")
-                    .map((tag: string) => tag.trim())
-                    .filter((tag: string) => tag.length > 0)
-                : []
-
-            const hasCommonTags = currentTags.some((tag) =>
-                beritaTags.some(
-                    (beritaTag: string) =>
-                        beritaTag.toLowerCase().includes(tag.toLowerCase()) ||
-                        tag.toLowerCase().includes(beritaTag.toLowerCase())
-                )
-            )
-
-            return {
-                ...berita,
-                isRelated: hasCommonTags,
-            }
+        console.log("API: Current berita found:", {
+            id: currentBerita.id,
+            judul: currentBerita.judul,
+            tags: currentBerita.tags,
         })
+
+        // If no tags, return empty array
+        if (!currentBerita.tags || currentBerita.tags.length === 0) {
+            console.log("API: No tags found for current berita")
+            return NextResponse.json({
+                success: true,
+                data: [],
+            })
+        }
+
+        // Find related berita based on tags
+        // Find related berita based on tags
+        const tagList = currentBerita.tags.split(",").map((tag) => tag.trim())
+
+        const relatedBerita = await prisma.berita.findMany({
+            where: {
+                AND: [
+                    { aktif: true },
+                    { id: { not: currentBerita.id } }, // Exclude current berita
+                    {
+                        OR: tagList.map((tag) => ({
+                            tags: {
+                                contains: tag,
+                            },
+                        })),
+                    },
+                ],
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+            take: limit,
+        })
+
+
+        console.log("API: Found related berita count:", relatedBerita.length)
+        console.log(
+            "API: Related berita data:",
+            relatedBerita.map((b) => ({
+                id: b.id,
+                judul: b.judul,
+                tags: b.tags,
+                jenis: b.jenis,
+            })),
+        )
 
         return NextResponse.json({
             success: true,
-            data: result,
-            currentArticle: {
-                id: currentBerita.id,
-                judul: currentBerita.judul,
-                tags: currentTags,
-            },
+            data: relatedBerita,
         })
     } catch (error) {
-        console.error("Error fetching related berita:", error)
+        console.error("API Error:", error)
         return NextResponse.json(
             {
                 success: false,
                 error: "Failed to fetch related berita",
                 details: error instanceof Error ? error.message : "Unknown error",
             },
-            { status: 500 }
+            { status: 500 },
         )
     }
 }

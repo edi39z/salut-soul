@@ -16,6 +16,7 @@ interface Berita {
     gambar: string
     slug: string
     linkUrl?: string | null
+    jenis: string
     tanggal: string
     aktif: boolean
 }
@@ -48,20 +49,30 @@ export function BeritaSection() {
         }
     }
 
-
+    const stripHtmlTags = (html: string) => {
+        const tmp = document.createElement("div")
+        tmp.innerHTML = html
+        return tmp.textContent || tmp.innerText || ""
+    }
 
     const truncateText = (text: string, maxLength: number) => {
-        if (text.length <= maxLength) return text
-        return text.substring(0, maxLength) + "..."
+        if (!text) return ""
+        const plainText = stripHtmlTags(text)
+        if (plainText.length <= maxLength) return plainText
+        return plainText.substring(0, maxLength) + "..."
     }
 
     const getReadMoreUrl = (item: Berita) => {
-        // If admin has set a custom linkUrl, use that; otherwise use default slug-based URL
-        return item.linkUrl || `/berita/${item.slug}`
+        // For external news, use linkUrl if available
+        if (item.jenis === "eksternal" && item.linkUrl && item.linkUrl.trim() !== "") {
+            return item.linkUrl
+        }
+        // For internal news or external without linkUrl, use slug
+        return `/berita/${item.slug}`
     }
 
-    const isExternalLink = (url: string) => {
-        return url.startsWith("http://") || url.startsWith("https://")
+    const isExternalLink = (item: Berita) => {
+        return item.jenis === "eksternal" && item.linkUrl && item.linkUrl.trim() !== ""
     }
 
     if (loading) {
@@ -150,7 +161,7 @@ export function BeritaSection() {
                 <div className="grid grid-cols-1 gap-8 max-w-4xl mx-auto">
                     {berita.map((item, index) => {
                         const readMoreUrl = getReadMoreUrl(item)
-                        const isExternal = isExternalLink(readMoreUrl)
+                        const isExternal = isExternalLink(item)
 
                         return (
                             <motion.div
@@ -180,20 +191,29 @@ export function BeritaSection() {
                                                             <ExternalLink className="w-4 h-4" />
                                                         </div>
                                                     )}
+                                                    {/* News Type Badge */}
+                                                    <div className="absolute top-4 left-4">
+                                                        <Badge
+                                                            className={`${item.jenis === "eksternal"
+                                                                    ? "bg-gradient-to-r from-pink-500 to-rose-500"
+                                                                    : "bg-gradient-to-r from-blue-500 to-indigo-500"
+                                                                } text-white px-3 py-1 text-xs font-medium`}
+                                                        >
+                                                            {item.jenis === "eksternal" ? "Eksternal" : "Internal"}
+                                                        </Badge>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             {/* Content Section */}
                                             <div className="md:col-span-3 p-8 flex flex-col justify-between">
                                                 <div>
-
-
                                                     {/* Title */}
                                                     <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 leading-tight hover:text-blue-600 transition-colors duration-300">
                                                         {item.judul}
                                                     </h3>
 
-                                                    {/* Content Preview */}
+                                                    {/* Content Preview - Always show as plain text */}
                                                     <p className="text-gray-600 leading-relaxed mb-6 text-base">
                                                         {truncateText(item.konten, 150)}
                                                     </p>
@@ -247,7 +267,7 @@ export function BeritaSection() {
                         size="lg"
                         className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
                     >
-                        <Link href="https://www.ut.ac.id/kategori/berita/">
+                        <Link href="/berita">
                             Lihat Semua Berita
                             <ArrowRight className="ml-2 w-5 h-5" />
                         </Link>
