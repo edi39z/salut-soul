@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type NextRequest, NextResponse } from "next/server"
 import { PrismaClient } from "@prisma/client"
 
@@ -7,14 +8,50 @@ export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url)
         const limit = searchParams.get("limit")
+        const search = searchParams.get("search")
+        const jenis = searchParams.get("jenis") // "internal", "eksternal", or null for all
+        const page = searchParams.get("page") || "1"
+        const carousel = searchParams.get("carousel") // "true" for carousel items only
+        const pageSize = limit ? Number.parseInt(limit) : 10
 
-        console.log("API: Fetching berita with limit:", limit)
+        console.log("API: Fetching berita with params:", { limit, search, jenis, page, carousel })
 
+        // Build where clause
+        const whereClause: any = {
+            aktif: true,
+        }
+
+        // If carousel parameter is true, only show items with tampilDiCarousel = true
+        if (carousel === "true") {
+            whereClause.tampilDiCarousel = true
+        }
+
+        if (search) {
+            whereClause.OR = [
+                { judul: { contains: search, mode: "insensitive" } },
+                { konten: { contains: search, mode: "insensitive" } },
+                { excerpt: { contains: search, mode: "insensitive" } },
+            ]
+        }
+
+        if (jenis) {
+            whereClause.jenis = jenis
+        }
+
+        // Get total count for pagination
+        const totalCount = await prisma.berita.count({
+            where: whereClause,
+        })
+
+        // Get paginated results
+        const skip = (Number.parseInt(page) - 1) * pageSize
         const berita = await prisma.berita.findMany({
+            where: whereClause,
             orderBy: {
-                tanggal: "desc",
+                createdAt: "desc",
             },
-            ...(limit && { take: Number.parseInt(limit) }),
+            skip: skip,
+            take: pageSize,
         })
 
         console.log("API: Found berita count:", berita.length)
@@ -23,15 +60,26 @@ export async function GET(request: NextRequest) {
             berita.map((b) => ({
                 id: b.id,
                 judul: b.judul,
+                jenis: b.jenis,
                 aktif: b.aktif,
+                tampilDiCarousel: b.tampilDiCarousel,
                 linkUrl: b.linkUrl,
             })),
         )
 
+        const totalPages = Math.ceil(totalCount / pageSize)
+
         return NextResponse.json({
             success: true,
             data: berita,
-            count: berita.length,
+            pagination: {
+                currentPage: Number.parseInt(page),
+                totalPages,
+                totalCount,
+                pageSize,
+                hasNext: Number.parseInt(page) < totalPages,
+                hasPrev: Number.parseInt(page) > 1,
+            },
         })
     } catch (error) {
         console.error("API Error:", error)
@@ -49,17 +97,47 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json()
-        const { judul, konten, gambar, slug, linkUrl, aktif } = body
+        const {
+            judul,
+            konten,
+            gambar,
+            slug,
+            linkUrl,
+            jenis = "internal",
+            excerpt,
+            metaTitle,
+            metaDescription,
+            tags,
+            author,
+            aktif = true,
+            tampilDiCarousel = false,
+        } = body
+
+        // Generate slug if not provided
+        const finalSlug =
+            slug ||
+            judul
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, "")
+                .replace(/\s+/g, "-")
+                .trim()
 
         const berita = await prisma.berita.create({
             data: {
                 judul,
                 konten,
                 gambar,
-                slug,
+                slug: finalSlug,
                 linkUrl: linkUrl || null,
-                aktif: aktif ?? true,
-                tanggal: new Date(),
+                jenis,
+                excerpt,
+                metaTitle,
+                metaDescription,
+                tags,
+                author,
+                tanggal: new Date().toISOString(),
+                aktif,
+                tampilDiCarousel,
             },
         })
 
@@ -69,6 +147,13 @@ export async function POST(request: NextRequest) {
         })
     } catch (error) {
         console.error("Error creating berita:", error)
-        return NextResponse.json({ success: false, error: "Failed to create berita" }, { status: 500 })
+        return NextResponse.json(
+            {
+                success: false,
+                error: "Failed to create berita",
+                details: error instanceof Error ? error.message : "Unknown error",
+            },
+            { status: 500 },
+        )
     }
 }

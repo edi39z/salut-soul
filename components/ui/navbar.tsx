@@ -66,7 +66,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
   const navigationItems = [
     { name: "Beranda", href: "/" },
     { name: "Akademik", href: "/akademik", dropdown: akademikItems },
-    { name: "Berita", href: "https://www.ut.ac.id/kategori/berita/" },
+    { name: "Berita", href: "/berita" },
     { name: "Layanan Mahasiswa", href: "#", dropdown: layananItems },
     { name: "Tentang", href: "/tentang" },
     { name: "Kontak", href: "/kontak", dropdown: kontakItems },
@@ -193,8 +193,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
           {showImageHeader && (
             <div
               className={`hidden lg:block transition-all duration-700 ease-out ${isScrolled
-                ? "opacity-100 transform translate-y-0"
-                : "opacity-0 transform -translate-y-8 pointer-events-none"
+                  ? "opacity-100 transform translate-y-0"
+                  : "opacity-0 transform -translate-y-8 pointer-events-none"
                 }`}
             >
               <Image
@@ -223,8 +223,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                     <DropdownMenuTrigger asChild>
                       <button
                         className={`flex items-center px-4 py-2 font-medium rounded-lg transition-all duration-200 group ${isActiveLink(item.href)
-                          ? "text-[#FFD700] bg-white/10"
-                          : "text-white hover:text-[#FFD700] hover:bg-white/10"
+                            ? "text-[#FFD700] bg-white/10"
+                            : "text-white hover:text-[#FFD700] hover:bg-white/10"
                           }`}
                       >
                         {item.name}
@@ -249,8 +249,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                   <Link
                     href={item.href}
                     className={`px-6 py-2 font-semibold rounded-lg transition-all duration-200 border-2 ${isActiveLink(item.href)
-                      ? "bg-[#FFD700] text-[#002F86] border-[#FFD700] shadow-lg"
-                      : "bg-[#FFD700] text-[#002F86] border-[#FFD700] hover:bg-[#FFA500] hover:border-[#FFA500] shadow-md hover:shadow-lg"
+                        ? "bg-[#FFD700] text-[#002F86] border-[#FFD700] shadow-lg"
+                        : "bg-[#FFD700] text-[#002F86] border-[#FFD700] hover:bg-[#FFA500] hover:border-[#FFA500] shadow-md hover:shadow-lg"
                       }`}
                   >
                     {item.name}
@@ -259,8 +259,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                   <Link
                     href={item.href}
                     className={`px-4 py-2 font-medium rounded-lg transition-all duration-200 ${isActiveLink(item.href)
-                      ? "text-[#FFD700] bg-white/10"
-                      : "text-white hover:text-[#FFD700] hover:bg-white/10"
+                        ? "text-[#FFD700] bg-white/10"
+                        : "text-white hover:text-[#FFD700] hover:bg-white/10"
                       }`}
                   >
                     {item.name}
@@ -274,8 +274,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
           {showImageHeader && (
             <div
               className={`hidden lg:block transition-all duration-700 ease-out ${isScrolled
-                ? "opacity-100 transform translate-y-0"
-                : "opacity-0 transform -translate-y-8 pointer-events-none"
+                  ? "opacity-100 transform translate-y-0"
+                  : "opacity-0 transform -translate-y-8 pointer-events-none"
                 }`}
             >
               <Image src="/ut2.png" alt="UT Logo" width={120} height={60} className="object-contain drop-shadow-md" />
@@ -353,8 +353,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                               <AccordionItem value={`item-${index}`} className="border-none">
                                 <AccordionTrigger
                                   className={`px-4 py-3 font-medium rounded-xl transition-colors duration-200 text-left hover:no-underline ${isActiveLink(item.href)
-                                    ? "text-[#FFD700] bg-white/10"
-                                    : "text-white hover:text-[#FFD700] hover:bg-white/10"
+                                      ? "text-[#FFD700] bg-white/10"
+                                      : "text-white hover:text-[#FFD700] hover:bg-white/10"
                                     }`}
                                 >
                                   {item.name}
@@ -378,8 +378,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                             <Link
                               href={item.href}
                               className={`block px-4 py-3 font-semibold rounded-xl text-center transition-colors duration-200 border-2 ${isActiveLink(item.href)
-                                ? "bg-[#FFD700] text-[#002F86] border-[#FFD700]"
-                                : "bg-[#FFD700] text-[#002F86] border-[#FFD700] hover:bg-[#FFA500] hover:border-[#FFA500]"
+                                  ? "bg-[#FFD700] text-[#002F86] border-[#FFD700]"
+                                  : "bg-[#FFD700] text-[#002F86] border-[#FFD700] hover:bg-[#FFA500] hover:border-[#FFA500]"
                                 }`}
                               onClick={() => setIsOpen(false)}
                             >
@@ -389,8 +389,8 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                             <Link
                               href={item.href}
                               className={`block px-4 py-3 font-medium rounded-xl transition-colors duration-200 ${isActiveLink(item.href)
-                                ? "text-[#FFD700] bg-white/10"
-                                : "text-white hover:text-[#FFD700] hover:bg-white/10"
+                                  ? "text-[#FFD700] bg-white/10"
+                                  : "text-white hover:text-[#FFD700] hover:bg-white/10"
                                 }`}
                               onClick={() => setIsOpen(false)}
                             >

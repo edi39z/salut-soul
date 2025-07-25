@@ -144,16 +144,32 @@ updatedAt DateTime @updatedAt
 }
 
 model Berita {
-id        String   @id @default(uuid())
-judul     String
-konten    String
-gambar    String
-slug      String   @unique
-linkUrl   String?  // Custom URL that admin can set for "Read More" button
-tanggal   DateTime @default(now())
-aktif     Boolean  @default(true)
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+  id              String   @id @default(cuid())
+  judul           String
+  konten          String
+  gambar          String
+  slug            String   @unique
+  linkUrl         String?
+  jenis           String   // "internal" atau "eksternal"
+  excerpt         String?
+  metaTitle       String?
+  metaDescription String?
+  tags            String?
+  author          String?
+  tanggal         String
+  tampilDiCarousel Boolean  @default(false)
+  aktif           Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  @@map("berita")
+}
 
-@@map("berita")
+model Tag {
+  id        String   @id @default(cuid())
+  nama      String   @unique
+  slug      String   @unique
+  warna     String   @default("#3b82f6")
+  aktif     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

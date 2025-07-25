@@ -1,89 +1,103 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { PrismaClient } from "@prisma/client"
+// app/api/berita/[id]/route.ts
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient()
-
-/**
- * Ambil ID dari path URL seperti /api/berita/[id]
- */
-function extractIdFromUrl(request: NextRequest): string {
-    const segments = request.nextUrl.pathname.split("/")
-    return segments[segments.length - 1]
-}
-
-export async function GET(request: NextRequest) {
+export async function GET(
+    request: NextRequest,
+    context: { params: Promise<{ id: string }> }
+) {
     try {
-        const id = extractIdFromUrl(request)
+        const { id } = await context.params;
 
-        const berita = await prisma.berita.findUnique({
+        const { searchParams } = new URL(request.url);
+        const limit = parseInt(searchParams.get("limit") || "6", 10);
+
+        const currentBerita = await prisma.berita.findFirst({
             where: {
-                id,
+                OR: [{ id }, { slug: id }],
                 aktif: true,
             },
-        })
+        });
 
-        if (!berita) {
+        if (!currentBerita) {
             return NextResponse.json(
                 { success: false, error: "Berita tidak ditemukan" },
                 { status: 404 }
-            )
+            );
         }
 
-        return NextResponse.json({ success: true, data: berita })
-    } catch (error) {
-        console.error("Error fetching berita:", error)
-        return NextResponse.json(
-            { success: false, error: "Gagal mengambil data berita" },
-            { status: 500 }
-        )
-    }
-}
+        if (!currentBerita.tags || currentBerita.tags.trim() === "") {
+            return NextResponse.json({ success: true, data: [] });
+        }
 
-export async function PUT(request: NextRequest) {
-    try {
-        const id = extractIdFromUrl(request)
-        const body = await request.json()
-        const { judul, konten, gambar, slug, linkUrl, aktif } = body
+        const tagList = currentBerita.tags
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter((tag) => tag.length > 0);
 
-        const berita = await prisma.berita.update({
-            where: { id },
-            data: {
-                ...(judul && { judul }),
-                ...(konten && { konten }),
-                ...(gambar && { gambar }),
-                ...(slug && { slug }),
-                ...(linkUrl !== undefined && { linkUrl }),
-                ...(typeof aktif === "boolean" && { aktif }),
+        const relatedBerita = await prisma.berita.findMany({
+            where: {
+                AND: [
+                    { aktif: true },
+                    { id: { not: currentBerita.id } },
+                    {
+                        OR: tagList.map((tag) => ({
+                            tags: { contains: tag },
+                        })),
+                    },
+                ],
             },
-        })
+            orderBy: { createdAt: "desc" },
+            take: limit,
+        });
 
-        return NextResponse.json({ success: true, data: berita })
+        return NextResponse.json({ success: true, data: relatedBerita });
     } catch (error) {
-        console.error("Error updating berita:", error)
         return NextResponse.json(
-            { success: false, error: "Gagal memperbarui data berita" },
+            { success: false, error: "Internal Server Error", message: error instanceof Error ? error.message : "Unknown error" },
             { status: 500 }
-        )
+        );
     }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function PUT(
+    request: NextRequest,
+    context: { params: Promise<{ id: string }> }
+) {
     try {
-        const id = extractIdFromUrl(request)
+        const { id } = await context.params;
+        const body = await request.json();
+
+        const updated = await prisma.berita.update({
+            where: { id },
+            data: body,
+        });
+
+        return NextResponse.json({ success: true, data: updated });
+    } catch (error) {
+        return NextResponse.json(
+            { success: false, error: "Gagal update", message: error instanceof Error ? error.message : "Unknown error" },
+            { status: 500 }
+        );
+    }
+}
+
+export async function DELETE(
+    request: NextRequest,
+    context: { params: Promise<{ id: string }> }
+) {
+    try {
+        const { id } = await context.params;
 
         await prisma.berita.delete({
             where: { id },
-        })
+        });
 
-        return NextResponse.json({
-            success: true,
-            message: "Berita berhasil dihapus",
-        })
+        return NextResponse.json({ success: true, message: "Berita berhasil dihapus" });
     } catch (error) {
-        console.error("Error deleting berita:", error)
         return NextResponse.json(
-            { success: false, error: "Gagal menghapus berita" },
+            { success: false, error: "Gagal hapus", message: error instanceof Error ? error.message : "Unknown error" },
             { status: 500 }
-        )
+        );
     }
 }
