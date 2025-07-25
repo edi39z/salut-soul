@@ -235,17 +235,18 @@ export function Footer() {
                     >
                         <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm">
                             <p>© {currentYear} SALUT Soul. Semua hak cipta dilindungi.</p>
-                            <div className="flex items-center space-x-4">
-                                <Link href="#" className="hover:text-blue-600 transition-colors">
-                                    Kebijakan Privasi
-                                </Link>
-                                <span>•</span>
-                                <Link href="#" className="hover:text-blue-600 transition-colors">
-                                    Syarat & Ketentuan
-                                </Link>
-                            </div>
                         </div>
-                        <div className="text-gray-700 text-sm">Dibuat untuk pendidikan Indonesia yang lebih baik</div>
+                        <div className="text-gray-700 text-sm">
+                            Website made by{" "}
+                            <a
+                                href="https://wa.me/087763803271"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-medium hover:text-blue-600 transition-colors"
+                            >
+                                Barnibar Teknologi Indonesia
+                            </a>
+                        </div>
                     </motion.div>
                 </div>
             </div>
