@@ -239,7 +239,7 @@ export function Footer() {
                         <div className="text-gray-700 text-sm">
                             Website made by{" "}
                             <a
-                                href="https://wa.me/087763803271"
+                                href="https://wa.me/6287763803271"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="font-medium hover:text-blue-600 transition-colors"
