@@ -148,11 +148,7 @@ export default async function BeritaDetailPage({ params }: BeritaDetailPageProps
                             <div className="px-8 sm:px-12 pb-8 sm:pb-12">
                                 <div className="border-t border-gray-100 pt-8">
                                     <div className="flex items-center gap-3">
-                                        <span className="text-gray-600 font-medium">Bagikan artikel:</span>
-                                        <Button size="sm" className="bg-[#002F86] hover:bg-[#FFD700] hover:text-[#002F86] text-white">
-                                            <Share2 className="w-4 h-4 mr-2" />
-                                            Bagikan
-                                        </Button>
+                                        <span className="text-gray-600 font-medium"></span>
                                     </div>
                                 </div>
                             </div>
@@ -202,14 +198,7 @@ export default async function BeritaDetailPage({ params }: BeritaDetailPageProps
                                 Semua Berita
                             </Link>
                         </Button>
-                        <Button
-                            size="lg"
-                            variant="outline"
-                            className="flex-1 border-[#002F86] text-[#002F86] hover:bg-[#002F86] hover:text-white bg-transparent"
-                        >
-                            <Share2 className="w-5 h-5 mr-2" />
-                            Bagikan Artikel
-                        </Button>
+                        
                     </div>
                 </div>
 
