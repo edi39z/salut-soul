@@ -9,13 +9,13 @@ import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 
 interface BeritaDetailPageProps {
-    params: {
+    params: Promise<{
         slug: string
-    }
+    }>
 }
 
 export default async function BeritaDetailPage({ params }: BeritaDetailPageProps) {
-    const { slug } = params
+    const { slug } = await params
     const berita = await getBeritaBySlug(slug)
 
     if (!berita) {
@@ -48,7 +48,6 @@ export default async function BeritaDetailPage({ params }: BeritaDetailPageProps
         const now = new Date()
         const date = new Date(dateString)
         const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
-
         if (diffInHours < 1) return "Baru saja"
         if (diffInHours < 24) return `${diffInHours} jam yang lalu`
         if (diffInHours < 48) return "1 hari yang lalu"
@@ -203,7 +202,6 @@ export default async function BeritaDetailPage({ params }: BeritaDetailPageProps
                                 Semua Berita
                             </Link>
                         </Button>
-
                         <Button
                             size="lg"
                             variant="outline"
@@ -224,7 +222,6 @@ export default async function BeritaDetailPage({ params }: BeritaDetailPageProps
                             </div>
                             <h2 className="text-2xl font-bold text-gray-900">Berita Terkait</h2>
                         </div>
-
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {relatedBerita.map((related) => (
                                 <Card
@@ -238,13 +235,11 @@ export default async function BeritaDetailPage({ params }: BeritaDetailPageProps
                                         <p className="text-gray-600 text-sm mb-4 line-clamp-3 leading-relaxed">
                                             {truncateText(related.excerpt || related.konten, 120)}
                                         </p>
-
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-2 text-xs text-gray-500">
                                                 <Calendar className="w-3 h-3" />
                                                 <span>{formatDateShort(related.tanggal)}</span>
                                             </div>
-
                                             {related.jenis === "eksternal" && related.linkUrl ? (
                                                 <Button
                                                     asChild
@@ -277,7 +272,6 @@ export default async function BeritaDetailPage({ params }: BeritaDetailPageProps
                                 </Card>
                             ))}
                         </div>
-
                         <div className="text-center mt-8">
                             <Button
                                 asChild
@@ -302,7 +296,7 @@ export default async function BeritaDetailPage({ params }: BeritaDetailPageProps
 }
 
 export async function generateMetadata({ params }: BeritaDetailPageProps) {
-    const { slug } = params
+    const { slug } = await params
     const berita = await getBeritaBySlug(slug)
 
     if (!berita) {

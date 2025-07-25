@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { useState, useEffect, useCallback } from "react"
@@ -56,7 +55,7 @@ export default function BeritaPage() {
         hasPrev: false,
     })
 
-    // Debounce search function
+    // Debounce function with proper type definition
     const debounce = useCallback(
         <T extends (...args: any[]) => void>(func: T, delay: number) => {
             let timeoutId: NodeJS.Timeout
@@ -64,55 +63,63 @@ export default function BeritaPage() {
                 clearTimeout(timeoutId)
                 timeoutId = setTimeout(() => func(...args), delay)
             }
-        }, [])
+        },
+        [], // Empty dependency array since this function doesn't depend on any reactive values
+    )
 
-    const fetchBerita = async (search = "", isSearch = false) => {
-        try {
-            if (isSearch) {
-                setSearchLoading(true)
-            } else {
-                setLoading(true)
+    // Fetch berita function with proper dependencies
+    const fetchBerita = useCallback(
+        async (search = "", isSearch = false) => {
+            try {
+                if (isSearch) {
+                    setSearchLoading(true)
+                } else {
+                    setLoading(true)
+                }
+
+                const params = new URLSearchParams({
+                    page: "1",
+                    limit: showAll ? "50" : "12",
+                })
+
+                if (search.trim()) {
+                    params.append("search", search)
+                }
+
+                const response = await fetch(`/api/berita?${params}`)
+                const data = await response.json()
+
+                if (data.success) {
+                    setBerita(data.data)
+                    setPagination(data.pagination)
+                }
+            } catch (error) {
+                console.error("Error fetching berita:", error)
+            } finally {
+                if (isSearch) {
+                    setSearchLoading(false)
+                } else {
+                    setLoading(false)
+                }
             }
+        },
+        [showAll],
+    ) // Only showAll as dependency since it's the only reactive value used
 
-            const params = new URLSearchParams({
-                page: "1",
-                limit: showAll ? "50" : "12",
-            })
-
-            if (search.trim()) {
-                params.append("search", search)
-            }
-
-            const response = await fetch(`/api/berita?${params}`)
-            const data = await response.json()
-
-            if (data.success) {
-                setBerita(data.data)
-                setPagination(data.pagination)
-            }
-        } catch (error) {
-            console.error("Error fetching berita:", error)
-        } finally {
-            if (isSearch) {
-                setSearchLoading(false)
-            } else {
-                setLoading(false)
-            }
-        }
-    }
-
-    // Debounced search function
+    // Debounced search function with proper dependencies
     const debouncedSearch = useCallback(
         debounce((searchValue: string) => {
             fetchBerita(searchValue, true)
         }, 500),
-        [showAll],
+        [debounce, fetchBerita], // Include both debounce and fetchBerita as dependencies
     )
 
+    // Initial fetch effect
     useEffect(() => {
         fetchBerita()
-    }, [])
+    }, [fetchBerita])
 
+    // Search effect
     useEffect(() => {
         if (searchTerm.length >= 2 || searchTerm.length === 0) {
             debouncedSearch(searchTerm)
@@ -148,12 +155,12 @@ export default function BeritaPage() {
         }
     }
 
-    const handleShowAll = () => {
+    const handleShowAll = useCallback(() => {
         setShowAll(true)
         fetchBerita(searchTerm)
-    }
+    }, [fetchBerita, searchTerm])
 
-    const formatDate = (dateString: string) => {
+    const formatDate = useCallback((dateString: string) => {
         try {
             const date = new Date(dateString)
             return date.toLocaleDateString("id-ID", {
@@ -164,14 +171,14 @@ export default function BeritaPage() {
         } catch {
             return dateString
         }
-    }
+    }, [])
 
-    const truncateText = (text: string, maxLength: number) => {
+    const truncateText = useCallback((text: string, maxLength: number) => {
         if (!text) return ""
         const plainText = text.replace(/<[^>]*>/g, "")
         if (plainText.length <= maxLength) return plainText
         return plainText.substring(0, maxLength) + "..."
-    }
+    }, [])
 
     const NewsCard = ({ item }: { item: Berita }) => {
         return (
@@ -352,7 +359,7 @@ export default function BeritaPage() {
                                 {berita.length > 0 && (
                                     <div className="mb-6 sm:mb-8">
                                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 sm:gap-8 opacity-50">
-                                            {berita.map((item, index) => (
+                                            {berita.map((item) => (
                                                 <NewsCard key={item.id} item={item} />
                                             ))}
                                         </div>
@@ -367,9 +374,6 @@ export default function BeritaPage() {
                             </>
                         ) : berita.length > 0 ? (
                             <>
-                                {/* Results Info */}
-
-
                                 {/* News Grid */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-12">
                                     {berita.map((item, index) => (
