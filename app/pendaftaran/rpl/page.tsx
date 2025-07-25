@@ -433,9 +433,9 @@ export default function PendaftaranRPLPage() {
             },
             {
                 key: "screenshotPDDIKTI",
-                label: "Screenshot Data Pribadi PDDIKTI",
-                accept: "image/jpeg,image/jpg,image/png",
-                description: "Format JPG/PNG, maksimal 5MB",
+                label: "Upload File Data Pribadi PDDIKTI",
+                accept: "application/pdf",
+                description: "Format PDF, maksimal 5MB",
             },
         ]
 
@@ -466,7 +466,13 @@ export default function PendaftaranRPLPage() {
                 <ImageCropper
                     src={cropSrc}
                     onCropComplete={handleCropComplete}
-                    onClose={() => setCropSrc(null)}
+                    onClose={() => {
+                        setCropSrc(null)
+                        const input = document.getElementById("file-input-pasFoto") as HTMLInputElement | null
+                        if (input) {
+                            input.value = ""
+                        }
+                    }}
                 />
             )}
             <div className="container mx-auto px-4 max-w-4xl">
@@ -686,9 +692,25 @@ export default function PendaftaranRPLPage() {
                                             {!uploadedDocuments[doc.key] ? (
                                                 <div className="space-y-2">
                                                     <Input
+                                                        id={`file-input-${doc.key}`}
                                                         type="file"
                                                         accept={doc.accept}
-                                                        onChange={(e) => handleFileChange(doc.key, e.target.files?.[0] || null)}
+                                                        onChange={(e) => {
+                                                            const selectedFile = e.target.files?.[0] || null
+                                                            if (selectedFile) {
+                                                                const maxSize = 5 * 1024 * 1024 // 5MB
+                                                                if (selectedFile.size > maxSize) {
+                                                                    toast({
+                                                                        title: "Ukuran file terlalu besar",
+                                                                        description: `File ${selectedFile.name} melebihi 5MB.`,
+                                                                        variant: "destructive",
+                                                                    })
+                                                                    e.target.value = "" // Clear the input
+                                                                } else {
+                                                                    handleFileChange(doc.key, selectedFile)
+                                                                }
+                                                            }
+                                                        }}
                                                         className="flex-1"
                                                         disabled={uploadingFiles[doc.key]}
                                                     />

@@ -463,7 +463,13 @@ export default function PendaftaranNonRPLPage() {
                 <ImageCropper
                     src={cropSrc}
                     onCropComplete={handleCropComplete}
-                    onClose={() => setCropSrc(null)}
+                    onClose={() => {
+                        setCropSrc(null)
+                        const input = document.getElementById("file-input-pasFoto") as HTMLInputElement | null
+                        if (input) {
+                            input.value = ""
+                        }
+                    }}
                 />
             )}
             <div className="container mx-auto px-4 max-w-4xl">
@@ -673,13 +679,29 @@ export default function PendaftaranNonRPLPage() {
 
                                             {!uploadedDocuments[doc.key] ? (
                                                 <div className="space-y-2">
-                                                    <Input
-                                                        type="file"
-                                                        accept={doc.accept}
-                                                        onChange={(e) => handleFileChange(doc.key, e.target.files?.[0] || null)}
-                                                        className="flex-1"
-                                                        disabled={uploadingFiles[doc.key]}
-                                                    />
+                                                        <Input
+                                                            id={`file-input-${doc.key}`}
+                                                            type="file"
+                                                            accept={doc.accept}
+                                                            onChange={(e) => {
+                                                                const selectedFile = e.target.files?.[0] || null
+                                                                if (selectedFile) {
+                                                                    const maxSize = 5 * 1024 * 1024 // 5MB
+                                                                    if (selectedFile.size > maxSize) {
+                                                                        toast({
+                                                                            title: "Ukuran file terlalu besar",
+                                                                            description: `File ${selectedFile.name} melebihi 5MB.`,
+                                                                            variant: "destructive",
+                                                                        })
+                                                                        e.target.value = "" // Clear the input
+                                                                    } else {
+                                                                        handleFileChange(doc.key, selectedFile)
+                                                                    }
+                                                                }
+                                                            }}
+                                                            className="flex-1"
+                                                            disabled={uploadingFiles[doc.key]}
+                                                        />
                                                     {uploadingFiles[doc.key] && (
                                                         <div className="flex items-center gap-2 text-blue-600 text-sm">
                                                             <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>

@@ -89,8 +89,8 @@ export async function POST(request: NextRequest) {
         const fileType = file.type
 
         // Validasi format file berdasarkan jenis dokumen
-        if (documentType === "pasFoto" || documentType === "screenshotPDDIKTI") {
-            // Untuk pas foto dan screenshot, terima JPG/JPEG/PNG
+        if (documentType === "pasFoto") {
+            // Untuk pas foto, terima JPG/JPEG/PNG
             const allowedImageTypes = ["image/jpeg", "image/jpg", "image/png"]
             if (!allowedImageTypes.includes(fileType)) {
                 return NextResponse.json(
@@ -177,4 +177,3 @@ export async function POST(request: NextRequest) {
         )
     }
 }
-    
