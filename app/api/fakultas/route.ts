@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma"
 
 export async function GET() {
     try {
-        console.log("🔍 Fetching fakultas from database...")
 
         // Get all active fakultas
         const fakultas = await prisma.fakultas.findMany({
@@ -17,7 +16,6 @@ export async function GET() {
             },
         })
 
-        console.log("📋 Found fakultas:", fakultas)
 
         return NextResponse.json({
             success: true,

@@ -12,16 +12,13 @@ const kontakSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    console.log("📧 Menerima pesan kontak...")
 
     const body = await request.json()
-    console.log("📋 Data kontak:", body)
 
     // Validasi data
     const validationResult = kontakSchema.safeParse(body)
 
     if (!validationResult.success) {
-      console.log("❌ Validasi kontak gagal:", validationResult.error.errors)
       return NextResponse.json(
         {
           success: false,
@@ -34,7 +31,6 @@ export async function POST(request: NextRequest) {
 
     const data = validationResult.data
 
-    console.log("💾 Menyimpan pesan kontak ke database...")
 
     // Simpan ke database
     const kontakPesan = await prisma.kontakPesan.create({
@@ -47,7 +43,6 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    console.log("✅ Pesan kontak berhasil disimpan dengan ID:", kontakPesan.id)
 
     // Response sukses
     return NextResponse.json({
@@ -105,7 +100,6 @@ export async function GET() {
       },
     })
   } catch (error) {
-    console.error("Database connection error:", error)
     return NextResponse.json(
       {
         success: false,

@@ -145,7 +145,6 @@ export default function AkademikPage() {
     );
 
     try {
-      console.log("🔍 Fetching program studi for:", fakultasNama);
       const response = await fetch(
         `/api/program-studi?fakultas=${fakultasNama}`
       );
@@ -155,18 +154,18 @@ export default function AkademikPage() {
         throw new Error(result.message || "Failed to fetch program studi");
       }
 
-      console.log("📋 Program Studi loaded:", result.data.length);
+
 
       // Update fakultas dengan program studi
       setFaculties((prev) =>
         prev.map((faculty) =>
           faculty.id === fakultasId
             ? {
-                ...faculty,
-                programs: result.data || [],
-                programsLoaded: true,
-                programsLoading: false,
-              }
+              ...faculty,
+              programs: result.data || [],
+              programsLoaded: true,
+              programsLoading: false,
+            }
             : faculty
         )
       );
@@ -487,8 +486,8 @@ export default function AkademikPage() {
                                             program.akreditasi === "A"
                                               ? "bg-[#FFD700] text-[#002F86] hover:bg-[#E6C200]"
                                               : program.akreditasi === "B"
-                                              ? "bg-slate-500 text-white"
-                                              : "bg-slate-400 text-white"
+                                                ? "bg-slate-500 text-white"
+                                                : "bg-slate-400 text-white"
                                           )}
                                         >
                                           {program.akreditasi === "-"

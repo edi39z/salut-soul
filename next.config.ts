@@ -6,9 +6,11 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
+        pathname: '/**', // Tambahkan ini
       },
     ],
   },
 };
+
 
 export default nextConfig;

@@ -11,7 +11,6 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
         const { searchParams } = new URL(request.url)
         const limit = Number.parseInt(searchParams.get("limit") || "6")
 
-        console.log("API: Fetching related berita for ID:", id, "with limit:", limit)
 
         const currentBerita = await prisma.berita.findFirst({
             where: {

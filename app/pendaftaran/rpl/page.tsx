@@ -84,16 +84,12 @@ export default function PendaftaranRPLPage() {
     useEffect(() => {
         const fetchFakultas = async () => {
             try {
-                console.log("🔍 Fetching fakultas...")
                 const response = await fetch("/api/fakultas")
                 const result = await response.json()
-                console.log("📋 API Response:", result)
 
                 if (result.success && result.data) {
                     setFakultasList(result.data)
-                    console.log("✅ Fakultas loaded:", result.data.length)
                 } else {
-                    console.error("❌ API Error:", result)
                     toast({
                         title: "Error",
                         description: result.message || "Gagal memuat data fakultas",
@@ -125,14 +121,11 @@ export default function PendaftaranRPLPage() {
 
             setLoadingProgramStudi(true)
             try {
-                console.log("🔍 Fetching program studi for:", formData.fakultas)
                 const response = await fetch(`/api/program-studi?fakultas=${formData.fakultas}`)
                 const result = await response.json()
-                console.log("📋 Program Studi Response:", result)
 
                 if (result.success && result.data) {
                     setProgramStudiList(result.data)
-                    console.log("✅ Program Studi loaded:", result.data.length)
                 } else {
                     console.error("❌ Program Studi API Error:", result)
                     toast({
@@ -234,7 +227,6 @@ export default function PendaftaranRPLPage() {
             uploadFormData.append("documentType", documentType)
             uploadFormData.append("fakultas", formData.fakultas)
 
-            console.log("📤 Uploading:", { documentType, fileName: file.name, fileType: file.type })
 
             const response = await fetch("/api/upload", {
                 method: "POST",
@@ -242,7 +234,6 @@ export default function PendaftaranRPLPage() {
             })
 
             const result = await response.json()
-            console.log("📥 Upload response:", result)
 
             if (result.success) {
                 setUploadedDocuments((prev) => ({ ...prev, [documentType]: result.url }))

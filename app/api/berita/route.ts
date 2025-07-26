@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
         const carousel = searchParams.get("carousel") // "true" for carousel items only
         const pageSize = limit ? Number.parseInt(limit) : 10
 
-        console.log("API: Fetching berita with params:", { limit, search, jenis, page, carousel })
+
 
         // Build where clause
         const whereClause: any = {
@@ -54,18 +54,7 @@ export async function GET(request: NextRequest) {
             take: pageSize,
         })
 
-        console.log("API: Found berita count:", berita.length)
-        console.log(
-            "API: Berita data:",
-            berita.map((b) => ({
-                id: b.id,
-                judul: b.judul,
-                jenis: b.jenis,
-                aktif: b.aktif,
-                tampilDiCarousel: b.tampilDiCarousel,
-                linkUrl: b.linkUrl,
-            })),
-        )
+
 
         const totalPages = Math.ceil(totalCount / pageSize)
 
@@ -82,7 +71,7 @@ export async function GET(request: NextRequest) {
             },
         })
     } catch (error) {
-        console.error("API Error:", error)
+
         return NextResponse.json(
             {
                 success: false,
@@ -146,7 +135,7 @@ export async function POST(request: NextRequest) {
             data: berita,
         })
     } catch (error) {
-        console.error("Error creating berita:", error)
+       
         return NextResponse.json(
             {
                 success: false,

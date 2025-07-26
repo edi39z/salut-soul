@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
         const documentType = formData.get("documentType") as string
         const fakultas = formData.get("fakultas") as string | null
 
-        console.log("📤 Upload request:", { documentType, fakultas, fileType: file?.type, fileName: file?.name })
+
 
         if (!file) {
             return NextResponse.json(
@@ -130,7 +130,6 @@ export async function POST(request: NextRequest) {
             resourceType = "image"
         }
 
-        console.log("☁️ Uploading to Cloudinary:", { filename, resourceType, fileType })
 
         const result = await new Promise((resolve, reject) => {
             cloudinary.uploader
