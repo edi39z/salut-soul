@@ -16,7 +16,6 @@ interface FileUploadProps {
 }
 
 export function FileUpload({ onFileUploaded, onFileRemoved, currentFile }: FileUploadProps) {
-    console.log("dnwkadkwadnwak")
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const { toast } = useToast()

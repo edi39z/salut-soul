@@ -47,22 +47,14 @@ export function HeroCarousel() {
                 }
 
                 const data = await response.json()
-                console.log("Carousel: API Response:", data)
 
                 if (data.success && Array.isArray(data.data)) {
                     // Double check the filtering - use the correct field name
                     const carouselBerita = data.data.filter((item: any) => {
-                        console.log("Carousel: Filtering item:", {
-                            id: item.id,
-                            judul: item.judul,
-                            aktif: item.aktif,
-                            tampilDiCarousel: item.tampilDiCarousel,
-                            shouldShow: Boolean(item.aktif) && Boolean(item.tampilDiCarousel),
-                        })
+                        
                         return Boolean(item.aktif) && Boolean(item.tampilDiCarousel)
                     })
 
-                    console.log("Carousel: Filtered berita count:", carouselBerita.length)
 
                     if (carouselBerita.length > 0) {
                         setBerita(carouselBerita)

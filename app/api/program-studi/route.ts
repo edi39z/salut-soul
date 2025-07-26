@@ -7,7 +7,6 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url)
         const fakultas = searchParams.get("fakultas")
 
-        console.log("🔍 Fetching program studi for fakultas:", fakultas)
 
         const whereClause: Prisma.ProgramStudiWhereInput = { isActive: true }
 
@@ -28,7 +27,6 @@ export async function GET(request: Request) {
             },
         })
 
-        console.log("📋 Found program studi:", programStudi)
 
         return NextResponse.json({
             success: true,

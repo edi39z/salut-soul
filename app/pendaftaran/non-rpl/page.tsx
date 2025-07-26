@@ -84,17 +84,13 @@ export default function PendaftaranNonRPLPage() {
     useEffect(() => {
         const fetchFakultas = async () => {
             try {
-                console.log("🔍 Fetching fakultas...")
                 const response = await fetch("/api/fakultas")
                 const result = await response.json()
 
-                console.log("📋 API Response:", result)
 
                 if (result.success && result.data) {
                     setFakultasList(result.data)
-                    console.log("✅ Fakultas loaded:", result.data.length)
                 } else {
-                    console.error("❌ API Error:", result)
                     toast({
                         title: "Error",
                         description: result.message || "Gagal memuat data fakultas",
@@ -126,17 +122,13 @@ export default function PendaftaranNonRPLPage() {
 
             setLoadingProgramStudi(true)
             try {
-                console.log("🔍 Fetching program studi for:", formData.fakultas)
                 const response = await fetch(`/api/program-studi?fakultas=${formData.fakultas}`)
                 const result = await response.json()
 
-                console.log("📋 Program Studi Response:", result)
 
                 if (result.success && result.data) {
                     setProgramStudiList(result.data)
-                    console.log("✅ Program Studi loaded:", result.data.length)
                 } else {
-                    console.error("❌ Program Studi API Error:", result)
                     toast({
                         title: "Error",
                         description: result.message || "Gagal memuat data program studi",

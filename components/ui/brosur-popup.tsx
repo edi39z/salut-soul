@@ -14,18 +14,25 @@ interface Brosur {
 const BrosurPopup = () => {
   const [brosur, setBrosur] = useState<Brosur | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchBrosur = async () => {
       try {
         const res = await fetch("/api/brosur")
         const data = await res.json()
+        console.log("✅ Brosur API response:", data)
+
         if (data && data.aktif) {
           setBrosur(data)
           setIsOpen(true)
+        } else {
+          console.log("⚠️ Brosur tidak aktif atau tidak ada.")
         }
       } catch (error) {
-        console.error("Error fetching brosur:", error)
+        console.error("❌ Error fetching brosur:", error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -34,6 +41,15 @@ const BrosurPopup = () => {
 
   const handleClose = () => {
     setIsOpen(false)
+    setBrosur(null)
+  }
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 z-[998] flex items-center justify-center bg-black bg-opacity-40 backdrop-blur-sm">
+        <div className="w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    )
   }
 
   if (!isOpen || !brosur) {
@@ -56,7 +72,6 @@ const BrosurPopup = () => {
           <X size={20} />
         </button>
         <a href={brosur.linkUrl} className="block">
-
           <Image
             src={brosur.imageUrl || "/placeholder.svg"}
             alt="Brosur Universitas Terbuka"

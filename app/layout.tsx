@@ -1,54 +1,58 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Poppins } from "next/font/google"
+import { Inter, Crimson_Text, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
-import { WhatsappButton } from "@/components/ui/whatsapp-button"
+import BrosurPopup from "@/components/ui/brosur-popup"
+import { PageWrapper } from "@/components/ui/page-wrapper"
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 })
 
-const poppins = Poppins({
+const crimsonText = Crimson_Text({
+  weight: ["400", "600", "700"],
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-poppins",
+  variable: "--font-crimson",
+})
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
 })
 
 export const metadata: Metadata = {
-  title: "SALUT Soul - Sentra Layanan Universitas Terbuka",
-  icons: {
-    icon: "/Logo_Universitas_Terbuka.ico",
-  },
+  title: "Salut Soul - Sentra Layanan Universitas Terbuka",
   description:
-      "Pendaftaran mahasiswa baru Universitas Terbuka. Kuliah fleksibel, berkualitas, dan terjangkau. Daftar sekarang!",
-  keywords: "universitas terbuka, kuliah online, pendidikan jarak jauh, SALUT, pendaftaran mahasiswa",
-  authors: [{ name: "SALUT Soul" }],
+    "Platform layanan terpadu Universitas Terbuka untuk kemudahan akses informasi dan layanan akademik",
+  keywords: "universitas terbuka, pendidikan tinggi, kuliah online, salut soul",
+  authors: [{ name: "Universitas Terbuka" }],
   openGraph: {
-    title: "SALUT Soul - Sentra Layanan Universitas Terbuka",
-    description: "Pendaftaran mahasiswa baru Universitas Terbuka. Kuliah fleksibel, berkualitas, dan terjangkau.",
+    title: "Salut Soul - Sentra Layanan Universitas Terbuka",
+    description: "Platform layanan terpadu Universitas Terbuka",
     type: "website",
-    locale: "id_ID",
   },
 }
 
 export default function RootLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode
 }) {
   return (
-      <html lang="id" className={`${inter.variable} ${poppins.variable}`}>
+    <html
+      lang="id"
+      className={`${inter.variable} ${crimsonText.variable} ${playfair.variable}`}
+    >
       <head>
-        {/* 👇 Tambahkan ini */}
-        <link rel="canonical" href="https://salutsoul.com/" />
+        <link rel="icon" href="/Logo_Universitas_Terbuka.ico" />
       </head>
-      <body className={inter.className}>
-      {children}
-      <WhatsappButton />
-      <Toaster />
+      <body className={`${inter.className} antialiased`}>
+        <BrosurPopup />
+        <PageWrapper>{children}</PageWrapper>
+        <Toaster />
       </body>
-      </html>
+    </html>
   )
 }

@@ -11,6 +11,7 @@ import { AdvantagesSection } from "@/components/ui/advantages-section"
 import { RegistrationFlowSection } from "@/components/ui/registration-flow-section"
 
 export default function HomePage() {
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar showImageHeader={true} />
