@@ -5,12 +5,10 @@ import Image from "next/image"
 import { Navbar } from "@/components/ui/navbar"
 import { Footer } from "@/components/ui/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Target, Eye, Quote, Award, MapPin, Phone, Mail, Clock, Users, BookOpen, Star } from "lucide-react"
+import { Target, Eye, Quote, Award, MapPin, Phone, Mail, Clock, Users, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Poppins } from "next/font/google"
 import { AnimatedSection } from "@/components/ui/animated-section"
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 
 const fontHeading = Poppins({
@@ -23,52 +21,8 @@ export default function TentangPage() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <main className="pt-20">
-        {/* Enhanced Hero Section */}
-        <section className="relative py-24 overflow-hidden bg-white">
-          {/* Clean Background */}
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30"></div>
-            {/* Subtle Geometric Patterns */}
-            <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-[#002F86]/5 to-[#FFD700]/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-[#FFD700]/5 to-[#002F86]/5 rounded-full blur-3xl"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-slate-100/20 to-blue-100/20 rounded-full blur-2xl"></div>
-          </div>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-5xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="mb-8"
-              >
-                <Badge className="inline-flex items-center px-6 py-3 bg-[#002F86] text-white text-base font-semibold rounded-full shadow-lg">
-                  <Star className="w-4 h-4 mr-2" />
-                  Tentang Kami
-                </Badge>
-              </motion.div>
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className={cn(
-                  "text-5xl md:text-7xl font-bold text-slate-800 mb-8 leading-tight",
-                  fontHeading.className,
-                )}
-              >
-                Mengenal <span className="text-[#002F86]">SALUT Soul</span>
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed font-medium"
-              >
-                Mitra terpercaya dalam perjalanan pendidikan tinggi Anda menuju masa depan yang lebih cerah
-              </motion.p>
-            </div>
-          </div>
-        </section>
+
 
         {/* About UT Section */}
         <AnimatedSection>
@@ -76,10 +30,7 @@ export default function TentangPage() {
             <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
-                  <Badge className="inline-flex items-center px-4 py-2 bg-slate-100 text-[#002F86] text-sm font-semibold rounded-full mb-6">
-                    <BookOpen className="w-4 h-4 mr-2" />
-                    Universitas Terbuka
-                  </Badge>
+
                   <h2 className={cn("text-4xl md:text-5xl font-bold text-slate-800 mb-8", fontHeading.className)}>
                     Apa itu <span className="text-[#002F86]">Universitas Terbuka?</span>
                   </h2>
@@ -131,10 +82,7 @@ export default function TentangPage() {
           <section className="py-20 bg-slate-50 relative overflow-hidden">
             <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-4xl mx-auto text-center">
-                <Badge className="inline-flex items-center px-4 py-2 bg-white text-[#002F86] text-sm font-semibold rounded-full mb-8 shadow-sm">
-                  <Target className="w-4 h-4 mr-2" />
-                  SALUT
-                </Badge>
+
                 <h2 className={cn("text-4xl md:text-5xl font-bold text-slate-800 mb-8", fontHeading.className)}>
                   Apa itu <span className="text-[#002F86]">SALUT?</span>
                 </h2>
@@ -160,10 +108,7 @@ export default function TentangPage() {
           <section className="py-20 bg-white relative overflow-hidden">
             <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-4xl mx-auto text-center">
-                <Badge className="inline-flex items-center px-4 py-2 bg-[#FFD700] text-[#002F86] text-sm font-semibold rounded-full mb-8">
-                  <Star className="w-4 h-4 mr-2" />
-                  SALUT Soul
-                </Badge>
+
                 <h2 className={cn("text-4xl md:text-5xl font-bold text-slate-800 mb-8", fontHeading.className)}>
                   <span className="text-[#002F86]">SALUT Soul:</span> Inovasi Layanan Pendidikan
                 </h2>
@@ -312,10 +257,7 @@ export default function TentangPage() {
             <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-16">
-                  <Badge className="inline-flex items-center px-4 py-2 bg-white text-[#002F86] text-sm font-semibold rounded-full mb-6 shadow-sm">
-                    <MapPin className="w-4 h-4 mr-2" />
-                    Lokasi & Kontak
-                  </Badge>
+
                   <h2 className={cn("text-4xl md:text-5xl font-bold text-slate-800 mb-6", fontHeading.className)}>
                     Kunjungi <span className="text-[#002F86]">Kantor Kami</span>
                   </h2>

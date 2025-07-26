@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Newspaper, ExternalLink } from "lucide-react"
+import { ArrowRight, ExternalLink } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -80,10 +79,7 @@ export function BeritaSection() {
             <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16">
-                        <Badge className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 text-sm font-medium rounded-full mb-6">
-                            <Newspaper className="w-4 h-4 mr-2" />
-                            Berita Terkini
-                        </Badge>
+
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                             Kabar Terbaru <span className="text-blue-600">UT</span>
                         </h2>
@@ -145,10 +141,7 @@ export function BeritaSection() {
                     transition={{ duration: 0.8 }}
                     className="text-center mb-16"
                 >
-                    <Badge className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 text-sm font-medium rounded-full mb-6">
-                        <Newspaper className="w-4 h-4 mr-2" />
-                        Berita Terkini
-                    </Badge>
+
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                         Kabar Terbaru <span className="text-blue-600">UT</span>
                     </h2>
@@ -185,23 +178,8 @@ export function BeritaSection() {
                                                         sizes="(max-width: 768px) 100vw, 40vw"
                                                     />
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                                    {/* External Link Indicator */}
-                                                    {isExternal && (
-                                                        <div className="absolute top-4 right-4 bg-blue-600 text-white p-2 rounded-full shadow-lg">
-                                                            <ExternalLink className="w-4 h-4" />
-                                                        </div>
-                                                    )}
-                                                    {/* News Type Badge */}
-                                                    <div className="absolute top-4 left-4">
-                                                        <Badge
-                                                            className={`${item.jenis === "eksternal"
-                                                                    ? "bg-gradient-to-r from-pink-500 to-rose-500"
-                                                                    : "bg-gradient-to-r from-blue-500 to-indigo-500"
-                                                                } text-white px-3 py-1 text-xs font-medium`}
-                                                        >
-                                                            {item.jenis === "eksternal" ? "Eksternal" : "Internal"}
-                                                        </Badge>
-                                                    </div>
+
+
                                                 </div>
                                             </div>
 

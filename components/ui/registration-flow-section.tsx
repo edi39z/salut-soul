@@ -9,7 +9,6 @@ import {
     DollarSign,
     ArrowRight,
     GraduationCap,
-    FileCheck,
     CheckCircle2,
     Bell,
     UserCheck,
@@ -31,10 +30,7 @@ export function RegistrationFlowSection() {
                         transition={{ duration: 0.8 }}
                         className="text-center mb-16"
                     >
-                        <Badge className="inline-flex items-center px-4 py-2 bg-[#002F86] text-white text-sm font-medium rounded-full mb-6">
-                            <FileCheck className="w-4 h-4 mr-2" />
-                            Alur Pendaftaran
-                        </Badge>
+
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                             Langkah Mudah <span className="text-[#002F86]">Menjadi Mahasiswa UT</span>
                         </h2>
