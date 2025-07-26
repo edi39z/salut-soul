@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 
 interface LoadingScreenProps {
@@ -13,20 +13,23 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
     const [showLogo, setShowLogo] = useState(false)
     const [showPhrase, setShowPhrase] = useState(false)
     const [fadeOut, setFadeOut] = useState(false)
-    const [hideScreen, setHideScreen] = useState(false) // <-- Tambahan
+    const [hideScreen, setHideScreen] = useState(false)
 
     useEffect(() => {
         const timeouts = [
             setTimeout(() => setShowLogo(true), 800),
             setTimeout(() => setShowPhrase(true), 1800),
-            setTimeout(() => {
-                setFadeOut(true)
-                // Delay unmount agar animasi fade-out sempat berjalan
-                setTimeout(() => {
-                    setHideScreen(true)
-                    onComplete()
-                }, 1000)
-            }, 70 * phrase.length + 2500),
+            setTimeout(
+                () => {
+                    setFadeOut(true)
+                    // Delay unmount agar animasi fade-out sempat berjalan
+                    setTimeout(() => {
+                        setHideScreen(true)
+                        onComplete()
+                    }, 1000)
+                },
+                70 * phrase.length + 2500,
+            ),
         ]
 
         return () => timeouts.forEach(clearTimeout)

@@ -1,37 +1,33 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Crimson_Text, Playfair_Display } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
-import BrosurPopup from "@/components/ui/brosur-popup"
-import { PageWrapper } from "@/components/ui/page-wrapper"
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-})
-
-const crimsonText = Crimson_Text({
-  weight: ["400", "600", "700"],
-  subsets: ["latin"],
-  variable: "--font-crimson",
-})
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-})
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Salut Soul - Sentra Layanan Universitas Terbuka",
+  title: "Universitas Terbuka - Pendidikan Tinggi Terbuka dan Jarak Jauh",
   description:
-    "Platform layanan terpadu Universitas Terbuka untuk kemudahan akses informasi dan layanan akademik",
-  keywords: "universitas terbuka, pendidikan tinggi, kuliah online, salut soul",
+    "Universitas Terbuka menyediakan pendidikan tinggi berkualitas dengan sistem pembelajaran terbuka dan jarak jauh untuk semua kalangan.",
+  keywords: "universitas terbuka, pendidikan jarak jauh, kuliah online, S1, S2, diploma",
   authors: [{ name: "Universitas Terbuka" }],
   openGraph: {
-    title: "Salut Soul - Sentra Layanan Universitas Terbuka",
-    description: "Platform layanan terpadu Universitas Terbuka",
+    title: "Universitas Terbuka - Pendidikan Tinggi Terbuka dan Jarak Jauh",
+    description:
+      "Universitas Terbuka menyediakan pendidikan tinggi berkualitas dengan sistem pembelajaran terbuka dan jarak jauh untuk semua kalangan.",
     type: "website",
+    locale: "id_ID",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Universitas Terbuka - Pendidikan Tinggi Terbuka dan Jarak Jauh",
+    description:
+      "Universitas Terbuka menyediakan pendidikan tinggi berkualitas dengan sistem pembelajaran terbuka dan jarak jauh untuk semua kalangan.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -41,16 +37,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang="id"
-      className={`${inter.variable} ${crimsonText.variable} ${playfair.variable}`}
-    >
+    <html lang="id">
       <head>
         <link rel="icon" href="/Logo_Universitas_Terbuka.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={`${inter.className} antialiased`}>
-        <BrosurPopup />
-        <PageWrapper>{children}</PageWrapper>
+      <body className={inter.className}>
+        {children}
         <Toaster />
       </body>
     </html>
