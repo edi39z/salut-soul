@@ -18,30 +18,23 @@ export default function HomePage() {
   const [triggerBrosur, setTriggerBrosur] = useState(false)
 
   useEffect(() => {
-    // Check if user has navigated from another page in this session
-    const hasNavigated = sessionStorage.getItem("hasNavigated")
+    const hasVisited = sessionStorage.getItem("hasVisited")
+    console.log("HAS VISITED:", hasVisited)
 
-    if (!hasNavigated) {
-      // First time opening the website or after refresh/reload
+    if (!hasVisited) {
+      sessionStorage.setItem("hasVisited", "true")
       setShowLoading(true)
     } else {
-      // User navigated from another page, skip loading
       setShowContent(true)
-      setTimeout(() => {
-        setTriggerBrosur(true)
-      }, 500)
+      setTriggerBrosur(true)
     }
-
-    // Mark that user has visited the homepage
-    sessionStorage.setItem("hasNavigated", "true")
   }, [])
+
 
   const handleLoadingComplete = () => {
     setShowLoading(false)
-    // Smooth transition from loading to content
     setTimeout(() => {
       setShowContent(true)
-      // Trigger brosur after content is shown
       setTimeout(() => {
         setTriggerBrosur(true)
       }, 800)
@@ -50,14 +43,12 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Loading Screen - hanya pada first visit dan reload */}
       {showLoading && (
         <div className="fixed inset-0 z-[9999] bg-white">
           <LoadingScreen onComplete={handleLoadingComplete} />
         </div>
       )}
 
-      {/* Main Content */}
       <div
         className={`transition-all duration-1000 ease-in-out ${showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
@@ -74,7 +65,6 @@ export default function HomePage() {
         <Footer />
       </div>
 
-      {/* Brosur Popup - triggered after loading completes */}
       <BrosurPopup trigger={triggerBrosur} />
     </div>
   )
