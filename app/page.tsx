@@ -18,19 +18,22 @@ export default function HomePage() {
   const [triggerBrosur, setTriggerBrosur] = useState(false)
 
   useEffect(() => {
-    // Check if this is the first visit to homepage
-    const hasVisitedHomepage = sessionStorage.getItem("hasVisitedHomepage")
+    // Check if user has navigated from another page in this session
+    const hasNavigated = sessionStorage.getItem("hasNavigated")
 
-    if (!hasVisitedHomepage) {
+    if (!hasNavigated) {
+      // First time opening the website or after refresh/reload
       setShowLoading(true)
-      sessionStorage.setItem("hasVisitedHomepage", "true")
     } else {
+      // User navigated from another page, skip loading
       setShowContent(true)
-      // Trigger brosur immediately for returning visitors
       setTimeout(() => {
         setTriggerBrosur(true)
       }, 500)
     }
+
+    // Mark that user has visited the homepage
+    sessionStorage.setItem("hasNavigated", "true")
   }, [])
 
   const handleLoadingComplete = () => {
@@ -47,7 +50,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Loading Screen - only on first visit */}
+      {/* Loading Screen - hanya pada first visit dan reload */}
       {showLoading && (
         <div className="fixed inset-0 z-[9999] bg-white">
           <LoadingScreen onComplete={handleLoadingComplete} />
@@ -67,8 +70,8 @@ export default function HomePage() {
           <TargetUtamaSection />
           <RegistrationFlowSection />
           <BeritaSection />
-          <Footer />
         </main>
+        <Footer />
       </div>
 
       {/* Brosur Popup - triggered after loading completes */}

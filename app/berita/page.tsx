@@ -180,6 +180,25 @@ export default function BeritaPage() {
         return plainText.substring(0, maxLength) + "..."
     }, [])
 
+    // Function to get excerpt for display - works for both internal and external news
+    const getExcerptForDisplay = useCallback(
+        (item: Berita) => {
+            // If excerpt exists, use it
+            if (item.excerpt && item.excerpt.trim()) {
+                return truncateText(item.excerpt, 120)
+            }
+
+            // If no excerpt, use content (works for both internal and external)
+            if (item.konten && item.konten.trim()) {
+                return truncateText(item.konten, 120)
+            }
+
+            // Fallback
+            return "Baca selengkapnya untuk informasi lebih detail..."
+        },
+        [truncateText],
+    )
+
     const NewsCard = ({ item }: { item: Berita }) => {
         return (
             <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md overflow-hidden bg-white h-full">
@@ -202,6 +221,8 @@ export default function BeritaPage() {
                                     <span className="text-xs">{formatDate(item.tanggal)}</span>
                                 </div>
                             </div>
+
+
                         </div>
                     )}
                 </div>
@@ -211,11 +232,10 @@ export default function BeritaPage() {
                         {item.judul}
                     </h3>
 
-                    {item.excerpt && (
-                        <p className="text-gray-600 text-sm mb-3 sm:mb-4 line-clamp-3 flex-1 leading-relaxed">
-                            {truncateText(item.excerpt, 120)}
-                        </p>
-                    )}
+                    {/* Excerpt - tampilkan untuk semua jenis berita */}
+                    <p className="text-gray-600 text-sm mb-3 sm:mb-4 line-clamp-3 flex-1 leading-relaxed">
+                        {getExcerptForDisplay(item)}
+                    </p>
 
                     <div className="flex items-center justify-between mb-3 sm:mb-4">
                         {item.author && (
