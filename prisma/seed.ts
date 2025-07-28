@@ -7,8 +7,6 @@ async function main() {
 
     // Clear existing data
     console.log("🧹 Cleaning existing data...")
-    await prisma.berita.deleteMany()
-    await prisma.brosur.deleteMany()
     await prisma.fakultas.deleteMany()
     await prisma.programStudi.deleteMany()
 
@@ -120,32 +118,18 @@ async function main() {
         })
     }
 
-    // Seed Brosur
-    console.log("📄 Seeding Brosur...")
-    const brosurList = [
-        {
-            imageUrl: "https://res.cloudinary.com/dqolkqzx8/image/upload/v1720159234/brosur-fkip-2024.jpg",
-            linkUrl: "https://www.ut.ac.id/sites/all/files/halo-ut/brosur/Brosur-FKIP-2024.pdf",
-            aktif: true,
-        }
 
-    ]
 
-    for (const brosur of brosurList) {
-        await prisma.brosur.create({
-            data: brosur,
-        })
-    }
 
-    
 
-    
+
+
+
 
     console.log("✅ Database seeding completed successfully!")
     console.log(`📊 Seeded:`)
     console.log(`   - ${fakultasList.length} Fakultas`)
     console.log(`   - ${programStudiList.length} Program Studi`)
-    console.log(`   - ${brosurList.length} Brosur`)
 }
 
 main()
