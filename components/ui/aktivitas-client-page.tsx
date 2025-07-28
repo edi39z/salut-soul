@@ -84,25 +84,13 @@ const HeroSection = ({ youtubeEmbedId }: { youtubeEmbedId: string }) => (
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-3 sm:mb-4 lg:mb-6 leading-tight"
             style={{ color: BRAND_COLOR }}
           >
-            GALERI
+            GALERI SALUT SOUL
           </h1>
-          <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-wide text-gray-600 dark:text-gray-300 mb-4 lg:mb-6">
-            AKTIVITAS
-          </h2>
+
           <div className="w-16 sm:w-20 lg:w-24 h-1 mx-auto" style={{ backgroundColor: BRAND_COLOR }} />
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 mb-8 lg:mb-12">
-          <div
-            className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: BRAND_COLOR }}
-          >
-            <Play className="h-4 w-4 lg:h-5 lg:w-5 text-white ml-0.5" />
-          </div>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 font-medium text-center sm:text-left">
-            Dokumentasi Visual Kegiatan Akademik
-          </p>
-        </div>
+
       </AnimatedSection>
 
       {youtubeEmbedId && (
