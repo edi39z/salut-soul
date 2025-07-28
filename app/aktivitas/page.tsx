@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { prisma } from '@/lib/prisma';
 import AktivitasClientPage from '@/components/ui/aktivitas-client-page';
 
