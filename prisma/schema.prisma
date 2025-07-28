@@ -180,8 +180,17 @@ model Aktivitas {
   deskripsi   String
   gambar      String
   tanggal     DateTime
+  youtubeUrl  String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@map("aktivitas")
+}
+
+model DokumentasiFoto {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  createdAt DateTime @default(now())
+
+  @@map("dokumentasi_foto")
 }
