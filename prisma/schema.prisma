@@ -173,3 +173,15 @@ model Tag {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Aktivitas {
+  id          String   @id @default(cuid())
+  judul       String
+  deskripsi   String
+  gambar      String
+  tanggal     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("aktivitas")
+}

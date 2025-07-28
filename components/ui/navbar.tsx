@@ -67,6 +67,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
     { name: "Beranda", href: "/" },
     { name: "Akademik", href: "/akademik", dropdown: akademikItems },
     { name: "Berita", href: "/berita" },
+    { name: "Aktivitas", href: "/aktivitas" },
     { name: "Layanan Mahasiswa", href: "#", dropdown: layananItems },
     { name: "Tentang", href: "/tentang" },
     { name: "Kontak", href: "/kontak", dropdown: kontakItems },

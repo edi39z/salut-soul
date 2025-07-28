@@ -5,12 +5,6 @@ const prisma = new PrismaClient()
 async function main() {
     console.log("🌱 Starting database seeding...")
 
-    // Clear existing data
-    console.log("🧹 Cleaning existing data...")
-    await prisma.berita.deleteMany()
-    await prisma.brosur.deleteMany()
-    await prisma.fakultas.deleteMany()
-    await prisma.programStudi.deleteMany()
 
     // Seed Fakultas
     console.log("🏫 Seeding Fakultas...")
@@ -137,15 +131,41 @@ async function main() {
         })
     }
 
-    
+    // Seed Aktivitas
+    console.log("🎉 Seeding Aktivitas...")
+    const aktivitasList = [
+        {
+            judul: "Webinar Nasional: Inovasi Pembelajaran di Era Digital",
+            deskripsi: "Bergabunglah dalam webinar nasional yang membahas berbagai inovasi dalam metode pembelajaran di era digital. Terbuka untuk umum dan gratis!",
+            gambar: "https://res.cloudinary.com/dqolkqzx8/image/upload/v1720159234/aktivitas-webinar.jpg",
+            tanggal: new Date("2025-08-15T10:00:00Z"),
+        },
+        {
+            judul: "Lomba Menulis Esai Kemerdekaan",
+            deskripsi: "Rayakan HUT RI dengan mengikuti lomba menulis esai bertema 'Peran Generasi Muda dalam Membangun Bangsa'. Menangkan hadiah total jutaan rupiah!",
+            gambar: "https://res.cloudinary.com/dqolkqzx8/image/upload/v1720159234/aktivitas-lomba-esai.jpg",
+            tanggal: new Date("2025-08-10T23:59:00Z"),
+        },
+        {
+            judul: "Pengabdian Masyarakat: Desa Binaan UT",
+            deskripsi: "Kegiatan pengabdian masyarakat di desa binaan Universitas Terbuka. Mari berkontribusi untuk kemajuan pendidikan dan ekonomi desa.",
+            gambar: "https://res.cloudinary.com/dqolkqzx8/image/upload/v1720159234/aktivitas-pengmas.jpg",
+            tanggal: new Date("2025-09-05T08:00:00Z"),
+        },
+    ]
 
-    
+    for (const aktivitas of aktivitasList) {
+        await prisma.aktivitas.create({
+            data: aktivitas,
+        })
+    }
 
     console.log("✅ Database seeding completed successfully!")
     console.log(`📊 Seeded:`)
     console.log(`   - ${fakultasList.length} Fakultas`)
     console.log(`   - ${programStudiList.length} Program Studi`)
     console.log(`   - ${brosurList.length} Brosur`)
+    console.log(`   - ${aktivitasList.length} Aktivitas`)
 }
 
 main()
