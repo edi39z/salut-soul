@@ -4,9 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Menu, ChevronDown } from "lucide-react"
+import { Menu } from "lucide-react"
 import Image from "next/image"
 
 interface NavbarProps {
@@ -36,41 +34,13 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
     }
   }, [showImageHeader])
 
-  const akademikItems = [
-    { name: "Kalender Akademik", href: "https://www.ut.ac.id/kalender-akademik/" },
-    { name: "Biaya Pendidikan", href: "https://www.ut.ac.id/biaya-pendidikan/" },
-    { name: "Katalog", href: "https://www.ut.ac.id/katalog/" },
-    { name: "Formulir", href: "https://www.ut.ac.id/formulir/" },
-    { name: "Sistem Pembelajaran", href: "https://www.ut.ac.id/sistem-pembelajaran/" },
-    { name: "Bantuan Belajar", href: "https://www.ut.ac.id/bantuan-belajar/" },
-    { name: "Akreditasi", href: "https://www.ut.ac.id/akreditasi/" },
-    { name: "MBKM", href: "https://www.ut.ac.id/MBKM/" },
-    { name: "Kelulusan", href: "https://www.ut.ac.id/kelulusan/" },
-    { name: "Program Sertifikat", href: "https://www.ut.ac.id/program-sertifikat/" },
-    { name: "Program Studi", href: "/akademik" },
-    { name: "Panduan", href: "https://www.ut.ac.id/panduan/" },
-  ]
-
-  const layananItems = [
-    { name: "Perpustakaan Digital", href: "https://pustaka.ut.ac.id/lib/" },
-    { name: "E-Learning", href: "https://elearning.ut.ac.id/" },
-    { name: "Wifi.ID", href: "https://www.ut.ac.id/wifi-id/" },
-  ]
-
-  const kontakItems = [
-    { name: "Kontak UT Medan", href: "https://medan.ut.ac.id/contact/" },
-    { name: "Kontak UT Pusat", href: "https://www.ut.ac.id/kontak/" },
-    { name: "Kontak Salut Soul", href: "/kontak" },
-  ]
-
   const navigationItems = [
     { name: "Beranda", href: "/" },
-    { name: "Akademik", href: "/akademik", dropdown: akademikItems },
+    { name: "Akademik", href: "/akademik" },
     { name: "Berita", href: "/berita" },
     { name: "Aktivitas", href: "/aktivitas" },
-    { name: "Layanan Mahasiswa", href: "#", dropdown: layananItems },
     { name: "Tentang", href: "/tentang" },
-    { name: "Kontak", href: "/kontak", dropdown: kontakItems },
+    { name: "Kontak", href: "/kontak" },
     { name: "Daftar", href: "/pendaftaran", isButton: true },
   ]
 
@@ -219,33 +189,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
           <nav className="hidden lg:flex items-center justify-center space-x-2 flex-1">
             {navigationItems.map((item, index) => (
               <div key={index}>
-                {item.dropdown ? (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button
-                        className={`flex items-center px-4 py-2 font-medium rounded-lg transition-all duration-200 group ${isActiveLink(item.href)
-                            ? "text-[#FFD700] bg-white/10"
-                            : "text-white hover:text-[#FFD700] hover:bg-white/10"
-                          }`}
-                      >
-                        {item.name}
-                        <ChevronDown className="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-white/95 backdrop-blur-md shadow-xl rounded-xl border border-gray-200/50 mt-2">
-                      {item.dropdown.map((dropdownItem, i) => (
-                        <DropdownMenuItem key={i} asChild>
-                          <Link
-                            href={dropdownItem.href}
-                            className="text-gray-700 hover:bg-[#002F86] hover:text-white rounded-lg cursor-pointer p-3 transition-colors duration-200"
-                          >
-                            {dropdownItem.name}
-                          </Link>
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : item.isButton ? (
+                {item.isButton ? (
                   // Special styling for "Daftar" button
                   <Link
                     href={item.href}
@@ -349,32 +293,7 @@ export function Navbar({ showImageHeader = false }: NavbarProps) {
                     <div className="flex flex-col space-y-2">
                       {navigationItems.map((item, index) => (
                         <div key={index}>
-                          {item.dropdown ? (
-                            <Accordion type="single" collapsible>
-                              <AccordionItem value={`item-${index}`} className="border-none">
-                                <AccordionTrigger
-                                  className={`px-4 py-3 font-medium rounded-xl transition-colors duration-200 text-left hover:no-underline ${isActiveLink(item.href)
-                                      ? "text-[#FFD700] bg-white/10"
-                                      : "text-white hover:text-[#FFD700] hover:bg-white/10"
-                                    }`}
-                                >
-                                  {item.name}
-                                </AccordionTrigger>
-                                <AccordionContent className="pl-4 space-y-1">
-                                  {item.dropdown.map((dropdownItem, i) => (
-                                    <Link
-                                      key={i}
-                                      href={dropdownItem.href}
-                                      className="block py-2 px-3 text-gray-300 hover:text-[#FFD700] hover:bg-white/5 rounded-lg transition-colors duration-200"
-                                      onClick={() => setIsOpen(false)}
-                                    >
-                                      {dropdownItem.name}
-                                    </Link>
-                                  ))}
-                                </AccordionContent>
-                              </AccordionItem>
-                            </Accordion>
-                          ) : item.isButton ? (
+                          {item.isButton ? (
                             // Special styling for "Daftar" button in mobile menu
                             <Link
                               href={item.href}
