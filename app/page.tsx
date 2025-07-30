@@ -11,6 +11,7 @@ import { HeroCarousel } from "@/components/ui/hero-carousel"
 import { AdvantagesSection } from "@/components/ui/advantages-section"
 import { RegistrationFlowSection } from "@/components/ui/registration-flow-section"
 import { LoadingScreen } from "@/components/ui/loading-screen"
+import { WhatsappButton } from "@/components/ui/whatsapp-button"
 
 export default function HomePage() {
   const [showLoading, setShowLoading] = useState(false)
@@ -61,10 +62,11 @@ export default function HomePage() {
           <TargetUtamaSection />
           <RegistrationFlowSection />
           <BeritaSection />
+
         </main>
         <Footer />
       </div>
-
+      < WhatsappButton />
       <BrosurPopup trigger={triggerBrosur} />
     </div>
   )
